@@ -1,0 +1,66 @@
+onLoadName = "NATIVES";
+OnLoadMission = "When the dead rebel, few will survive.";
+dev = "Sinbane";
+author = "Sinbane";
+//briefingName = "briefingname";
+overviewText = "";
+//overviewPicture = "\a3\Missions_F_Beta\data\img\showcase_commanding_I_overview_ca.paa";
+overviewPicture = "";
+LoadScreen = "";
+
+class Header
+{
+ gameType = Coop ;            //DM, Team, Coop, ...
+ minPlayers = 1;             //min # of players the mission supports
+ maxPlayers = 4;            //Max # of players the mission supports
+};
+
+respawnButton = 0;
+respawn = 3;
+respawnDialog = 0;
+respawnDelay = 999999;
+respawnTemplates[] = {""};
+disabledAI = 1;
+//0 = Global 1 = Side 2 = Command 3 = Group 4 = Vehicle 5 = Direct 6 = System
+disableChannels[] = {{0, true, true},{1, false, true},{2, true, true},{6, true, true}};
+saving = 0;
+briefing = 0;
+enableDebugConsole = 1;
+
+//REVIVE
+ReviveMode = 1;                         //0: disabled, 1: enabled, 2: controlled by player attributes
+ReviveUnconsciousStateMode = 0;         //0: basic, 1: advanced, 2: realistic
+ReviveRequiredTrait = 0;                //0: none, 1: medic trait is required
+ReviveRequiredItems = 2;                //0: none, 1: medkit, 2: medkit or first aid kit
+ReviveRequiredItemsFakConsumed = 1;     //0: first aid kit is not consumed upon revive, 1: first aid kit is consumed
+ReviveDelay = 6;                        //time needed to revive someone (in secs)
+ReviveMedicSpeedMultiplier = 2;         //speed multiplier for revive performed by medic
+ReviveForceRespawnDelay = 60;            //time needed to perform force respawn (in secs)
+ReviveBleedOutDelay = 120;              //unconscious state duration (in secs)
+
+#include "cfgMaster.hpp"
+#include "params.hpp"
+#include "sounds.hpp"
+
+#include "GUI\defines.hpp"
+#include "SINadmin\SIN_admin.hpp"
+
+class CfgFunctions {
+    #include "Functions.hpp"
+};
+
+class RscTitles {
+
+	#include "GUI\equipment_prot.hpp"
+	#include "GUI\status.hpp"
+	#include "GUI\NATHUD_subs.hpp"
+
+	class Default
+	{
+		idd = -1;
+		fadein = 0;
+		fadeout = 0;
+		duration = 0;
+	};
+
+};

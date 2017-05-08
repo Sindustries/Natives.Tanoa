@@ -1,0 +1,16 @@
+/* #Bavyjy
+$[
+	1.063,
+	["WLDSTATUS",[[0,0,1,1],0.025,0.04,"GUI_GRID"],0,0,0],
+	[2200,"WLDstatusBG",[1,"",["0.799062 * safezoneW + safezoneX","0.225 * safezoneH + safezoneY","0.185625 * safezoneW","0.077 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1800,"WLDstatusFRM",[1,"",["0.799062 * safezoneW + safezoneX","0.225 * safezoneH + safezoneY","0.185625 * safezoneW","0.077 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1100,"WLDstatusTXT",[1,"",["0.804219 * safezoneW + safezoneX","0.236 * safezoneH + safezoneY","0.175313 * safezoneW","0.055 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[2201,"WLDstatusbugBG",[1,"",["0.799062 * safezoneW + safezoneX","0.313 * safezoneH + safezoneY","0.185625 * safezoneW","0.187 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1801,"WLDstatusbigFRM",[1,"",["0.799062 * safezoneW + safezoneX","0.313 * safezoneH + safezoneY","0.185625 * safezoneW","0.187 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1101,"WLDstatusbigTXT",[1,"",["0.804219 * safezoneW + safezoneX","0.324 * safezoneH + safezoneY","0.175313 * safezoneW","0.165 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]]
+]
+*/
+
+
+
+
