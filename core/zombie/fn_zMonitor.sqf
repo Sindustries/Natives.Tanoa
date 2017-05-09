@@ -16,7 +16,7 @@ private ["_zIndex","_index","_toDelete"];
 						[_x,NAT_zhordeSize] call z_fnc_spawnZombies;
 						NAT_usedSpawnerArray pushBack _x;
 					};
-				} forEach NAT_spawnerArray;
+				} forEach NAT_zSpawnerArray;
 				publicVariable "NAT_usedSpawnerArray";
 			} else {
 				if (isServer) then {
@@ -27,11 +27,11 @@ private ["_zIndex","_index","_toDelete"];
 		};
 		if ((count NAT_zombieArrayClient) > 0) then {
 			//Sun Damage
-			if (sunOrMoon isEqualTo 1 && fog < 0.5 && overcast < 0.7) then {
+			/*if (sunOrMoon isEqualTo 1 && fog < 0.5 && overcast < 0.7) then {
 				{
 					_x setDamage ((damage _x) + (random 0.1));
 				} forEach NAT_zombieArrayClient;
-			};
+			};*/
 			//remove dead or deleted Z's from client array
 			_toDelete = [];
 			{

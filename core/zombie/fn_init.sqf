@@ -12,7 +12,7 @@ NAT_zhordeSize = ["NAT_zhordeSize"] call NAT_fnc_getSetting;;
 NAT_zSpawnChance = ["NAT_zSpawnChance"] call NAT_fnc_getSetting;
 NAT_zBossChance = ["NAT_zBossChance"] call NAT_fnc_getSetting;
 
-NAT_spawnerArray = [];
+NAT_zSpawnerArray = [];
 NAT_usedSpawnerArray = [];
 NAT_zombies = [];
 NAT_zombieArray = [];

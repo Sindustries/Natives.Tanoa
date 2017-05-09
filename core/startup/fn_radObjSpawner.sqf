@@ -63,7 +63,7 @@ while {_objCreated < _maxNumObjLoc} do {
 		if ((random 100) < _radChance) then {
 			_objSize = (getNumber (configfile >> "CfgVehicles" >> (typeOf _obj) >> "mapSize"));
 			NATRadioActiveObjects pushBackUnique [_objPos,(_objSize*3)];
-			//[_spawnPos] spawn Z_fnc_setSpawn;
+			[_objPos] spawn Z_fnc_setSpawn;
 		};
 
 		_objCreated = _objCreated + 1;
