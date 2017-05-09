@@ -4,9 +4,9 @@
 	Main weather controller
 */
 
-_monsoonChance = ["NATmonsoonChance"] call HVP_fnc_getSetting;
-_dustStormChance = ["NATdustStormChance"] call HVP_fnc_getSetting;
-_tornadoChance = ["NATtornadoChance"] call HVP_fnc_getSetting;
+_monsoonChance = ["NATmonsoonChance"] call NAT_fnc_getSetting;
+_dustStormChance = ["NATdustStormChance"] call NAT_fnc_getSetting;
+_tornadoChance = ["NATtornadoChance"] call NAT_fnc_getSetting;
 
 //-----------------------------------
 if (DebugMode) then {
@@ -25,13 +25,13 @@ if (overcast >= 0.7 && overcast < 0.9 && (random 100) < _monsoonChance) then {
 	};
 	[(random 360),((random 10)*60),false] spawn NAT_fnc_moonsoon;
 };
-if (overcast < 0.1) && (random 100) < _dustStormChance) then {
+if (overcast < 0.1 && (random 100) < _dustStormChance) then {
 	if (DebugMode) then {
 		systemChat "DEBUG MODE :: DUST STORM INCOMING";
 	};
 	[(random 360),((random 10)*60),false,true] spawn NAT_fnc_dustStorm;
 };
-if (overcast >= 0.9) && (random 100) < _tornadoChance) then {
+if (overcast >= 0.9 && (random 100) < _tornadoChance) then {
 	if (DebugMode) then {
 		systemChat "DEBUG MODE :: TORNADO INCOMING";
 	};

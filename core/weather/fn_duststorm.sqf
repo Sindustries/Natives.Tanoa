@@ -42,7 +42,7 @@ sleep 0.1;
 
 [] spawn {
 	while {al_duststorm_on} do {
-		["bcg_wind"] remoteExec ["playSound",0];
+		"bcg_wind" remoteExec ["playSound",0];
 		sleep 60;
 	};
 };
@@ -220,7 +220,7 @@ if (_effect_on_objects) then {
 		sleep 1;
 		[] spawn {
 			_rafale = ["rafala_1","sandstorm","rafala_4_dr","rafala_5_st","rafala_7"] call BIS_fnc_selectRandom;
-			[_rafale] remoteExec ["playSound",0];
+			_rafale remoteExec ["playSound",0];
 			//hint str _rafale;
 		};
 

@@ -3,71 +3,11 @@
 	Arma 3 Dynamic Survive & Escape
 	Author: Sinbane
 */
-if (isServer) then {
-	//-----------------------------------
-	NAT_version = "0.0.1-alpha";
-	publicVariable "NAT_version";
-	NAT_serverReady = false;
-	publicVariable "NAT_serverReady";
-	//-----------------------------------
-	diag_log "----------------------------------------------------------------------------------------------------";
-	diag_log "--------------------------------------- NATVIES SERVER INIT ----------------------------------------";
-	diag_log "----------------------------------------------------------------------------------------------------";
-	//-----------------------------------
-	//-GET SETTINGS
-	["NAT"] call NAT_fnc_getSettings;
-	DebugMode = ["NATdebugMode"] call NAT_fnc_getSetting;
-	if (DebugMode isEqualTo 1) then {
-		DebugMode = true;
-		publicVariable "DebugMode";
-	};
-	NATgasMasks = ["NATgasMasks"] call NAT_fnc_getSetting;
-	//-----------------------------------
-	//-SET TIME OF DAY						setDate [year, month, day, hour, minute]
-	setDate numberToDate [(2015+floor(random 20)),random 1];
-	setTimeMultiplier 0;
-	//-----------------------------------
-	//-FIND LOCATIONS
-	diag_log "-- FINDING LOCATIONS --";
-	NAT_cities = [];
-	NAT_villages = [];
-	NAT_local = [];
-	{
-		if (type _x isEqualTo "NameCityCapital" || type _x isEqualTo "NameCity") then {
-			NAT_cities pushBack [(text _x),(locationPosition _x),(size _x)];
-		};
-		if (type _x isEqualTo "NameVillage") then {
-			NAT_villages pushBack [(text _x),(locationPosition _x),(size _x)];
-		};
-		if (type _x isEqualTo "NameLocal") then {
-			NAT_local pushBack [(text _x),(locationPosition _x),(size _x)];
-		};
-	} forEach nearestLocations [[0,0,0], ["NameCity","NameCityCapital","NameLocal","NameMarine","NameVillage"], 100000];
-	publicVariable "NAT_cities";
-	publicVariable "NAT_villages";
-	publicVariable "NAT_local";
-	diag_log "-- COMPLETE --";
-	//-----------------------------------
-	//-TPW init
-	[[]] spawn NAT_fnc_tpw_core;
-	[10,600,2,[50,250,500],0] spawn NAT_fnc_tpw_air;
-	[10,25,1000,75,60] spawn NAT_fnc_tpw_animals;
-	//-----------------------------------
-	setTimeMultiplier (["NATtimeMultiplier"] call NAT_fnc_getSetting);
-	[] spawn NAT_fnc_weather;
-	[] call SIN_fnc_adminInit;
-	//-----------------------------------
-	NAT_serverReady = true;
-	publicVariable "NAT_serverReady";
-	//-----------------------------------
-	diag_log "----------------------------------------------------------------------------------------------------";
-	diag_log "----------------------------------- NATIVES SERVER INIT COMPLETE  ----------------------------------";
-	diag_log "----------------------------------------------------------------------------------------------------";
-};
 //-----------------------------------
-diag_log "----------------------------------------------------------------------------------------------------";
-diag_log "--------------------------------------- NATIVES CLIENT INIT ----------------------------------------";
-diag_log "----------------------------------------------------------------------------------------------------";
+NAT_version = "0.0.1-alpha";
+publicVariable "NAT_version";
+NAT_serverReady = false;
+publicVariable "NAT_serverReady";
 //-----------------------------------
 waitUntil {isPlayer player};
 enableSaving [false, false];
@@ -84,15 +24,132 @@ removeVest player;
 removeBackpack player;
 removeHeadgear player;
 removeGoggles player;
+//-----------------------------------
+NATErrorPos = (getArray(configFile >> "CfgWorlds" >> worldName >> "centerPosition"));
+NAT_mapLocations = [];
+//-----------------------------------
+NATzombiesLoaded = false;
+HVPBoatsLoaded = false;
+NATBoatsLoaded = false;
+NATRadObjsLoaded = false;
+#include "core\gear\civ.sqf";
+//-----------------------------------
 waitUntil {time > 0};
+//-----------------------------------
+//-GET SETTINGS
+if (isServer) then {
+	["NAT"] call NAT_fnc_getSettings;
+	DebugMode = ["NATdebugMode"] call NAT_fnc_getSetting;
+	if (DebugMode isEqualTo 1) then {
+		DebugMode = true;
+		publicVariable "DebugMode";
+	};
+	NATgasMasks = ["NATgasMasks"] call NAT_fnc_getSetting;
+};
+//-----------------------------------
+//-FIND LOCATIONS
+if (isServer) then {
+	{
+		NAT_mapLocations pushBackUnique [(locationPosition _x),(size _x)];
+	} forEach nearestLocations [NATErrorPos, ["NameCity","NameCityCapital","NameVillage","Airport"], 999999];
+};
+//-----------------------------------
+//-TPW init
+if (isServer) then {
+	[[]] spawn NAT_fnc_tpw_core;
+	[10,600,2,[50,250,500],0] spawn NAT_fnc_tpw_air;
+	[10,25,1000,75,60] spawn NAT_fnc_tpw_animals;
+};
+//-----------------------------------
+//-SET TIME OF DAY						setDate [year, month, day, hour, minute]
+if (isServer) then {
+	_date = numberToDate [(2015+floor(random 20)),random 1];
+	setDate [(_date select 0),(_date select 1),(_date select 2),0,0];
+	[] spawn {
+		while {sunOrMoon isEqualTo 0} do {
+			skiptime (1/20);
+		};
+		[] spawn NAT_fnc_weather;
+	};
+};
+//-----------------------------------
+if (isServer) then {
+	[] call SIN_fnc_adminInit;
+};
+//-----------------------------------
+if (isServer) then {
+	NAT_serverReady = true;
+	publicVariable "NAT_serverReady";
+};
 //-----------------------------------
 cutText ["WAITING FOR SERVER, PLEASE WAIT", "BLACK FADED", 999];
 waitUntil {NAT_serverReady isEqualTo true};
 cutText ["", "BLACK FADED", 999];
-diag_log "-- SERVER READY, PREPARING.. --";
 //-----------------------------------
+setViewDistance 3000;
 NAT_safeZones = [];
 NAT_clientMarkers = [];
+//-----------------------------------
+"HVPGasMaskLayer" cutRsc ["equipment_prot","PLAIN",-1,false];
+"HVPGasMaskLayer" cutFadeOut 0;
+//-----------------------------------
+//-INIT LOOT, CARS, BOATS, ZOMBEES! & FURNITURE, RADOBJECTS
+("NATHUDpBar" call BIS_fnc_rscLayer) cutRsc ["NATHUDpBar","PLAIN",-1,true];
+uiNameSpace getVariable "PBarProgress" ctrlSetTextColor [0.2, 0.5, 0.9, 1];
+
+cutText ["RAISING THE DEAD", "BLACK FADED", 999];
+["Z"] call NAT_fnc_getSettings;
+[] call z_fnc_init;
+if (isServer) then {
+	uiSleep 1;
+	NATzombiesLoaded = true;
+	publicVariable "NATZombiesLoaded";
+} else {
+	waitUntil {NATzombiesLoaded isEqualTo true};
+};
+/*
+cutText ["LOADING LOOT", "BLACK FADED", 999];
+if (isServer) then {
+	uiSleep 1;
+	[] call HVP_fnc_lootInit;
+	HVPLootLoaded = true;
+	publicVariable "HVPLootLoaded";
+} else {
+	waitUntil {HVPLootLoaded isEqualTo true};
+};
+
+cutText ["LOADING VEHICLES (LAND)", "BLACK FADED", 999];
+if (isServer) then {
+	uiSleep 1;
+	[] call NAT_fnc_spawnVeh;
+	NATCarsLoaded = true;
+	publicVariable "NATCarsLoaded";
+} else {
+	waitUntil {NATCarsLoaded isEqualTo true};
+};
+
+cutText ["LOADING VEHICLES (SEA)", "BLACK FADED", 999];
+if (isServer) then {
+	uiSleep 1;
+	[] call NAT_fnc_spawnBoats;
+	NATBoatsLoaded = true;
+	publicVariable "NATBoatsLoaded";
+} else {
+	waitUntil {NATBoatsLoaded isEqualTo true};
+};
+*/
+cutText ["LOADING RADIOACTIVE ZONES", "BLACK FADED", 999];
+if (isServer) then {
+	uiSleep 1;
+	[] call NAT_fnc_radInit;
+	NATRadObjsLoaded = true;
+	publicVariable "NATRadObjsLoaded";
+} else {
+	waitUntil {NATRadObjsLoaded isEqualTo true};
+};
+
+("NATHUDpBar" call BIS_fnc_rscLayer) cutText ["","PLAIN"];
+cutText ["", "BLACK FADED", 999];
 //-----------------------------------
 //-CUSTOM KEYS AND ADDACTIONS
 [] spawn {
@@ -103,6 +160,7 @@ NAT_clientMarkers = [];
 	}];
 };
 [] spawn NAT_fnc_addActions;
+//[] call NAT_fnc_eventHandlers;
 //-----------------------------------
 [] call NAT_fnc_fuelStation;
 //-----------------------------------
@@ -112,6 +170,7 @@ player setVariable ["NAT_pumpingFuel",false];
 //-----------------------------------
 //-BEGIN PROLOGUE
 if (isServer) then {
+	setTimeMultiplier (["NATtimeMultiplier"] call NAT_fnc_getSetting);
 	_pos = [[0,0,0],0,999999,0,0,0] call SIN_fnc_findPos;
 	[_pos] spawn NAT_fnc_prologue;
 };
@@ -123,7 +182,11 @@ player enableSimulation true;
 player enableStamina true;
 cutText ["", "BLACK IN", 10];
 //-----------------------------------
-diag_log "----------------------------------------------------------------------------------------------------";
-diag_log "--------------------------------- WILDLANDS CLIENT INIT COMPLETE  ----------------------------------";
-diag_log "----------------------------------------------------------------------------------------------------";
+[] spawn NAT_fnc_gasMask;
+[] spawn NAT_fnc_mineDetector;
+[] spawn {
+	waitUntil {isTouchingGround player};
+	[] spawn NAT_fnc_radObject;
+	[] spawn NAT_fnc_radLocation;
+};
 //-----------------------------------

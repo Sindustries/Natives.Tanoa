@@ -47,7 +47,7 @@ switch (_code) do {
 	            		player removeItem (player getVariable ["HVPsavedHeadgear",""]);
 	            		player addHeadgear (player getVariable ["HVPsavedHeadgear",""]);
 	            	};
-	            	if ((player getVariable ["NATsavedGoggles",""]) != "" && [(player getVariable ["NATsavedGoggles",""]) in (vestItems player + uniformItems player + backpackItems player)) then {
+	            	if ((player getVariable ["NATsavedGoggles",""]) != "" && (player getVariable ["NATsavedGoggles",""]) in (vestItems player + uniformItems player + backpackItems player)) then {
 	            		player removeItem (player getVariable ["NATsavedGoggles",""]);
 	            		player addGoggles (player getVariable ["NATsavedGoggles",""]);
 	            	};
@@ -60,7 +60,7 @@ switch (_code) do {
 	//O - Earplugs
     case 24: {
         if (_shift && !_ctrl && !_alt) then {
-            if ((player getVariable ["HVPearPlugs",false]) isEqualTo true) then {
+            if ((player getVariable ["NATearPlugs",false]) isEqualTo true) then {
 				_handled = true;
 				[player] call ace_hearing_fnc_removeEarplugs;
 				//waitUntil {("ACE_earplugs" in (vestItems player + uniformItems player + backpackItems player))};

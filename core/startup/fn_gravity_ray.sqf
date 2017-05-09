@@ -84,3 +84,4 @@ setwind [al_windlevel_grav select 0,al_windlevel_grav select 1,false];
 //[al_windlevel_grav,false] remoteExec ["setWind",0];
 
 [180,al_fog_grav] remoteExec ["setFog",0];
+(["NATviewDistance"] call NAT_fnc_getSetting) remoteExec ["setViewDistance",0];

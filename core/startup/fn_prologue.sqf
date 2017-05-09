@@ -13,51 +13,11 @@ _helipad = createVehicle ["Land_HelipadEmpty_F", _heliLandPos, [], 0, "NONE"];
 //-----------------------------------
 //-PLAYER STARTING GEAR
 
-_uniforms = [
-"U_I_C_Soldier_Bandit_2_F",
-"U_I_C_Soldier_Bandit_5_F",
-"U_I_C_Soldier_Bandit_3_F",
-"TRYK_U_B_PCUGs_BLK_R",
-"TRYK_U_B_PCUGs_gry_R",
-"TRYK_U_B_PCUGs_OD_R",
-"TRYK_shirts_DENIM_BK",
-"TRYK_shirts_DENIM_BL",
-"TRYK_shirts_DENIM_BWH",
-"TRYK_shirts_DENIM_od",
-"TRYK_shirts_DENIM_R",
-"TRYK_shirts_DENIM_RED2",
-"TRYK_shirts_DENIM_WH",
-"TRYK_shirts_DENIM_WHB",
-"TRYK_shirts_DENIM_ylb",
-"TRYK_shirts_DENIM_od_Sleeve",
-"TRYK_shirts_DENIM_ylb_Sleeve",
-"TRYK_shirts_DENIM_BK_Sleeve",
-"TRYK_shirts_DENIM_BL_Sleeve",
-"TRYK_shirts_DENIM_BWH_Sleeve",
-"TRYK_shirts_DENIM_R_Sleeve",
-"TRYK_shirts_DENIM_RED2_Sleeve",
-"TRYK_shirts_DENIM_WH_Sleeve",
-"TRYK_shirts_DENIM_WHB_Sleeve",
-"TRYK_U_denim_hood_3c",
-"TRYK_U_denim_hood_blk",
-"TRYK_U_denim_jersey_blk",
-"TRYK_U_denim_jersey_blu",
-"TRYK_U_B_Denim_T_BG_BK",
-"TRYK_U_B_Denim_T_BG_WH",
-"TRYK_U_B_Denim_T_BK",
-"TRYK_U_B_Denim_T_WH"
-];
-
-_backpacks = [
-"TRYK_B_BAF_BAG_OD",
-"TRYK_B_BAF_BAG_BLK",
-"TRYK_B_BAF_BAG_CYT"
-];
-
 {
 	if (isPlayer _x) then {
-		_x forceAddUniform (selectRandom _uniforms);
-		_x addBackpack (selectRandom _backpacks);
+		_x forceAddUniform (selectRandom NAT_civUniforms);
+		//_x linkItem "itemMap";
+		_x linkItem "itemWatch";
 	};
 } forEach allUnits;
 
@@ -91,7 +51,7 @@ removeVest _pilot;
 removeBackpack _pilot;
 removeHeadgear _pilot;
 removeGoggles _pilot;
-_pilot forceAddUniform (selectRandom _uniforms);
+_pilot forceAddUniform (selectRandom NAT_civUniforms);
 _pilot addHeadgear "TRYK_H_EARMUFF";
 _pilot addGoggles "TRYK_headset_Glasses";
 
@@ -144,6 +104,7 @@ if (isServer) then {
 			_pos = [_crashSite,3,70] call SIN_fnc_findPos;
 			_x setPos _pos;
 			_x setDir (random 360);
+			_x enableSimulationGlobal false;
 		};
 	} forEach allUnits;
 };
@@ -155,7 +116,10 @@ sleep 10;
 {
 	if (isPlayer _x) then {
 		{
+			player enableSimulationGlobal true;
+			player removeItems "ACE_earPlugs";
 			player setUnconscious true;
+			sleep 4;
 			cutText ["", "WHITE IN", 4];
 			enableEnvironment true;
 			sleep 6;
@@ -172,4 +136,8 @@ sleep 10;
 	};
 } forEach allUnits;
 
+//-----------------------------------
+//-ACT 1
+sleep 20;
+[] remoteExec ["NAT_fnc_act1",0];
 //-----------------------------------

@@ -4,7 +4,7 @@
 	Description:
 	Displays the players location at the bottom of the screen whenever it changes
 */
-private ["_locations","_location","_locName","_locPos","_locStr","_now","_hour","_min","_time"];
+private ["_locations","_location","_locName","_locPos","_locStr","_now","_hour","_min","_time","_day","_month","_year"];
 while {alive player} do {
 	//GET TIME
 	_now = date;
@@ -14,6 +14,52 @@ while {alive player} do {
 		_min = format["0%1",(_now select 4)];
 	};
 	_time = format["%1:%2",_hour,_min];
+
+	_day = (_now select 2);
+	_month = (_now select 1);
+	_year = (_now select 0);
+
+	//STRINGIFY THE MONTH
+	switch (_month) do {
+		case 1: {
+			_month = "January";
+		};
+		case 2: {
+			_month = "February";
+		};
+		case 3: {
+			_month = "March";
+		};
+		case 4: {
+			_month = "April";
+		};
+		case 5: {
+			_month = "May";
+		};
+		case 6: {
+			_month = "June";
+		};
+		case 7: {
+			_month = "July";
+		};
+		case 8: {
+			_month = "August";
+		};
+		case 9: {
+			_month = "Sseptember";
+		};
+		case 10: {
+			_month = "October";
+		};
+		case 11: {
+			_month = "November";
+		};
+		case 12: {
+			_month = "December";
+		};
+	};
+
+	_date = format ["%1 %2, %3",_day,_month,_year];
 
 	//GET LOCATION
 	_locations = [];
@@ -37,7 +83,7 @@ while {alive player} do {
 		};
 
 		//DISPLAY
-		[_time, _locStr] spawn BIS_fnc_infoText;
+		[_time, _date, _locStr] spawn BIS_fnc_infoText;
 
 		//WAIT CONDITIONS
 		if ((getPos player) in _location) then {
