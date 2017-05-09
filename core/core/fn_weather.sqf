@@ -4,6 +4,7 @@
 	Main weather controller
 */
 
+_variation = ["NATweatherVariation"] call NAT_fnc_getSetting;
 _monsoonChance = ["NATmonsoonChance"] call NAT_fnc_getSetting;
 _dustStormChance = ["NATdustStormChance"] call NAT_fnc_getSetting;
 _tornadoChance = ["NATtornadoChance"] call NAT_fnc_getSetting;
@@ -14,9 +15,9 @@ if (DebugMode) then {
 	showChat true;
 };
 //-----------------------------------
-(30 * timeMultiplier) setOvercast (random 1);
+(30 * timeMultiplier) setOvercast (overcast+(random _variation)-(random _variation));
 sleep 30;
-(30 * timeMultiplier) setFog (random 0.8);
+(30 * timeMultiplier) setFog (fog+(random _variation)-(random _variation));
 //-----------------------------------
 //-CHECK FOR SPECIAL WEATHER
 if (overcast >= 0.7 && overcast < 0.9 && (random 100) < _monsoonChance) then {
@@ -40,7 +41,7 @@ if (overcast >= 0.9 && (random 100) < _tornadoChance) then {
 	[_pos1,_pos2] spawn NAT_fnc_tornado;
 };
 //-----------------------------------
-_sleepTime = ((random 30)*60);
+_sleepTime = ((random 20)*60);
 if (DebugMode) then {
 	systemChat format["DEBUG MODE :: Weather sleeping for %1 seconds (%2 minutes)",_sleepTime,(_sleepTime/60)];
 	showChat true;
