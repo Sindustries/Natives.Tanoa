@@ -56,7 +56,7 @@ while {_objCreated < _maxNumObjLoc} do {
 	if (_distCheck) then {
 		_obj = (selectRandom _radObjCars) createVehicle _objPos;
 		_obj setDir (_dir+(random 75)-(random 75));
-		_obj setPos (getPos _obj);
+		_obj setPos [(getPos _obj select 0),(getPos _obj select 1),0];
 		_obj setDamage [1,false];
 		_obj enableSimulation false;
 

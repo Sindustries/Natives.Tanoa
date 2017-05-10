@@ -3,27 +3,26 @@
 	Author: Sinbane
 	Spawn the zombees!
 */
-if ((count HVP_zombieArrayClient) >= HVP_maxZombies) exitWith {};
+if ((count NAT_zombieArrayClient) >= NAT_maxZombies) exitWith {};
 private ["_pos","_zombieCount","_zombie","_group","_exclusions","_spawnPos"];
 //-----------------------------------
 
 	_pos = _this select 0;
 	_maxNum = _this select 1;
+	_count = (floor(random _maxNum)+1);
 	_group = createGroup resistance;
-	
-	for "_zombieCount" from 0 to (floor(random _maxNum)+1) do {
-		if ((count HVP_zombieArrayClient) <= HVP_maxZombies) then {
+
+	for "_zombieCount" from 1 to _count do {
+		if ((count NAT_zombieArrayClient) <= NAT_maxZombies) then {
 			_spawnPos = [_pos,0,50,0,0,0,0] call SIN_fnc_findPos;
-			if ((random 100) < HVP_zBossChance) then {
-				_zombie = _group createUnit [(selectRandom HVP_BossZombies), _spawnPos, [], 0, "NONE"];
-			} else {
-				_zombie = _group createUnit [(selectRandom HVP_Zombies), _spawnPos, [], 0, "NONE"];
-			};
+			_zombie = _group createUnit [(selectRandom NAT_Zombies), _spawnPos, [], 0, "NONE"];
 			[_zombie,"AmovPercMstpSnonWnonDnon_SaluteOut"] remoteExec ["switchMove", 0];
-			HVP_zombieArray pushBack _zombie;
-			HVP_zombieArrayClient pushBack _zombie;
-			publicVariable "HVP_zombieArray";
+			NAT_zombieArray pushBack _zombie;
+			NAT_zombieArrayClient pushBack _zombie;
+			publicVariable "NAT_zombieArray";
 		};
 	};
+	if (DebugMode) then {systemChat format["DEBUG MODE :: SPAWNED %1 ZOMBIES AT %2",_count,_pos]};
+	_group;
 
 //-----------------------------------

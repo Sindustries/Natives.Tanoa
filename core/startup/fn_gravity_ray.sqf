@@ -38,7 +38,7 @@ publicVariable "ecran";
 //setwind [-1000,10,true];
 
 waitUntil {(getPosATL _grav_source select 2) < 15};
-_heli setDamage 0.8;
+_heli setDamage 0.97;
 cutremur = true;
 publicVariable "cutremur";
 

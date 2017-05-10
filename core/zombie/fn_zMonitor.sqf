@@ -9,7 +9,7 @@ private ["_zIndex","_index","_toDelete"];
 	while {true} do {
 		sleep 5;
 
-		if (alive player) then {
+		if (alive player && NAT_zActive) then {
 			if (sunOrMoon isEqualTo 0 || fog >= 0.5 || overcast >= 0.7) then {
 				{
 					if (_x distance player < 80 && (velocityModelSpace player select 1) > 3 && (random 100) < NAT_zSpawnChance && !(_x in NAT_usedSpawnerArray)) then {

@@ -5,7 +5,6 @@ class SIN {
 		class adminInit {};
 		class checkPos {};
 		class checkDist {};
-		class emptyUnit {};
 		class emptyVeh {};
 		class findPos {};
 		class testCode {};
@@ -16,12 +15,17 @@ class NAT_Core {
     tag = "NAT";
 	class core {
 		file = "core\core";
+		class createGroup {};
 		class emptyVeh {};
 		class fuelPump {};
 		class fuelStation {};
 		class getSetting {};
 		class getSettings {};
+		class handleDamage {};
+		class healthMonitor {};
+		class healthRegen {};
 		class message {};
+		class saveGame {};
 		class updateProgressBar {};
 		class weather {};
 	};
@@ -32,10 +36,16 @@ class NAT_Core {
 		class radLocation {};
 		class radObject {};
 	};
+	class gear {
+		file = "core\gear";
+		class equip {};
+		class unequip {};
+	};
 	class startup {
 		file = "core\startup";
 		class act1 {};
 		class addActions {};
+		class eventHandlers {};
 		class gravity {};
 		class gravity_ray {};
 		class gravity_ray_effect {};

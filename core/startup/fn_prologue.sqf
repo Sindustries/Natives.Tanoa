@@ -7,7 +7,7 @@ params [
 	["_pos",[]]
 ];
 
-_heliLandPos = [_pos,1800,3600,0] call SIN_fnc_findPos;
+_heliLandPos = [_pos,2000,3600,0] call SIN_fnc_findPos;
 _helipad = createVehicle ["Land_HelipadEmpty_F", _heliLandPos, [], 0, "NONE"];
 
 //-----------------------------------
@@ -43,15 +43,8 @@ _pilot setskill 0;
 _pilot disableAI "TARGET";
 _pilot disableAI "AUTOTARGET";
 
-removeAllWeapons _pilot;
-removeAllItems _pilot;
-removeAllAssignedItems _pilot;
-removeUniform _pilot;
-removeVest _pilot;
-removeBackpack _pilot;
-removeHeadgear _pilot;
-removeGoggles _pilot;
-_pilot forceAddUniform (selectRandom NAT_civUniforms);
+[_pilot] call NAT_fnc_Unequip;
+[_pilot,"civ",false] call NAT_fnc_Equip;
 _pilot addHeadgear "TRYK_H_EARMUFF";
 _pilot addGoggles "TRYK_headset_Glasses";
 
@@ -67,49 +60,83 @@ _pilot moveindriver _heli;
 _pilot doMove _heliLandPos;
 _heligroup setSpeedMode "FULL";
 
+sleep 3;
+
 //-----------------------------------
 //-MOVE PLAYERS INSIDE
 
 {
 	if (isPlayer _x) then {
-		[_x] call ace_hearing_fnc_putInEarplugs;
 		_x assignAsCargo _heli;
 		_x moveInCargo _heli;
 		_x enableSimulationGlobal true;
 		_x setVariable ["NATspawned", true, true];
+		[_x] spawn {
+			sleep 3;
+			["NATnotification",["HINT","PRESS SHIFT+O TO EQUIP EARPLUGS"]] remoteExec ["bis_fnc_showNotification",(_this select 0)];
+		}
 	};
 } forEach allUnits;
 
 //-----------------------------------
 //-WAIT UNTIL IN POSITION
 
-waitUntil {_heli distance2D _helipad < 400};
+waitUntil {_heli distance2D _helipad < 1400};
 [_heliPad,_heli] spawn NAT_fnc_gravity_ray;
 waitUntil {(damage _heli) > 0};
-[] spawn {
-	{cutText ["", "WHITE OUT", 4]; sleep 4; enableEnvironment false} remoteExec ["bis_fnc_call", 0];
+_pilot setDamage 1;
+
+_fire = createVehicle ["test_EmptyObjectForSmoke", (getPos _heli),[], 0, "NONE"];
+_fire attachTo [_heli, [0,0,0.7]];
+
+waitUntil {((getPos _heli) select 2) < 1 || isTouchingGround _heli};
+
+"vehicle_collision" remoteExec ["playSound", 0];
+{cutText ["", "WHITE OUT", 0]; player setDamage 0.2; enableEnvironment false} remoteExec ["bis_fnc_call", 0];
+
+//_alarm = createSoundSource ["Sound_Alarm", (getPos _heli), [], 0];
+_sparks1 = createSoundSource ["Sound_SparklesWreck1", (getPos _heli), [], 0];
+_sparks2 = createSoundSource ["Sound_SparklesWreck2", (getPos _heli), [], 0];
+//_alarm attachTo [_heli];
+_sparks1 attachTo [_heli];
+_sparks2 attachTo [_heli];
+
+[_heli,_sparks1,_sparks2,_fire] spawn {
+	private ["_alarm","_sparks1","_sparks2","_fire"];
+	_pod = _this select 0;
+	_sparks1 = _this select 1;
+	_sparks2 = _this select 2;
+	_fire = _this select 3;
+	sleep 180+(random 300);
+	{deleteVehicle _x;} forEach (_fire getVariable ["effects", []]);
+	deleteVehicle _fire;
+	deleteVehicle _sparks1;
+	deleteVehicle _sparks2;
 };
-sleep 5;
+
+sleep 3;
 //-----------------------------------
 //-FIND A CRASH SITE
 
-if (isServer) then {
-	_crashSite = [(getPos _heli),0,1000,0] call SIN_fnc_findPos;
-	_heli setDamage 1;
-	_pilot setDamage 1;
-	_heli setPos _crashSite;
-	{
-		if (isPlayer _x) then {
-			[_x] call ace_hearing_fnc_removeEarplugs;
-			_pos = [_crashSite,3,70] call SIN_fnc_findPos;
-			_x setPos _pos;
-			_x setDir (random 360);
-			_x enableSimulationGlobal false;
-		};
-	} forEach allUnits;
-};
+//waitUntil {velocityModelSpace _heli isEqualTo [0,0,0]};
 
-sleep 10;
+//_crashSite = [(getPos _heli),0,100,0] call SIN_fnc_findPos;
+//_heli setDamage 1;
+//_heli setPos _crashSite;
+{
+	if (isPlayer _x) then {
+		if (surfaceIsWater (getPos _x)) then {
+			_pos = [(getPos _heli),0,100,0.2,0,1,1] call SIN_fnc_findPos;
+		} else {
+			_pos = [(getPos _heli),0,100] call SIN_fnc_findPos;
+		};
+		_x setPos _pos;
+		_x setDir (random 360);
+		_x enableSimulationGlobal false;
+	};
+} forEach allUnits;
+
+sleep 3;
 //-----------------------------------
 //-WAKING UP
 
@@ -117,12 +144,11 @@ sleep 10;
 	if (isPlayer _x) then {
 		{
 			player enableSimulationGlobal true;
-			player removeItems "ACE_earPlugs";
 			player setUnconscious true;
-			sleep 4;
+			sleep 6;
 			cutText ["", "WHITE IN", 4];
 			enableEnvironment true;
-			sleep 6;
+			sleep 4;
 			player setUnconscious false;
 			player allowDamage true;
 
@@ -139,5 +165,7 @@ sleep 10;
 //-----------------------------------
 //-ACT 1
 sleep 20;
-[] remoteExec ["NAT_fnc_act1",0];
+if (isServer) then {
+	[] spawn NAT_fnc_act1;
+};
 //-----------------------------------

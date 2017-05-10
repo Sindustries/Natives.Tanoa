@@ -33,6 +33,8 @@ HVPBoatsLoaded = false;
 NATBoatsLoaded = false;
 NATRadObjsLoaded = false;
 #include "core\gear\civ.sqf";
+#include "core\gear\militia.sqf";
+#include "core\gear\military.sqf";
 //-----------------------------------
 waitUntil {time > 0};
 //-----------------------------------
@@ -65,11 +67,14 @@ if (isServer) then {
 if (isServer) then {
 	_date = numberToDate [(2015+floor(random 20)),random 1];
 	setDate [(_date select 0),(_date select 1),(_date select 2),0,0];
+	0 setOvercast (random 1);
+	0 setFog (random 0.8);
+	forceWeatherChange;
+	[] spawn NAT_fnc_weather;
 	[] spawn {
 		while {sunOrMoon isEqualTo 0} do {
 			skiptime (1/20);
 		};
-		[] spawn NAT_fnc_weather;
 	};
 };
 //-----------------------------------
@@ -160,7 +165,7 @@ cutText ["", "BLACK FADED", 999];
 	}];
 };
 [] spawn NAT_fnc_addActions;
-//[] call NAT_fnc_eventHandlers;
+[] call NAT_fnc_eventHandlers;
 //-----------------------------------
 [] call NAT_fnc_fuelStation;
 //-----------------------------------
@@ -171,6 +176,7 @@ player setVariable ["NAT_pumpingFuel",false];
 //-BEGIN PROLOGUE
 if (isServer) then {
 	setTimeMultiplier (["NATtimeMultiplier"] call NAT_fnc_getSetting);
+	group player selectLeader player;
 	_pos = [[0,0,0],0,999999,0,0,0] call SIN_fnc_findPos;
 	[_pos] spawn NAT_fnc_prologue;
 };
@@ -182,8 +188,11 @@ player enableSimulation true;
 player enableStamina true;
 cutText ["", "BLACK IN", 10];
 //-----------------------------------
-[] spawn NAT_fnc_gasMask;
+[player] spawn NAT_fnc_gasMask;
 [] spawn NAT_fnc_mineDetector;
+[] spawn NAT_fnc_handleDamage;
+[] spawn NAT_fnc_healthMonitor;
+[] spawn NAT_fnc_healthRegen;
 [] spawn {
 	waitUntil {isTouchingGround player};
 	[] spawn NAT_fnc_radObject;

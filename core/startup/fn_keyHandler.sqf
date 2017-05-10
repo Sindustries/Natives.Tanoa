@@ -61,18 +61,32 @@ switch (_code) do {
     case 24: {
         if (_shift && !_ctrl && !_alt) then {
             if ((player getVariable ["NATearPlugs",false]) isEqualTo true) then {
-				_handled = true;
-				[player] call ace_hearing_fnc_removeEarplugs;
-				//waitUntil {("ACE_earplugs" in (vestItems player + uniformItems player + backpackItems player))};
-				player removeItems "ACE_earplugs";
-				player setVariable ["NATearPlugs",false,false];
+                _handled = true;
+                [player] call ace_hearing_fnc_removeEarplugs;
+                //waitUntil {("ACE_earplugs" in (vestItems player + uniformItems player + backpackItems player))};
+                player removeItems "ACE_earplugs";
+                player setVariable ["NATearPlugs",false,false];
             } else {
-				_handled = true;
+                _handled = true;
                 [player] call ace_hearing_fnc_putInEarplugs;
                 player setVariable ["NATearPlugs",true,false];
             };
         };
     };
+
+    //I - Virtual INV
+    case 23: {
+        if (_shift && !_ctrl && !_alt) then {
+            systemChat format["-- VIRTUAL INVENTORY"];
+            systemChat format["-- First Aid Kits: %1 ",(player getVariable ["NATFAKcount",0])];
+            systemChat format["-- "];
+            systemChat format["-- "];
+            systemChat format["-- "];
+            showChat true;
+            _handled = true;
+        };
+    };
+
 };
 
 _handled;
