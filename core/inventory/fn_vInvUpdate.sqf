@@ -132,20 +132,20 @@ if ((player getVariable ["NATsavedGoggles",""]) != "" || (player getVariable ["N
 		_gasMaskIcon ctrlSetTooltip (getText (configFile >> "CfgGlasses" >> (player getVariable ["NATsavedGoggles",""]) >> "displayName"));
 	};
 	if ((player getVariable ["NATsavedHeadgear",""]) != "") then {
-		systemChat "helmet found";
 		_iconPath = (getText (configFile >> "CfgWeapons" >> (player getVariable ["NATsavedHeadgear",""]) >> "picture"));
 		_gasMaskIcon ctrlSetTooltip (getText (configFile >> "CfgWeapons" >> (player getVariable ["NATsavedHeadgear",""]) >> "displayName"));
 	};
-	if ((goggles player) != (player getVariable ["NATsavedGoggles",""]) || (headgear player) != (player getVariable ["NATsavedHeadgear",""])) then {
-		_gasMaskEquipBtn ctrlSetText "EQUIP";
+	if ((goggles player) isEqualTo (player getVariable ["NATsavedGoggles",""]) || (headgear player) isEqualTo (player getVariable ["NATsavedHeadgear",""])) then {
+		_gasMaskEquipBtn ctrlSetText "REMOVE";
 	} else {
-		_gasMaskEquipBtn ctrlSetText "UNEQUIP";
+		_gasMaskEquipBtn ctrlSetText "EQUIP";
 	};
 	_gasMaskEquipBtn ctrlEnable true;
 	_gasMaskClearBtn ctrlEnable true;
 } else {
 	_iconPath = "GUI\img\gas_mask.paa";
 	_gasMaskIcon ctrlSetTooltip "None";
+	_gasMaskEquipBtn ctrlSetText "EQUIP";
 	_gasMaskEquipBtn ctrlEnable false;
 	_gasMaskClearBtn ctrlEnable false;
 };
@@ -155,8 +155,8 @@ _gasMaskIcon ctrlSetText _iconPath;
 _useBtn buttonSetAction "[] call NAT_fnc_vInvUse;";
 _dropBtn buttonSetAction "[] call NAT_fnc_vInvDrop;";
 //_giveBtn buttonSetAction "[] call NAT_fnc_vInvGive;";
-_gasMaskEquipBtn buttonSetAction "[] call NAT_fnc_gasMaskAction;";
-_gasMaskClearBtn buttonSetAction "player setVariable ['NATsavedGoggles','']; player setVariable ['NATsavedHeadgear',''];";
+_gasMaskEquipBtn buttonSetAction "[] call NAT_fnc_gasMaskAction; [] call NAT_fnc_vInvUpdate;";
+_gasMaskClearBtn buttonSetAction "player setVariable ['NATsavedGoggles','']; player setVariable ['NATsavedHeadgear','']; [] call NAT_fnc_vInvUpdate;";
 //-----------------------------------
 //-MODIFIERS
 /* HEALTHY */
@@ -169,15 +169,30 @@ if ((player getVariable "NATneedsHealthy") isEqualTo true) then {
 };
 /* ENERGIZED */
 if ((player getVariable "NATneedsEnergised") isEqualTo true) then {
-	_modifier2 ctrlSetText "GUI\img\energised.paa";
-	_modifier2 ctrlSetTooltip "ENERGISED: Movement speed increased";
+	_modifier9 ctrlSetText "GUI\img\energised.paa";
+	_modifier9 ctrlSetTooltip "ENERGISED: Movement speed increased";
 } else {
-	_modifier2 ctrlShow false;
+	_modifier9 ctrlShow false;
+};
+/* IRRADIATED */
+if (player getVariable ["NATneedsRadiationLevel",0] > 0) then {
+	_modifier4 ctrlSetText "GUI\img\radiation.paa";
+	if (player getVariable ["NATneedsRadiationLevel",0] isEqualTo 1) then {
+		_modifier4 ctrlSetTooltip "RADIATION LEVEL: MINOR: No health regeneration";
+	};
+	if (player getVariable ["NATneedsRadiationLevel",0] isEqualTo 2) then {
+		_modifier4 ctrlSetTooltip "RADIATION LEVEL: HIGH: No health regeneration, increased weapon sway";
+	};
+	if (player getVariable ["NATneedsRadiationLevel",0] isEqualTo 3) then {
+		_modifier4 ctrlSetTooltip "RADIATION LEVEL: SEVERE: Slowly dying, increased weapon sway";
+	};
+} else {
+	_modifier4 ctrlShow false;
 };
 //-----------------------------------
 {
 	_x ctrlShow false;
-} forEach [_modifier3,_modifier4,_modifier5,_modifier6,_modifier7,_modifier8,_modifier9,_modifier10,_modifier11,_modifier12];
+} forEach [];
 //-----------------------------------
 //-DISABLE IF ACTION
 if (NATaction) then {
