@@ -44,16 +44,17 @@ class NAT_Core {
 	};
 	class inventory {
 		file = "core\inventory";
-		class vInv {};
 		class vInvAdjust {};
 		class vInvCheck {};
 		class vInvDrop {};
+		class vInvOpen {};
 		class vInvUpdate {};
 		class vInvUse {};
 	};
 	class action {
 		file = "core\inventory\action";
 		class firstAidAction {};
+		class gasMaskAction {};
 	};
 	class needs {
 		file = "core\needs";
