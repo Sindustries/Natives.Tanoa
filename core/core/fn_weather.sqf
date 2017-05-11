@@ -46,7 +46,7 @@ if (overcast >= 0.9 && (random 100) < _tornadoChance) then {
 //-----------------------------------
 _sleepTime = ((random 20)*60);
 if (DebugMode) then {
-	systemChat format["DEBUG MODE :: WEATHER SET: OVERCAST: %1, FOG: %2. CHANGING IN %2 MINUTES.",overcast,fog,(_sleepTime/60)];
+	systemChat format["DEBUG MODE :: WEATHER SET: OVERCAST: %1, FOG: %2. CHANGING IN %3 MINUTES.",overcast,fog,(_sleepTime/60)];
 	showChat true;
 };
 sleep _sleepTime;
