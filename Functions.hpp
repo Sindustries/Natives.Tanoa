@@ -57,12 +57,12 @@ class NAT_Core {
 	class needs {
 		file = "core\needs";
 		class needsInit {};
-		class needsHunger {};
-		class needsThirst {};
-		class needsSickness {};
-		class needsUpdate {};
 		class healthMonitor {};
 		class healthRegen {};
+		class needsHunger {};
+		class needsThirst {};
+		class needsRadiation {};
+		class needsUpdate {};
 	};
 	class startup {
 		file = "core\startup";
