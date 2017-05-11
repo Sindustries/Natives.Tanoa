@@ -30,8 +30,8 @@ player setVariable ["NATneedsSleepMult",1];
 player setVariable ["NATneedsRadiationMult",1];
 //-----------------------------------
 //-MODIFIERS
-player setVariable ["NATneedsHealthy",false];
-player setVariable ["NATneedsEnergised",false];
+player setVariable ["NATneedsHealthy",true];
+player setVariable ["NATneedsEnergised",true];
 player setVariable ["NATneedsHungry",false];
 player setVariable ["NATneedsThirsty",false];
 player setVariable ["NATneedsTired",false];
