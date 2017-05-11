@@ -15,51 +15,7 @@ class NAT {
 
 /* VIRTUAL INVENTORY ITEMS :: SYNTAX - ARRAY [DISPLAY NAME,CLASS NAME] */
 
-	vInvItems[] = {
-		{ "First Aid Kit","FirstAidKit" },
-		{ "Antibiotics", "rb_antibiotic" },
-		{ "Bandage", "rb_bandage" },
-		{ "Meat (Raw)", "rb_Meat" },
-		{ "Meat (Cooked)", "rb_MeatC" },
-		{ "Tactical Bacon", "rb_TacticalBacon" },
-		{ "Baked Beans", "rb_BakedBeans" },
-		{ "Tactical Bacon (Empty)", "rb_TacticalBaconempty" },
-		{ "Baked Beans (Empty)", "rb_BakedBeansempty" },
-		{ "Bottle (Empty)", "rb_bottle" },
-		{ "Bottle (Clean)", "rb_bottleclean" },
-		{ "Bottle (Dirty)", "rb_bottledirty" },
-		{ "Bottle (Salt)", "rb_bottlesalt" },
-		{ "Wood", "rb_WoodPile" },
-		{ "Spirit", "rb_Spirit" },
-		{ "Franta", "rb_franta" },
-		{ "Spirit (Empty)", "rb_Spiritempty" },
-		{ "Franta (Empty)", "rb_frantaempty" },
-		{ "Can", "rb_oldcan" },
-		{ "Redgull", "rb_redgull" },
-		{ "Redgull (Empty)", "rb_redgullempty" },
-		{ "Hammer", "rb_hammer" },
-		{ "Saw", "rb_saw" },
-		{ "Wrench", "rb_wrench" },
-		{ "Axe", "rb_Axe" },
-		{ "Fuelcan (Full)", "rb_Fuelcan" },
-		{ "Fuelcan (Empty)", "rb_Fuelcan_empty" },
-		{ "Tire", "rb_tire" },
-		{ "Duct Tape", "rb_ducttape" },
-		{ "Cereal", "rb_cereal" },
-		{ "Rice", "rb_RiceBox" },
-		{ "Canteen (Clean)", "rb_canteen" },
-		{ "Canteen (Dirty)", "rb_canteen_dirty" },
-		{ "Canteen (Salt)", "rb_canteen_salt" },
-		{ "Canteen (Empty)", "rb_canteen_empty" },
-		{ "Matches", "rb_matches" },
-		{ "Nails", "rb_nails" },
-		{ "Knife", "rb_knife" },
-		{ "HandyCam", "rb_HandyCam" },
-		{ "Laptop", "rb_Laptop" },
-		{ "Mobile Phone", "rb_MobilePhone" },
-		{ "Smartphone", "rb_SmartPhone" }
-	};
-
+	#include "cfgvItems.hpp"
 
 /* WEATHER SETTINGS */
 
