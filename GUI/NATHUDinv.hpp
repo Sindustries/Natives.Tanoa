@@ -163,7 +163,7 @@ class NATinvGASMASKfrm: RscFrame
 class NATinvGASMASKicon: RscPicture
 {
 	idc = 1200;
-	text = "#(argb,8,8,3)color(1,1,1,1)";
+	text = "#(argb,8,8,3)color(1,1,1,0)";
 	x = 0.489687 * safezoneW + safezoneX;
 	y = 0.3196 * safezoneH + safezoneY;
 	w = 0.04125 * safezoneW;
@@ -390,7 +390,7 @@ class NATinvMODIFIERtxt: RscText
 class NATinvMODIFIERicon1: RscPicture
 {
 	idc = 1206;
-	text = "#(argb,8,8,3)color(1,1,1,1)";
+	text = "#(argb,8,8,3)color(1,1,1,0)";
 	x = 0.4175 * safezoneW + safezoneX;
 	y = 0.522 * safezoneH + safezoneY;
 	w = 0.0103125 * safezoneW;
@@ -399,7 +399,7 @@ class NATinvMODIFIERicon1: RscPicture
 class NATinvMODIFIERicon2: RscPicture
 {
 	idc = 1207;
-	text = "#(argb,8,8,3)color(1,1,1,1)";
+	text = "#(argb,8,8,3)color(1,1,1,0)";
 	x = 0.438125 * safezoneW + safezoneX;
 	y = 0.522 * safezoneH + safezoneY;
 	w = 0.0103125 * safezoneW;
@@ -408,7 +408,7 @@ class NATinvMODIFIERicon2: RscPicture
 class NATinvMODIFIERicon7: RscPicture
 {
 	idc = 1208;
-	text = "#(argb,8,8,3)color(1,1,1,1)";
+	text = "#(argb,8,8,3)color(1,1,1,0)";
 	x = 0.4175 * safezoneW + safezoneX;
 	y = 0.555 * safezoneH + safezoneY;
 	w = 0.0103125 * safezoneW;
@@ -417,7 +417,7 @@ class NATinvMODIFIERicon7: RscPicture
 class NATinvMODIFIERicon8: RscPicture
 {
 	idc = 1209;
-	text = "#(argb,8,8,3)color(1,1,1,1)";
+	text = "#(argb,8,8,3)color(1,1,1,0)";
 	x = 0.438125 * safezoneW + safezoneX;
 	y = 0.555 * safezoneH + safezoneY;
 	w = 0.0103125 * safezoneW;
@@ -426,7 +426,7 @@ class NATinvMODIFIERicon8: RscPicture
 class NATinvMODIFIERicon3: RscPicture
 {
 	idc = 1210;
-	text = "#(argb,8,8,3)color(1,1,1,1)";
+	text = "#(argb,8,8,3)color(1,1,1,0)";
 	x = 0.45875 * safezoneW + safezoneX;
 	y = 0.522 * safezoneH + safezoneY;
 	w = 0.0103125 * safezoneW;
@@ -435,7 +435,7 @@ class NATinvMODIFIERicon3: RscPicture
 class NATinvMODIFIERicon4: RscPicture
 {
 	idc = 1212;
-	text = "#(argb,8,8,3)color(1,1,1,1)";
+	text = "#(argb,8,8,3)color(1,1,1,0)";
 	x = 0.479375 * safezoneW + safezoneX;
 	y = 0.522 * safezoneH + safezoneY;
 	w = 0.0103125 * safezoneW;
@@ -444,7 +444,7 @@ class NATinvMODIFIERicon4: RscPicture
 class NATinvMODIFIERicon5: RscPicture
 {
 	idc = 1213;
-	text = "#(argb,8,8,3)color(1,1,1,1)";
+	text = "#(argb,8,8,3)color(1,1,1,0)";
 	x = 0.5 * safezoneW + safezoneX;
 	y = 0.522 * safezoneH + safezoneY;
 	w = 0.0103125 * safezoneW;
@@ -453,7 +453,7 @@ class NATinvMODIFIERicon5: RscPicture
 class NATinvMODIFIERicon6: RscPicture
 {
 	idc = 1215;
-	text = "#(argb,8,8,3)color(1,1,1,1)";
+	text = "#(argb,8,8,3)color(1,1,1,0)";
 	x = 0.520625 * safezoneW + safezoneX;
 	y = 0.522 * safezoneH + safezoneY;
 	w = 0.0103125 * safezoneW;
@@ -462,7 +462,7 @@ class NATinvMODIFIERicon6: RscPicture
 class NATinvMODIFIERicon9: RscPicture
 {
 	idc = 1211;
-	text = "#(argb,8,8,3)color(1,1,1,1)";
+	text = "#(argb,8,8,3)color(1,1,1,0)";
 	x = 0.45875 * safezoneW + safezoneX;
 	y = 0.555 * safezoneH + safezoneY;
 	w = 0.0103125 * safezoneW;
@@ -471,7 +471,7 @@ class NATinvMODIFIERicon9: RscPicture
 class NATinvMODIFIERicon10: RscPicture
 {
 	idc = 1214;
-	text = "#(argb,8,8,3)color(1,1,1,1)";
+	text = "#(argb,8,8,3)color(1,1,1,0)";
 	x = 0.479375 * safezoneW + safezoneX;
 	y = 0.555 * safezoneH + safezoneY;
 	w = 0.0103125 * safezoneW;
@@ -480,7 +480,7 @@ class NATinvMODIFIERicon10: RscPicture
 class NATinvMODIFIERicon11: RscPicture
 {
 	idc = 1216;
-	text = "#(argb,8,8,3)color(1,1,1,1)";
+	text = "#(argb,8,8,3)color(1,1,1,0)";
 	x = 0.5 * safezoneW + safezoneX;
 	y = 0.555 * safezoneH + safezoneY;
 	w = 0.0103125 * safezoneW;
@@ -489,7 +489,7 @@ class NATinvMODIFIERicon11: RscPicture
 class NATinvMODIFIERicon12: RscPicture
 {
 	idc = 1217;
-	text = "#(argb,8,8,3)color(1,1,1,1)";
+	text = "#(argb,8,8,3)color(1,1,1,0)";
 	x = 0.520625 * safezoneW + safezoneX;
 	y = 0.555 * safezoneH + safezoneY;
 	w = 0.0103125 * safezoneW;
