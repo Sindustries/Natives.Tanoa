@@ -31,7 +31,6 @@ if (_add) then {
 	} else {
 	    _vInv pushBack [_item,1];
 	};
-	if (DebugMode) then {systemChat "ADDING"};
 } else {
 	{
 		if ((_x select 0) isEqualTo _item) then {
