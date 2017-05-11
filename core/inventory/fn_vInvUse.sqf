@@ -7,9 +7,9 @@
 */
 
 _display = findDisplay 3300;
-_itemList = _display displayCtrl 3310;
-_index = lbCurSel 3310;
-_item = lbData [3310, _index];
+_itemList = _display displayCtrl 1500;
+_index = lbCurSel 1500;
+_item = lbData [1500, _index];
 
 //-----------------------------------
 //-USE ITEM
@@ -43,14 +43,17 @@ switch (_item) do {
 	case "rb_MeatC": {
 		[1,2,0.6] call NAT_fnc_needsUpdate;
 		[2,0,0.6] call NAT_fnc_needsUpdate;
+		[6,2,0.3] call NAT_fnc_needsUpdate;
 	};
 	case "rb_TacticalBacon": {
 		[1,2,0.5] call NAT_fnc_needsUpdate;
 		[2,0,0.8] call NAT_fnc_needsUpdate;
+		[6,2,0.2] call NAT_fnc_needsUpdate;
 	};
 	case "rb_BakedBeans": {
 		[1,2,0.4] call NAT_fnc_needsUpdate;
 		[2,0,0.9] call NAT_fnc_needsUpdate;
+		[6,2,0.1] call NAT_fnc_needsUpdate;
 	};
 	//DRINK (SALTY)
 	case "rb_bottlesalt": {
@@ -83,14 +86,20 @@ switch (_item) do {
 	case "rb_Spirit": {
 		[3,2,0.15] call NAT_fnc_needsUpdate;
 		[4,1,0.1] call NAT_fnc_needsUpdate;
+		[5,2,0.05] call NAT_fnc_needsUpdate;
+		[6,2,0.5] call NAT_fnc_needsUpdate;
 	};
 	case "rb_franta": {
 		[3,2,0.15] call NAT_fnc_needsUpdate;
 		[4,1,0.1] call NAT_fnc_needsUpdate;
+		[5,2,0.05] call NAT_fnc_needsUpdate;
+		[6,2,0.5] call NAT_fnc_needsUpdate;
 	};
 	case "rb_redgull": {
 		[3,2,0.25] call NAT_fnc_needsUpdate;
 		[4,1,0.2] call NAT_fnc_needsUpdate;
+		[5,2,0.1] call NAT_fnc_needsUpdate;
+		[6,2,0.75] call NAT_fnc_needsUpdate;
 	};
 };
 //-----------------------------------

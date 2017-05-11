@@ -29,7 +29,7 @@ while {alive player} do {
 			_ambient = [] spawn {
 				sleep 120+(random 120);
 				while {true} do {
-					[] spawn NAT_fnc_radFXdust;
+					[[random 10,random 10,-1],[1.0, 0.9, 0.8],0.02+random 0.2] spawn NAT_fnc_radFXdust;
 					playSound selectRandom ["ambient_com","ambient_fantoma","ambient_fundal","ambient_hall","ambient_industrial","ambient_jet","ambient_spike","ambient_steps","ambient_tehnic","ambient_vuumm","ambient_wind"];
 					sleep 120+(random 120);
 				};

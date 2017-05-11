@@ -1,9 +1,9 @@
 /*
-    fn_needsHunger
+    fn_needsUpdate
     Author: Sinbane
 
     Description:
-    Monitors the player hunger level
+    Updates selected need
 */
 private "_var";
 params [
@@ -27,6 +27,18 @@ switch (_need) do {
 	case 4: {
 		_var = "NATneedsThirstMult";
 	};
+	case 5: {
+		_var = "NATneedsSleep";
+	};
+	case 6: {
+		_var = "NATneedsSleepMult";
+	};
+	case 7: {
+		_var = "NATneedsRadiation";
+	};
+	case 8: {
+		_var = "NATneedsRadiationMult";
+	};
 };
 //-----------------------------------
 switch (_add) do {
@@ -41,44 +53,27 @@ switch (_add) do {
 	};
 };
 //-----------------------------------
-if ((player getVariable ["NATneedsHunger",0]) < 0) then {
-		player setVariable ["NATneedsHunger",0];
-};
-if ((player getVariable ["NATneedsHungerMult",1]) < 1 || (player getVariable ["NATneedsHungerMult",1]) > 1) then {
-	if ((player getVariable ["NATneedsHungerMult",1]) < 1) then {
-		player setVariable ["NATneedsHungerMult",((player getVariable ["NATneedsHungerMult",1])+0.01)];
-	};
-	if ((player getVariable ["NATneedsHungerMult",1]) > 1) then {
-		player setVariable ["NATneedsHungerMult",((player getVariable ["NATneedsHungerMult",1])-0.01)];
+if (_var in [1,3,5,7]) then {
+	if ((player getVariable [_var,0]) < 0) then {
+		player setVariable [_var,0];
 	};
 };
-if ((player getVariable ["NATneedsHungerMult",1]) > 3 || (player getVariable ["NATneedsHungerMult",1]) < 0) then {
-	if ((player getVariable ["NATneedsHungerMult",1]) > 3) then {
-		player setVariable ["NATneedsHungerMult",3];
+if (_var in [2,4,6,8]) then {
+	if ((player getVariable [_var,1]) < 1 || (player getVariable [_var,1]) > 1) then {
+		if ((player getVariable [_var,1]) < 1) then {
+			player setVariable [_var,((player getVariable [_var,1])+0.01)];
+		};
+		if ((player getVariable [_var,1]) > 1) then {
+			player setVariable [_var,((player getVariable [_var,1])-0.01)];
+		};
 	};
-	if ((player getVariable ["NATneedsHungerMult",1]) < 0) then {
-		player setVariable ["NATneedsHungerMult",0];
-	};
-};
-if ((player getVariable ["NATneedsThirst",0]) < 0) then {
-	player setVariable ["NATneedsThirst",0];
-};
-
-if ((player getVariable ["NATneedsThirstMult",1]) < 1 || (player getVariable ["NATneedsThirstMult",1]) > 1) then {
-	if ((player getVariable ["NATneedsThirstMult",1]) < 1) then {
-		player setVariable ["NATneedsThirstMult",((player getVariable ["NATneedsThirstMult",1])+0.01)];
-	};
-	if ((player getVariable ["NATneedsThirstMult",1]) > 1) then {
-		player setVariable ["NATneedsThirstMult",((player getVariable ["NATneedsThirstMult",1])-0.01)];
-	};
-};
-
-if ((player getVariable ["NATneedsThirstMult",1]) > 3 || (player getVariable ["NATneedsThirstMult",1]) < 0) then {
-	if ((player getVariable ["NATneedsThirstMult",1]) > 3) then {
-		player setVariable ["NATneedsThirstMult",3];
-	};
-	if ((player getVariable ["NATneedsThirstMult",1]) < 0) then {
-		player setVariable ["NATneedsThirstMult",0];
+	if ((player getVariable [_var,1]) > 3 || (player getVariable [_var,1]) < 0) then {
+		if ((player getVariable [_var,1]) > 3) then {
+			player setVariable [_var,3];
+		};
+		if ((player getVariable [_var,1]) < 0) then {
+			player setVariable [_var,0];
+		};
 	};
 };
 //-----------------------------------

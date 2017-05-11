@@ -22,8 +22,6 @@ class NAT_Core {
 		class getSetting {};
 		class getSettings {};
 		class handleDamage {};
-		class healthMonitor {};
-		class healthRegen {};
 		class message {};
 		class saveGame {};
 		class updateProgressBar {};
@@ -63,6 +61,8 @@ class NAT_Core {
 		class needsThirst {};
 		class needsSickness {};
 		class needsUpdate {};
+		class healthMonitor {};
+		class healthRegen {};
 	};
 	class startup {
 		file = "core\startup";

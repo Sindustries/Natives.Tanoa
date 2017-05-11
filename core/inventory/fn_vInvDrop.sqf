@@ -7,14 +7,9 @@
 */
 
 _display = findDisplay 3300;
-_itemList = _display displayCtrl 3310;
-
-//-----------------------------------
-
-_index = lbCurSel 3310;
-_item = lbData [3310, _index];
-
-if (DebugMode) then {systemChat str _item};
+_itemList = _display displayCtrl 1500;
+_index = lbCurSel 1500;
+_item = lbData [1500, _index];
 
 //-----------------------------------
 //-DROP ITEM
