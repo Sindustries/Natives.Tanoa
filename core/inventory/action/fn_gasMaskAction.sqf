@@ -37,10 +37,18 @@ if (_handled isEqualTo false) then {
     	if ((headgear player) isEqualTo "" && (player getVariable ["NATsavedHeadgear",""]) != "" && (player getVariable ["NATsavedHeadgear",""]) in (vestItems player + uniformItems player + backpackItems player)) then {
     		player removeItem (player getVariable ["NATsavedHeadgear",""]);
     		player addHeadgear (player getVariable ["NATsavedHeadgear",""]);
+    	} else {
+    		if ((player getVariable ["NATsavedHeadgear",""]) != "" && !((player getVariable ["NATsavedHeadgear",""]) in (vestItems player + uniformItems player + backpackItems player))) then {
+    			player setVariable ["NATsavedHeadgear","",false];
+    		};
     	};
     	if ((goggles player) isEqualTo "" && (player getVariable ["NATsavedGoggles",""]) != "" && (player getVariable ["NATsavedGoggles",""]) in (vestItems player + uniformItems player + backpackItems player)) then {
     		player removeItem (player getVariable ["NATsavedGoggles",""]);
     		player addGoggles (player getVariable ["NATsavedGoggles",""]);
+    	} else {
+    		if ((player getVariable ["NATsavedGoggles",""]) != "" && !((player getVariable ["NATsavedGoggles",""]) in (vestItems player + uniformItems player + backpackItems player))) then {
+    			player setVariable ["NATsavedGoggles","",false];
+    		};
     	};
     };
 };
