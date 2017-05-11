@@ -18,10 +18,9 @@ _helipad = createVehicle ["Land_HelipadEmpty_F", _heliLandPos, [], 0, "NONE"];
 		_x forceAddUniform (selectRandom NAT_civUniforms);
 		//_x linkItem "itemMap";
 		_x linkItem "itemWatch";
-		_x addMagazines ["rb_bottleclean",1];
-		_x addMagazines ["rb_TacticalBacon",1];
+		_x setVariable ["NAT_vInv",[["rb_bottleclean",1],["rb_TacticalBacon",1]],true];
 	};
-} forEach allUnits;
+} forEach playableUnits;
 
 //-----------------------------------
 //-HELICOPTER & CREW
