@@ -62,6 +62,7 @@ class NAT_Core {
 		class needsHunger {};
 		class needsThirst {};
 		class needsRadiation {};
+		class needsSleep {};
 		class needsUpdate {};
 	};
 	class startup {
