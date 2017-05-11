@@ -8,32 +8,59 @@
 private ["_itemList","_vInv"];
 disableSerialization;
 
-#define NATinvHPdisplay 3307
-#define NATinvHGRdisplay 3233
-#define NATinvTHRdisplay 3234
-#define NATinvTarget 3309
-#define NATinvItemList 3310
-#define Btn1 3305
-#define Btn2 3308
-
 _display = findDisplay 3300;
-_hpLevel = _display displayCtrl NATinvHPdisplay;
-_hgrLevel = _display displayCtrl NATinvHGRdisplay;
-_thrLevel = _display displayCtrl NATinvTHRdisplay;
-_useTarget = _display displayCtrl NATinvTarget;
-_itemList = _display displayCtrl NATinvItemList;
-_Btn1 = _display displayCtrl Btn1;
-_Btn2 = _display displayCtrl Btn2;
+_useBtn = _display displayCtrl 1600;
+_giveBtn = _display displayCtrl 1602;
+_dropBtn = _display displayCtrl 1601;
+_gasMaskEquipBtn = _display displayCtrl 1603;
+_gasMaskClearBtn = _display displayCtrl 1604;
+
+_playerSelect = _display displayCtrl 2100;
+_itemList = _display displayCtrl 1500;
+
+_gasMaskIcon = _display displayCtrl 1200;
+_hpIcon = _display displayCtrl 1201;
+_hungerIcon = _display displayCtrl 1202;
+_thirstIcon = _display displayCtrl 1203;
+_sleepIcon = _display displayCtrl 1204;
+_radIcon = _display displayCtrl 1205;
+
+_hpBar = _display displayCtrl 2400;
+_hungerBar = _display displayCtrl 2401;
+_thirstBar = _display displayCtrl 2402;
+_sleepBar = _display displayCtrl 2403;
+_radBar = _display displayCtrl 2404;
+
+_modifier1 = _display displayCtrl 1206;
+_modifier2 = _display displayCtrl 1207;
+_modifier3 = _display displayCtrl 1210;
+_modifier4 = _display displayCtrl 1212;
+_modifier5 = _display displayCtrl 1213;
+_modifier6 = _display displayCtrl 1215;
+_modifier7 = _display displayCtrl 1208;
+_modifier8 = _display displayCtrl 1209;
+_modifier9 = _display displayCtrl 1211;
+_modifier10 = _display displayCtrl 1214;
+_modifier11 = _display displayCtrl 1216;
+_modifier12 = _display displayCtrl 1217;
+
 _vInv = (player getVariable ["NAT_vInv",[]]);
 
 //-----------------------------------
-//-TARGET BOX
-lbClear _useTarget;
-_index = _useTarget lbAdd (name player);
-_useTarget lbSetCurSel _index;
+//-STATUS BARS
+_hpBar progressSetPosition (1-(damage player));
+_hungerBar progressSetPosition (1-(player getVariable ["NATneedsHunger",0]));
+_thirstBar progressSetPosition (1-(player getVariable ["NATneedsThirst",0]));
+_sleepBar progressSetPosition (1-(player getVariable ["NATneedsSleep",0]));
+_radBar progressSetPosition (1-(player getVariable ["NATneedsRadiation",0]));
+//-----------------------------------
+//-PLAYER LIST
+lbClear _playerSelect;
+_index = _playerSelect lbAdd (name player);
+_playerSelect lbSetCurSel _index;
 {
 	if (_x != player && isPlayer _x && alive _x && _x distance player < 6) then {
-		_index = _useTarget lbAdd (name _x);
+		_index = _playerSelect lbAdd (name _x);
 	};
 } forEach playableUnits;
 //-----------------------------------
@@ -56,33 +83,46 @@ if (count (_vInv) > 0) then {
 	} forEach _vInv;
 	lbSort _itemList;
 };
-//-----------------------------------
-//-HEALTH LEVEL
-_math = ((1-(damage player))*100);
-_math = [_math,0] call BIS_fnc_cutDecimals;
-_hpLevel ctrlSetText format ["%1%2",_math,"%"];
-//-----------------------------------
-//-HUNGER LEVEL
-_math = ((1-(player getVariable ["NATneedsHunger",0]))*100);
-_math = [_math,0] call BIS_fnc_cutDecimals;
-_hgrLevel ctrlSetText format ["%1%2",_math,"%"];
-//-----------------------------------
-//-THIRST LEVEL
-_math = ((1-(player getVariable ["NATneedsThirst",0]))*100);
-_math = [_math,0] call BIS_fnc_cutDecimals;
-_thrLevel ctrlSetText format ["%1%2",_math,"%"];
-//-----------------------------------
-_Btn1 buttonSetAction "[] call NAT_fnc_vInvUse;";
-_Btn2 buttonSetAction "[] call NAT_fnc_vInvDrop;";
-//-----------------------------------
-//-CONTROLS ENABLER
-if (lbSize _itemList < 1 || NATaction) then {
+if (lbSize _itemList < 1) then {
 	{
 		_x ctrlEnable false;
-	} forEach [_Btn1,_Btn2,_useTarget,_itemList];
+	} forEach [_useBtn,_giveBtn,_dropBtn];
 } else {
 	{
 		_x ctrlEnable true;
-	} forEach [_Btn1,_Btn2,_useTarget,_itemList];
+	} forEach [_useBtn,_giveBtn,_dropBtn];
+};
+//-----------------------------------
+//-GAS MASK DISPLAY
+private "_iconPath";
+_iconPath = "GUI\img\gas_mask.paa";
+if ((player getVariable ["NATsavedGoggles",""]) != "") then {
+	_iconPath = (getText (configFile >> "CfgGlasses" >> (player getVariable ["NATsavedGoggles",""]) >> "picture"));
+};
+if ((player getVariable ["NATsavedHeadgear",""]) != "") then {
+	systemChat "helmet found";
+	_iconPath = (getText (configFile >> "CfgWeapons" >> (player getVariable ["NATsavedHeadgear",""]) >> "picture"));
+	systemchat _iconpath;
+};
+systemChat format["DEBUG :: H: %1, G: %2, P: %3",(player getVariable ["NATsavedHeadgear",""]),(player getVariable ["NATsavedGoggles",""]),_iconPath];
+_gasMaskIcon ctrlSetText _iconPath;
+//-----------------------------------
+//-BUTTONS
+_useBtn buttonSetAction "[] call NAT_fnc_vInvUse;";
+_dropBtn buttonSetAction "[] call NAT_fnc_vInvDrop;";
+//_giveBtn buttonSetAction "[] call NAT_fnc_vInvGive;";
+_gasMaskEquipBtn buttonSetAction "[] call NAT_fnc_gasMaskAction;";
+_gasMaskClearBtn buttonSetAction "player setVariable ['NATsavedGoggles','']; player setVariable ['NATsavedHeadgear',''];";
+//-----------------------------------
+//-MODIFIERS
+{
+	_x ctrlShow false;
+} forEach [_modifier1,_modifier2,_modifier3,_modifier4,_modifier5,_modifier6,_modifier7,_modifier8,_modifier9,_modifier10,_modifier11,_modifier12];
+//-----------------------------------
+//-DISABLE IF ACTION
+if (NATaction) then {
+	{
+		_x ctrlEnable false;
+	} forEach [_useBtn,_giveBtn,_dropBtn,_gasMaskEquipBtn];
 };
 //-----------------------------------

@@ -37,15 +37,12 @@ if (_add) then {
 		if ((_x select 0) isEqualTo _item) then {
 			if ((_x select 1) > 1) then {
 				_vInv set [_forEachIndex,[(_x select 0),((_x select 1)-_count)]];
-				if (DebugMode) then {systemChat "REMOVING > 1"};
 			} else {
 				_vInv deleteAt _forEachIndex;
-				if (DebugMode) then {systemChat "REMOVING < 1"};
 			};
 		};
 	} forEach _vInv;
 };
 //-----------------------------------
 player setVariable ["NAT_vInv",_vInv,true];
-if (DebugMode) then {systemChat str (player getVariable ["NAT_vInv",[]]); showChat true};
 //-----------------------------------
