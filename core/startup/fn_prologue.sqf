@@ -84,6 +84,15 @@ sleep 3;
 
 waitUntil {_heli distance2D _helipad < 1400};
 [_heliPad,_heli] spawn NAT_fnc_gravity_ray;
+
+[_heli] spawn {
+	_heli = _this select 0;
+	sleep 10;
+	if (damage _heli isEqualTo 0 && alive _heli) then {
+		_heli setDamage 0.97;
+	};
+};
+
 waitUntil {(damage _heli) > 0};
 _pilot setDamage 1;
 
@@ -139,7 +148,7 @@ sleep 3;
 
 sleep 3;
 //-----------------------------------
-//-WAKING UP
+//-WAKING UP		player switchmove "Acts_UnconsciousStandUp_part1"
 
 {
 	if (isPlayer _x) then {
