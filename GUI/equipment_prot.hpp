@@ -27,5 +27,6 @@ class equipment_prot {
 		x=safeZoneX; y=safeZoneY; w=safeZoneW; h=safeZoneH;
 		idc = 1200;
 		text = "GUI\Img\al_helmet.paa";
+		colorText[] = {1,1,1,0.25};
 	};
 };

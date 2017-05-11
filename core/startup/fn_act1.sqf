@@ -2,21 +2,26 @@
 	fn_act1
 	Author: Sinbane
 */
-private ["_spawnPos"];
+private ["_spawnPos","_locPos","_size"];
 //-----------------------------------
 //-FIND CLOSEST LOCATION & CREATE A DEAD DUDE IN A RANDOM HOUSE
 _nearbyLocations = nearestLocations [(getPos player), ["NameCity","NameCityCapital","NameVillage"], 999999, (getPos player)];
-_location = (_nearbyLocations select 0);
-_locPos = locationPosition _location;
-_size = size _location;
-_houses = nearestObjects [_locPos, ["Building"], (_size select 0)];
 _houseFound = false;
+_counter = 0;
 while {!_houseFound} do {
-	_house = selectRandom _houses;
-	_lootpositions = _house buildingPos -1;
-	if (count _lootpositions > 0) then {
-		_houseFound = true;
-		_spawnPos = selectRandom _lootpositions;
+	_location = (_nearbyLocations select _counter);
+	_locPos = locationPosition _location;
+	_size = size _location;
+	_houses = nearestObjects [_locPos, ["Building"], (_size select 0)];
+	if (count _houses > 0) then {
+		_house = selectRandom _houses;
+		_lootpositions = _house buildingPos -1;
+		if (count _lootpositions > 0) then {
+			_houseFound = true;
+			_spawnPos = selectRandom _lootpositions;
+		};
+	} else {
+		_counter = _counter + 1;
 	};
 };
 
@@ -24,6 +29,11 @@ while {!_houseFound} do {
 _contact = (createGroup WEST) createUnit ["B_Survivor_F", _spawnPos, [], 0, "NONE"];
 [_contact] call NAT_fnc_Unequip;
 [_contact,"militia",true] call NAT_fnc_equip;
+_contact linkItem "itemRadio";
+for "_i" from 1 to 4 do {
+	_contact addItem "rb_bandage";
+};
+_contact addItem "RyanZombiesAntiVirusTemporary_Item";
 _contact addWeapon "Binocular";
 _contact setDamage 1;
 TASK_ContactNPC = _contact;
@@ -31,7 +41,7 @@ TASK_ContactNPC = _contact;
 TASK_Contact = player createSimpleTask ["Investigate the nearby settlement"];
 TASK_Contact setSimpleTaskType "scout";
 TASK_Contact setSimpleTaskDescription ["Investigate the settlement, maybe someone knows what the hell just happened", "Investigate", "Investigate"];
-TASK_Contact setSimpleTaskDestination _locPos;
+TASK_Contact setSimpleTaskDestination [(_locPos select 0),(_locPos select 1),0];
 TASK_Contact setTaskState "Assigned";
 TASK_Contact setSimpleTaskAlwaysVisible true;
 ["TaskAssigned",["","Investigate the nearby settlement"]] call bis_fnc_showNotification;

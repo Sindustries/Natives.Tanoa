@@ -33,6 +33,7 @@ class NAT_Core {
 		file = "core\fx";
 		class gasMask {};
 		class mineDetector {};
+		class radFXdust {};
 		class radLocation {};
 		class radObject {};
 	};
@@ -40,6 +41,27 @@ class NAT_Core {
 		file = "core\gear";
 		class equip {};
 		class unequip {};
+	};
+	class inventory {
+		file = "core\inventory";
+		class vInv {};
+		class vInvAdjust {};
+		class vInvCheck {};
+		class vInvDrop {};
+		class vInvUpdate {};
+		class vInvUse {};
+	};
+	class action {
+		file = "core\inventory\action";
+		class firstAidAction {};
+	};
+	class needs {
+		file = "core\needs";
+		class needsInit {};
+		class needsHunger {};
+		class needsThirst {};
+		class needsSickness {};
+		class needsUpdate {};
 	};
 	class startup {
 		file = "core\startup";

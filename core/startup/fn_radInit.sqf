@@ -64,6 +64,7 @@ publicVariable "NATRadioActiveLocations";
 //-----------------------------------
 //-SPAWN OBJECTS (OUTSIDE LOCATIONS)
 NATRadioActiveObjects = [];
+/*
 _counter = _maxNumObj;
 _errorCount = 0;
 _objCreated = 0;
@@ -92,7 +93,7 @@ while {_objCreated < _maxNumObj} do {
 	_counter = _counter - 1;
 	[_counter,_maxNumObj] remoteExec ["NAT_fnc_updateProgressBar", 0];
 	if (_errorCount >= _maxNumObj) exitWith {};
-};
+};*/
 publicVariable "NATRadioActiveObjects";
 //-----------------------------------
 //-LAUNCH FNCS

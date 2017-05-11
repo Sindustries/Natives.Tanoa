@@ -23,6 +23,9 @@ switch (_side) do {
 	case RESISTANCE: {
 		_class = "I_Survivor_F";
 	};
+	case CIVILIAN: {
+		_class = "C_man_1_1_F";
+	};
 };
 if (isNil "_class") exitWith {};
 //-----------------------------------

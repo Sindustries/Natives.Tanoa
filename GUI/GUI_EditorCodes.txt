@@ -11,6 +11,32 @@ $[
 ]
 */
 
+/* #Winiqi
+$[
+	1.063,
+	["NATinvHUD",[[0,0,1,1],0.025,0.04,"GUI_GRID"],0,0,0],
+	[2200,"NATinvBG",[1,"",["0.396875 * safezoneW + safezoneX","0.28 * safezoneH + safezoneY","0.278437 * safezoneW","0.341 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1801,"NATinvSTATUSfrm",[1,"",["0.396875 * safezoneW + safezoneX","0.302 * safezoneH + safezoneY","0.134062 * safezoneW","0.319 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1800,"NATinvbgFRM",[1,"",["0.530937 * safezoneW + safezoneX","0.302 * safezoneH + safezoneY","0.144375 * safezoneW","0.319 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1600,"NATinvUSEbtn",[1,"USE",["0.54125 * safezoneW + safezoneX","0.577 * safezoneH + safezoneY","0.0360937 * safezoneW","0.022 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1802,"NATinvHPfrm",[1,"HEALTH",["0.309219 * safezoneW + safezoneX","0.335 * safezoneH + safezoneY","0.0309375 * safezoneW","0.044 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1001,"NATinvHPtxt",[1,"67%",["0.335 * safezoneW + safezoneX","0.346 * safezoneH + safezoneY","0.020625 * safezoneW","0.022 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1601,"NATinvDROPbtn",[1,"DROP",["0.628907 * safezoneW + safezoneX","0.577 * safezoneH + safezoneY","0.0360937 * safezoneW","0.022 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[2100,"NAThudPLAYERselect",[1,"Yourself",["0.541249 * safezoneW + safezoneX","0.544 * safezoneH + safezoneY","0.12375 * safezoneW","0.022 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1500,"NATinvITEMlist",[1,"First Aid Kit: 66",["0.54125 * safezoneW + safezoneX","0.313 * safezoneH + safezoneY","0.12375 * safezoneW","0.22 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1804,"NAThudHUNGERfrm",[1,"HGR",["0.304062 * safezoneW + safezoneX","0.434 * safezoneH + safezoneY","0.0309375 * safezoneW","0.044 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1805,"HADinvTHIRSTfrm",[1,"THR",["0.304062 * safezoneW + safezoneX","0.555 * safezoneH + safezoneY","0.0309375 * safezoneW","0.044 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1002,"NAThudHGRtxt",[1,"12%",["0.329844 * safezoneW + safezoneX","0.434 * safezoneH + safezoneY","0.020625 * safezoneW","0.022 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1003,"NAThudTHIRSTtxt",[1,"45%",["0.329844 * safezoneW + safezoneX","0.555 * safezoneH + safezoneY","0.020625 * safezoneW","0.022 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[2201,"NAThudTOPBARbg",[1,"",["0.396875 * safezoneW + safezoneX","0.28 * safezoneH + safezoneY","0.278437 * safezoneW","0.022 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1602,"NATinvGIVEbtn",[1,"GIVE",["0.585593 * safezoneW + safezoneX","0.577 * safezoneH + safezoneY","0.0360937 * safezoneW","0.022 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1803,"NATinvTOPBARfrm",[1,"",["0.422656 * safezoneW + safezoneX","0.247 * safezoneH + safezoneY","0.252656 * safezoneW","0.022 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]]
+]
+*/
+
+
+
+
 
 
 

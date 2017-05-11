@@ -32,9 +32,7 @@ NATzombiesLoaded = false;
 HVPBoatsLoaded = false;
 NATBoatsLoaded = false;
 NATRadObjsLoaded = false;
-#include "core\gear\civ.sqf";
-#include "core\gear\militia.sqf";
-#include "core\gear\military.sqf";
+NATaction = false;
 //-----------------------------------
 waitUntil {time > 0};
 //-----------------------------------
@@ -48,6 +46,26 @@ if (isServer) then {
 	};
 	NATgasMasks = ["NATgasMasks"] call NAT_fnc_getSetting;
 };
+NATvInvItems = ["vInvItems"] call NAT_fnc_getSetting;
+NATvInvItemsOnly = [];
+{
+    NATvInvItemsOnly pushBackUnique (_x select 1);
+} forEach NATvInvItems;
+//GET ICONS
+for "_i" from 0 to (count (NATvInvItems)-1) do {
+	private ["_sel","_item","_icon"];
+	_sel = (NATvInvItems select _i);
+	_item = (_sel select 1);
+	if (_item isKindOf ["CA_Magazine", configFile >> "CfgMagazines"]) then {
+		_icon = getText (configFile >> "CfgMagazines" >> _item >> "picture");
+	} else {
+		_icon = getText (configFile >> "CfgWeapons" >> _item >> "picture");
+	};
+	NATvInvItems set [_i,[(_sel select 0),(_sel select 1),_icon]];
+};
+#include "core\gear\civ.sqf";
+#include "core\gear\militia.sqf";
+#include "core\gear\military.sqf";
 //-----------------------------------
 //-FIND LOCATIONS
 if (isServer) then {
@@ -75,16 +93,13 @@ if (isServer) then {
 		while {sunOrMoon isEqualTo 0} do {
 			skiptime (1/20);
 		};
+		NAT_serverReady = true;
+		publicVariable "NAT_serverReady";
 	};
 };
 //-----------------------------------
 if (isServer) then {
 	[] call SIN_fnc_adminInit;
-};
-//-----------------------------------
-if (isServer) then {
-	NAT_serverReady = true;
-	publicVariable "NAT_serverReady";
 };
 //-----------------------------------
 cutText ["WAITING FOR SERVER, PLEASE WAIT", "BLACK FADED", 999];
@@ -188,6 +203,7 @@ player enableSimulation true;
 player enableStamina true;
 cutText ["", "BLACK IN", 10];
 //-----------------------------------
+[] call NAT_fnc_needsInit;
 [player] spawn NAT_fnc_gasMask;
 [] spawn NAT_fnc_mineDetector;
 [] spawn NAT_fnc_handleDamage;

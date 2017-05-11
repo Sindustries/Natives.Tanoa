@@ -17,6 +17,13 @@ while {alive _unit} do {
 //-----------------------------------
 
 	waitUntil {(headgear _unit) in NATgasMasks || (goggles _unit) in NATgasMasks};
+	if ((headgear player) in NATgasMasks) then {
+		player setVariable ["NATsavedHeadgear",(headgear player),false];
+	};
+	if ((goggles player) in NATgasMasks) then {
+		player setVariable ["NATsavedGoggles",(goggles player),false];
+	};
+
 	[_unit,["echipare",14]] remoteExec ["say3D", 0];
 	if (_unit isEqualTo player) then {
 		"HVPGasMaskLayer" cutRsc ["equipment_prot","PLAIN",-1,false];

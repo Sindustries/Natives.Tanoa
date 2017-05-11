@@ -30,7 +30,6 @@ switch (_type) do {
 		};
 		_unit linkItem "ItemCompass";
 		_unit linkItem "ItemWatch";
-		_unit linkItem "ItemRadio";
 		_unit linkItem "ItemMap";
 		_weapons = NAT_militiaWeapons;
 		_items = NAT_militiaItems;
@@ -92,7 +91,7 @@ if (_wep isEqualTo true && (!(isNil "_weapons"))) then {
 //-----------------------------------
 //-MISC ITEMS
 if (_medChance > (random 100)) then {
-	_unit addItem "FirstAidKit";
+	_unit addItem "rb_bandage";
 	if (_medChance > (random 100)) then {
 		_unit addItem "RyanZombiesAntiVirusTemporary_Item";
 	};
@@ -105,7 +104,11 @@ if (!(isNil "_grenades")) then {
 if (!(isNil "_items")) then {
 	for "_i" from 0 to ((count (_items)-1)) do {
 		if ((random 100) < 50) then {
-			player additem (selectRandom _items);
+			if (_item isKindOf ["CA_Magazine", configFile >> "CfgMagazines"]) then {
+                _unit addMagazine _item;
+            } else {
+                _unit addItem _item;
+            };
 		};
 	};
 };

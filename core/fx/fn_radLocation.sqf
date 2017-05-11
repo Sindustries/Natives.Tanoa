@@ -27,9 +27,11 @@ while {alive player} do {
 			_handle ppEffectAdjust _radEffect;
 			_handle ppEffectCommit 8+(random 4);
 			_ambient = [] spawn {
+				sleep 120+(random 120);
 				while {true} do {
-					sleep 120+(random 120);
+					[] spawn NAT_fnc_radFXdust;
 					playSound selectRandom ["ambient_com","ambient_fantoma","ambient_fundal","ambient_hall","ambient_industrial","ambient_jet","ambient_spike","ambient_steps","ambient_tehnic","ambient_vuumm","ambient_wind"];
+					sleep 120+(random 120);
 				};
 			};
 			waitUntil {ppEffectCommitted _handle};

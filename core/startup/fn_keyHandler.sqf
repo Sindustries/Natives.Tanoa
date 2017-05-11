@@ -6,6 +6,7 @@
 	https://resources.bisimulations.com/wiki/DIK_KeyCodes
 */
 private ["_ID","_code","_shift","_ctrl","_alt","_handled"];
+if (!alive player) exitWith {};
 //-----------------------------------
 _ID = _this select 0;
 _code = _this select 1;
@@ -43,11 +44,11 @@ switch (_code) do {
             //RE-EQUIP
             if (_handled isEqualTo false) then {
 	            if ((headgear player) isEqualTo "" || (goggles player) isEqualTo "") then {
-	            	if ((player getVariable ["NATsavedHeadgear",""]) != "" && (player getVariable ["NATsavedHeadgear",""]) in (vestItems player + uniformItems player + backpackItems player)) then {
-	            		player removeItem (player getVariable ["HVPsavedHeadgear",""]);
-	            		player addHeadgear (player getVariable ["HVPsavedHeadgear",""]);
+	            	if ((headgear player) isEqualTo "" && (player getVariable ["NATsavedHeadgear",""]) != "" && (player getVariable ["NATsavedHeadgear",""]) in (vestItems player + uniformItems player + backpackItems player)) then {
+	            		player removeItem (player getVariable ["NATsavedHeadgear",""]);
+	            		player addHeadgear (player getVariable ["NATsavedHeadgear",""]);
 	            	};
-	            	if ((player getVariable ["NATsavedGoggles",""]) != "" && (player getVariable ["NATsavedGoggles",""]) in (vestItems player + uniformItems player + backpackItems player)) then {
+	            	if ((goggles player) isEqualTo "" && (player getVariable ["NATsavedGoggles",""]) != "" && (player getVariable ["NATsavedGoggles",""]) in (vestItems player + uniformItems player + backpackItems player)) then {
 	            		player removeItem (player getVariable ["NATsavedGoggles",""]);
 	            		player addGoggles (player getVariable ["NATsavedGoggles",""]);
 	            	};
@@ -76,13 +77,10 @@ switch (_code) do {
 
     //I - Virtual INV
     case 23: {
-        if (_shift && !_ctrl && !_alt) then {
-            systemChat format["-- VIRTUAL INVENTORY"];
-            systemChat format["-- First Aid Kits: %1 ",(player getVariable ["NATFAKcount",0])];
-            systemChat format["-- "];
-            systemChat format["-- "];
-            systemChat format["-- "];
-            showChat true;
+        if (_shift && !_ctrl && !_alt && !dialog) then {
+            createDialog "NAT_vInv";
+            disableSerialization;
+            [] call NAT_fnc_vInvUpdate;
             _handled = true;
         };
     };

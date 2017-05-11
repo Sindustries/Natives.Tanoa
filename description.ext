@@ -10,7 +10,7 @@ LoadScreen = "";
 
 class Header
 {
- gameType = Coop ;            //DM, Team, Coop, ...
+ gameType = Survive ;            //DM, Team, Coop, ...
  minPlayers = 1;             //min # of players the mission supports
  maxPlayers = 4;            //Max # of players the mission supports
 };
@@ -44,6 +44,7 @@ ReviveBleedOutDelay = 120;              //unconscious state duration (in secs)
 
 #include "GUI\defines.hpp"
 #include "SINadmin\SIN_admin.hpp"
+#include "GUI\NATHUDinv.hpp"
 
 class CfgFunctions {
     #include "Functions.hpp"

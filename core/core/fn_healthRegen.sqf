@@ -7,9 +7,9 @@
 while {alive player} do {
 //-----------------------------------
 
-	sleep ((86400/timeMultiplier)/1440);
+	sleep (24*60*60/timeMultiplier/3600);
 	if (damage player > 0) then {
-		player setDamage ((damage player)-(1/1440));
+		player setDamage ((damage player)-(1/3600));
 	};
 };
 //-----------------------------------
