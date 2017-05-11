@@ -24,7 +24,7 @@ while {alive player} do {
 					enableCamShake true;
 					addCamShake [1, 3, 17];
 					[player,["cough",10]] remoteExec ["say3D", 0];
-					[7,2,0.005] call NAT_fnc_needsUpdate;
+					[7,1,0.005] call NAT_fnc_needsUpdate;
 					sleep 4;
 					_noise_rad ppEffectEnable false;
 				};
