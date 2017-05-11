@@ -15,13 +15,13 @@
 			_source = _this select 3;
 			_projectile = _this select 4;
 
+			if (DebugMode) then {systemChat format["DEBUG :: handleDamage :: PRE: %1",_damage]};
 			_damage = (_damage/4);
-			systemChat format["PREDICTED: %1",((damage player)-_damage)];
 			[] spawn {
 				_dmg = (damage player);
 				waitUntil {(damage player) != _dmg};
-				systemChat format["ACTUAL: %1",(damage player)];
 			};
+			if (DebugMode) then {systemChat format["DEBUG :: handleDamage :: POST: %1",_damage]};
 			_damage;
 		};
 	}];
