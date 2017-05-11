@@ -18,7 +18,9 @@ while {alive player} do {
 
 	sleep (_time*(player getVariable ["NATneedsSleepMult",1]));
 	[5,1,_value] call NAT_fnc_needsUpdate;
-	player setCustomAimCoef (player getVariable "NATneedsSleep");
+	if ((player getVariable ["NATneedsRadiationLevel",0]) < 2) then {
+		player setCustomAimCoef (player getVariable "NATneedsSleep");
+	};
 
 	if (player getVariable "NATneedsSleep" <= 0.25 && player getVariable "NATneedsSleep" > 0) then {
 		 player setAnimSpeedCoef 1.1;
