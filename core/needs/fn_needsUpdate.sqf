@@ -53,12 +53,12 @@ switch (_add) do {
 	};
 };
 //-----------------------------------
-if (_var in [1,3,5,7]) then {
+if (_need in [1,3,5,7]) then {
 	if ((player getVariable [_var,0]) < 0) then {
 		player setVariable [_var,0];
 	};
 };
-if (_var in [2,4,6,8]) then {
+if (_need in [2,4,6,8]) then {
 	if ((player getVariable [_var,1]) < 1 || (player getVariable [_var,1]) > 1) then {
 		if ((player getVariable [_var,1]) < 1) then {
 			player setVariable [_var,((player getVariable [_var,1])+0.01)];
