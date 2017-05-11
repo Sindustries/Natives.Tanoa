@@ -38,7 +38,7 @@ player setVariable ["NATneedsTired",false];
 //-----------------------------------
 [_hungerTime,_hungerVar] spawn NAT_fnc_needsHunger;
 [_thirstTime,_thirstVar] spawn NAT_fnc_needsThirst;
-[_sleepTime,_sleepVar] spawn NAT_fnc_needsThirst;
+[_sleepTime,_sleepVar] spawn NAT_fnc_needsSleep;
 [_radTime,_radVar] spawn NAT_fnc_needsRadiation;
 //[] spawn NAT_fnc_needsSickness;
 //-----------------------------------
