@@ -58,26 +58,31 @@ _radBar progressSetPosition (1-(player getVariable ["NATneedsRadiation",0]));
 _math = ((1-(damage player))*100);
 _math = [_math,0] call BIS_fnc_cutDecimals;
 _hpBar ctrlSetTooltip format ["%1%2",_math,"%"];
+_hpIcon ctrlSetTooltip "HEALTH";
 //-----------------------------------
 //-HUNGER
-_math = (1-(player getVariable ["NATneedsHunger",0]))
+_math = ((1-(player getVariable ["NATneedsHunger",0]))*100);
 _math = [_math,0] call BIS_fnc_cutDecimals;
 _hungerBar ctrlSetTooltip format ["%1%2",_math,"%"];
+_hungerIcon ctrlSetTooltip "HUNGER";
 //-----------------------------------
 //-THIRST
-_math = (1-(player getVariable ["NATneedsThirst",0]));
+_math = ((1-(player getVariable ["NATneedsThirst",0]))*100);
 _math = [_math,0] call BIS_fnc_cutDecimals;
 _thirstBar ctrlSetTooltip format ["%1%2",_math,"%"];
+_thirstIcon ctrlSetTooltip "THIRST";
 //-----------------------------------
 //-SLEEP
-_math = (1-(player getVariable ["NATneedsSleep",0]));
+_math = ((1-(player getVariable ["NATneedsSleep",0]))*100);
 _math = [_math,0] call BIS_fnc_cutDecimals;
 _sleepBar ctrlSetTooltip format ["%1%2",_math,"%"];
+_sleepIcon ctrlSetTooltip "SLEEP";
 //-----------------------------------
 //-RADIATION
-_math = (1-(player getVariable ["NATneedsRadiation",0]));
+_math = ((1-(player getVariable ["NATneedsRadiation",0]))*100);
 _math = [_math,0] call BIS_fnc_cutDecimals;
 _radBar ctrlSetTooltip format ["%1%2",_math,"%"];
+_radIcon ctrlSetTooltip "RADIATION";
 //-----------------------------------
 //-PLAYER LIST
 lbClear _playerSelect;
@@ -102,7 +107,7 @@ if (count (_vInv) > 0) then {
 			};
 		};
 		_count = (_x select 1);
-		_entry = format["%1x %2",_count,_name];
+		_entry = format["%1 x%2",_name,_count];
 		_index = _itemList lbAdd _entry;
 		_itemList lbSetPicture [_index, _iconPath];
 		_itemList lbSetData [_index, (_x select 0)];
@@ -130,6 +135,11 @@ if ((player getVariable ["NATsavedGoggles",""]) != "" || (player getVariable ["N
 		systemChat "helmet found";
 		_iconPath = (getText (configFile >> "CfgWeapons" >> (player getVariable ["NATsavedHeadgear",""]) >> "picture"));
 		_gasMaskIcon ctrlSetTooltip (getText (configFile >> "CfgWeapons" >> (player getVariable ["NATsavedHeadgear",""]) >> "displayName"));
+	};
+	if ((goggles player) != (player getVariable ["NATsavedGoggles",""]) || (headgear player) != (player getVariable ["NATsavedHeadgear",""])) then {
+		_gasMaskEquipBtn ctrlSetText "EQUIP";
+	} else {
+		_gasMaskEquipBtn ctrlSetText "UNEQUIP";
 	};
 	_gasMaskEquipBtn ctrlEnable true;
 	_gasMaskClearBtn ctrlEnable true;
@@ -159,7 +169,7 @@ if ((player getVariable "NATneedsHealthy") isEqualTo true) then {
 };
 /* ENERGIZED */
 if ((player getVariable "NATneedsEnergised") isEqualTo true) then {
-	_modifier2 ctrlSetText "GUI\img\energy.paa";
+	_modifier2 ctrlSetText "GUI\img\energised.paa";
 	_modifier2 ctrlSetTooltip "ENERGISED: Movement speed increased";
 } else {
 	_modifier2 ctrlShow false;
