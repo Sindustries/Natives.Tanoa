@@ -86,7 +86,7 @@ if (isServer) then {
 	_date = numberToDate [(2015+floor(random 20)),random 1];
 	setDate [(_date select 0),(_date select 1),(_date select 2),0,0];
 	0 setOvercast (random 1);
-	0 setFog (random 0.8);
+	0 setFog (random 0.6);
 	forceWeatherChange;
 	[] spawn NAT_fnc_weather;
 	[] spawn {
