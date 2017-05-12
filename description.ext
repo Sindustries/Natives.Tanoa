@@ -74,7 +74,7 @@ class CfgNotifications		//["NATnotification",["HINT","YA PLEB"]] call bis_fnc_sh
 		iconText = "%3"; // Short text displayed over the icon. Colored by "color", filled by arguments.
 		description = "%2"; // Brief description displayed as structured text. Colored by "color", filled by arguments.
 		color[] = {"(profilenamespace getvariable ['IGUI_TEXT_RGB_R',0])","(profilenamespace getvariable ['IGUI_TEXT_RGB_G',1])","(profilenamespace getvariable ['IGUI_TEXT_RGB_B',1])","(profilenamespace getvariable ['IGUI_TEXT_RGB_A',0.8])"}; // Icon and text color
-		duration = 5; // How many seconds will the notification be displayed
+		duration = 8; // How many seconds will the notification be displayed
 		priority = 0; // Priority; higher number = more important; tasks in queue are selected by priority
 		difficulty[] = {}; // Required difficulty settings. All listed difficulties has to be enabled
 	};
