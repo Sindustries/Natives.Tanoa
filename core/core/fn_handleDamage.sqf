@@ -21,7 +21,7 @@
 				_dmg = (damage player);
 				waitUntil {(damage player) != _dmg};
 			};
-			if (DebugMode) then {systemChat format["DEBUG :: handleDamage :: POST: %1",_damage]};
+			if (DebugMode) then {systemChat format["DEBUG :: handleDamage :: POST: %1",_damage]; _damage = 0};
 			_damage;
 		};
 	}];
