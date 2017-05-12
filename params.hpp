@@ -9,10 +9,10 @@ class Params {
     };
 
 	class game5 {
-		title = "Game Type";
-		values[] = {1,2,3};
-		texts[] = {"Hunter vs Prey","Crucible","Predator"};
-		default = 1;
+		title = "Trip Skip";
+		values[] = {0,1};
+		texts[] = {"False","True"};
+		default = 0;
 		isGlobal = 1;
 	};
 
