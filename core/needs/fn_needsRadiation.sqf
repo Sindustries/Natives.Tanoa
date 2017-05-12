@@ -20,7 +20,7 @@ while {alive player} do {
 		player setDamage 1;
 	};
 
-	sleep (_time*(player getVariable ["NATneedsRadiationMult",1]));
+	sleep (_time/(player getVariable ["NATneedsRadiationMult",1]));
 	[7,2,_value] call NAT_fnc_needsUpdate;
 
 	if ((player getVariable ["NATneedsRadiation",0]) > 0.1) then {

@@ -16,7 +16,7 @@ if (_time <= 0 || _value <= 0) exitWith {};
 while {alive player} do {
 //-----------------------------------
 
-	sleep (_time*(player getVariable ["NATneedsSleepMult",1]));
+	sleep (_time/(player getVariable ["NATneedsSleepMult",1]));
 	[5,1,_value] call NAT_fnc_needsUpdate;
 	if ((player getVariable ["NATneedsRadiationLevel",0]) < 2) then {
 		player setCustomAimCoef (player getVariable "NATneedsSleep");

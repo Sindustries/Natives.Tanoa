@@ -20,7 +20,7 @@ while {alive player} do {
 		player setDamage 1;
 	};
 
-	sleep (_time*(player getVariable ["NATneedsHungerMult",1]));
+	sleep (_time/(player getVariable ["NATneedsHungerMult",1]));
 	[1,1,_value] call NAT_fnc_needsUpdate;
 };
 
