@@ -23,6 +23,7 @@ class NAT_Core {
 	};
 	class core {
 		file = "core\core";
+		class cache {};
 		class createGroup {};
 		class emptyVeh {};
 		class fuelPump {};

@@ -63,7 +63,6 @@ for "_i" from 0 to (count (NATvInvItems)-1) do {
 	NATvInvItems set [_i,[_name,_item,_icon]];
 	NATvInvItemsOnly pushBackUnique _item;
 };
-NATvItemsAutoRemove = ["FirstAidKit","Medikit","itemGPS","toolkit"];
 #include "core\gear\civ.sqf";
 #include "core\gear\militia.sqf";
 #include "core\gear\military.sqf";
@@ -120,12 +119,12 @@ if (isServer) then {
 	[] call SIN_fnc_adminInit;
 };
 //-----------------------------------
-[] call NAT_fnc_vItemInit;
 cutText ["WAITING FOR SERVER, PLEASE WAIT", "BLACK FADED", 999];
 waitUntil {NAT_serverReady isEqualTo true};
 cutText ["", "BLACK FADED", 999];
 //-----------------------------------
 setViewDistance 3000;
+setObjectViewDistance [(["NATviewDistance"] call NAT_fnc_getSetting), (["NATviewDistance"] call (NAT_fnc_getSetting)/10)]
 NAT_safeZones = [];
 NAT_clientMarkers = [];
 //-----------------------------------
@@ -228,6 +227,7 @@ if (isServer) then {
 			};
 		} forEach playableUnits;
 		sleep 10;
+		player allowDamage true;
 		[] spawn NAT_fnc_act1;
 	};
 };
@@ -250,6 +250,7 @@ waitUntil {isTouchingGround player};
 setViewDistance (["NATviewDistance"] call NAT_fnc_getSetting);
 [] spawn NAT_fnc_radObject;
 [] spawn NAT_fnc_radLocation;
+[] spawn NAT_fnc_cache;
 //-----------------------------------
 sleep 30;
 ["NATnotification",["HINT","USE SHIFT+I TO OPEN YOUR STATUS MENU","i"]] call bis_fnc_showNotification;
