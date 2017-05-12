@@ -60,7 +60,7 @@ if (isServer) then {
 [] spawn z_fnc_zMonitor;
 [] spawn z_fnc_zMask;
 if (isServer) then {
-	[] spawn z_fnc_zDeleter;
+	//[] spawn z_fnc_zDeleter;
 };
 
 //-----------------------------------
