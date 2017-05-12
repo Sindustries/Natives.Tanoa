@@ -66,7 +66,7 @@ if (_wep isEqualTo true && (!(isNil "_weapons"))) then {
 			_weaponFound = true;
 			_mags = (getArray (configFile >> "CfgWeapons" >> _weapon >> "magazines"));
 			if (count _mags > 0) then {
-				_unit addMagazines [(selectRandom _mags),3];
+				_unit addMagazines [(selectRandom _mags),(4+floor(random 4))];
 			};
 			_unit addWeaponGlobal _weapon;
 			_unit addPrimaryWeaponItem (selectRandom ["acc_flashlight","acc_pointer_IR"]);
@@ -91,7 +91,7 @@ if (_wep isEqualTo true && (!(isNil "_weapons"))) then {
 //-----------------------------------
 //-MISC ITEMS
 if (_medChance > (random 100)) then {
-	_unit addItem "rb_bandage";
+	_unit addItem "zk_bandage";
 	if (_medChance > (random 100)) then {
 		_unit addItem "RyanZombiesAntiVirusTemporary_Item";
 	};
@@ -102,14 +102,13 @@ if (!(isNil "_grenades")) then {
 	};
 };
 if (!(isNil "_items")) then {
-	for "_i" from 0 to ((count (_items)-1)) do {
-		if ((random 100) < 50) then {
-			if (_item isKindOf ["CA_Magazine", configFile >> "CfgMagazines"]) then {
-                _unit addMagazine _item;
-            } else {
-                _unit addItem _item;
-            };
-		};
+	for "_i" from 0 to (floor (random 3)) do {
+		_item = (selectRandom _items);
+		if (_item isKindOf ["CA_Magazine", configFile >> "CfgMagazines"]) then {
+            _unit addMagazine _item;
+        } else {
+            _unit addItem _item;
+        };
 	};
 };
 [_unit] spawn NAT_fnc_gasMask;
