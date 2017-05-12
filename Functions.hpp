@@ -13,6 +13,14 @@ class SIN {
 
 class NAT_Core {
     tag = "NAT";
+    class camp {
+		file = "core\camp";
+		class campAddAction {};
+		class campCreate {};
+		class campDestroy {};
+		class campObjectPlace {};
+		class campSleep {};
+	};
 	class core {
 		file = "core\core";
 		class createGroup {};
@@ -48,9 +56,13 @@ class NAT_Core {
 		class vInvOpen {};
 		class vInvUpdate {};
 		class vInvUse {};
+		class vItemInit {};
 	};
 	class action {
 		file = "core\inventory\action";
+		class campAction {};
+		class drinkAction {};
+		class eatAction {};
 		class firstAidAction {};
 		class gasMaskAction {};
 	};
