@@ -11,18 +11,6 @@ _heliLandPos = [_pos,2000,3600,0] call SIN_fnc_findPos;
 _helipad = createVehicle ["Land_HelipadEmpty_F", _heliLandPos, [], 0, "NONE"];
 
 //-----------------------------------
-//-PLAYER STARTING GEAR
-
-{
-	if (isPlayer _x) then {
-		_x forceAddUniform (selectRandom NAT_civUniforms);
-		//_x linkItem "itemMap";
-		_x linkItem "itemWatch";
-		_x setVariable ["NAT_vInv",[["rb_bottleclean",1],["rb_TacticalBacon",1]],true];
-	};
-} forEach playableUnits;
-
-//-----------------------------------
 //-HELICOPTER & CREW
 
 _heli = createVehicle ["O_Heli_Light_02_unarmed_F",[(_pos select 0),(_pos select 1),500],[],0,"FLY"];
@@ -74,7 +62,7 @@ sleep 3;
 		_x setVariable ["NATspawned", true, true];
 		[_x] spawn {
 			sleep 3;
-			["NATnotification",["HINT","PRESS SHIFT+O TO EQUIP EARPLUGS"]] remoteExec ["bis_fnc_showNotification",(_this select 0)];
+			["NATnotification",["HINT","PRESS SHIFT+O TO EQUIP EARPLUGS","i"]] remoteExec ["bis_fnc_showNotification",(_this select 0)];
 		}
 	};
 } forEach allUnits;
