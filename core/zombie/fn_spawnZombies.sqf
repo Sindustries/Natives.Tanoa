@@ -20,6 +20,7 @@ private ["_pos","_zombieCount","_zombie","_group","_exclusions","_spawnPos"];
 			NAT_zombieArray pushBack _zombie;
 			NAT_zombieArrayClient pushBack _zombie;
 			publicVariable "NAT_zombieArray";
+			NATcache pushBack _zombie;
 		};
 	};
 	if (DebugMode) then {systemChat format["DEBUG MODE :: SPAWNED %1 ZOMBIES AT %2",_count,_pos]; showChat true;};

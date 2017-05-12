@@ -35,6 +35,7 @@ for "_i" from 1 to _count do {
 	_unit =_group createUnit [_class, _spawnPos, [], 0, "NONE"];
 	[_unit,_type,true] call NAT_fnc_equip;
 	_unit setUnitAbility _skill;
+	NATcache pushBack _unit;
 };
 if (DebugMode) then {systemChat format["DEBUG MODE :: SPAWNED %1 UNITS AT %2",_count,_spawnPos]; showChat true;};
 _group;
