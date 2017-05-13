@@ -8,7 +8,7 @@ params [
 ];
 
 _heliLandPos = [_pos,2000,3600,0] call SIN_fnc_findPos;
-_helipad = createVehicle ["Land_HelipadEmpty_F", _heliLandPos, [], 0, "NONE"];
+_helipad = createVehicle ["Land_HelipadEmpty_F", _heliLandPos, [], 0, "CAN_COLLIDE"];
 
 //-----------------------------------
 //-HELICOPTER & CREW
@@ -155,7 +155,6 @@ sleep 3;
 				sleep 0.1;
 				player removeWeapon "hgun_P07_F";
 			};
-			[] spawn NAT_fnc_locationDisplay;
 		} remoteExec ["bis_fnc_call", _x];
 	};
 } forEach allUnits;
