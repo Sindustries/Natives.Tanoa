@@ -7,16 +7,22 @@
 */
 private [];
 
-_hungerTime = (18*60*60/timeMultiplier/3600);
+NATneedsHealthTime = (["NATneedsHealthTime"] call NAT_fnc_getSetting);
+NATneedsHungerTime = (["NATneedsHungerTime"] call NAT_fnc_getSetting);
+NATneedsThirstTime = (["NATneedsThirstTime"] call NAT_fnc_getSetting);
+NATneedsSleepTime = (["NATneedsSleepTime"] call NAT_fnc_getSetting);
+NATneedsRadiationTime = (["NATneedsRadiationTime"] call NAT_fnc_getSetting);
+
+_hungerTime = (NATneedsHungerTime*60*60/timeMultiplier/3600);
 _hungerVar = (1/3600);
 
-_thirstTime = (12*60*60/timeMultiplier/3600);
+_thirstTime = (NATneedsThirstTime*60*60/timeMultiplier/3600);
 _thirstVar = (1/3600);
 
-_sleepTime = (16*60*60/timeMultiplier/3600);
+_sleepTime = (NATneedsSleepTime*60*60/timeMultiplier/3600);
 _sleepVar = (1/3600);
 
-_radTime = (24*60*60/timeMultiplier/3600);
+_radTime = (NATneedsRadiationTime*60*60/timeMultiplier/3600);
 _radVar = (1/3600);
 
 //-----------------------------------
@@ -30,8 +36,8 @@ player setVariable ["NATneedsSleepMult",1];
 player setVariable ["NATneedsRadiationMult",1];
 //-----------------------------------
 //-MODIFIERS
-player setVariable ["NATneedsHealthy",true];
-player setVariable ["NATneedsEnergised",true];
+player setVariable ["NATneedsHealthy",false];
+player setVariable ["NATneedsEnergised",false];
 player setVariable ["NATneedsHungry",false];
 player setVariable ["NATneedsThirsty",false];
 player setVariable ["NATneedsTired",false];
