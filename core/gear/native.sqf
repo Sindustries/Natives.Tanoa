@@ -26,7 +26,7 @@ for "_i" from 0 to ((count _autoSort)-1) do {
 	};
 	//BACKPACKS
 	if ((_autoSort select _i) isKindOf ["Bag_Base", configFile >> "CfgVehicles"]) then {
-		NAT_nativeBckpacks pushBackUnique (_autoSort select _i);
+		NAT_nativeBackpacks pushBackUnique (_autoSort select _i);
 	};
 	//HEADGEAR
 	if ((_autoSort select _i) isKindof ["HelmetBase", configFile >> "CfgWeapons"] || (_autoSort select _i) isKindOf ["H_HelmetB", configFile >> "CfgWeapons"]) then {
