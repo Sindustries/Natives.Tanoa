@@ -6,8 +6,8 @@ _tornado_dest	= _this select 1;
 _tornadasource = "Land_HelipadEmpty_F" createVehicle _tornado_start;
 
 // transmite la clienti
-[_tornadosource] remoteExec ["NAT_fnc_tornadoFX",0];
-[_tornadosource] remoteExec ["NAT_fnc_tornadoSFX",0];
+[_tornadasource] remoteExec ["NAT_fnc_tornadoFX",0];
+[_tornadasource] remoteExec ["NAT_fnc_tornadoSFX",0];
 
 [_tornadasource] spawn {
 	_tuner_tor = _this select 0;
