@@ -47,25 +47,11 @@ if (isServer) then {
 	};
 	NATgasMasks = ["NATgasMasks"] call NAT_fnc_getSetting;
 };
-NATvInvItems = ["vInvItems"] call NAT_fnc_getSetting;
-NATvInvItemsOnly = [];
-//GET NAMES & ICONS
-for "_i" from 0 to (count (NATvInvItems)-1) do {
-	private ["_name","_item","_icon"];
-	_item = (NATvInvItems select _i);
-	if (_item isKindOf ["CA_Magazine", configFile >> "CfgMagazines"]) then {
-		_icon = getText (configFile >> "CfgMagazines" >> _item >> "picture");
-		_name = getText (configFile >> "CfgMagazines" >> _item >> "displayName");
-	} else {
-		_icon = getText (configFile >> "CfgWeapons" >> _item >> "picture");
-		_name = getText (configFile >> "CfgWeapons" >> _item >> "displayName");
-	};
-	NATvInvItems set [_i,[_name,_item,_icon]];
-	NATvInvItemsOnly pushBackUnique _item;
-};
+[] call NAT_fnc_vItemInit;
 #include "core\gear\civ.sqf";
 #include "core\gear\militia.sqf";
 #include "core\gear\military.sqf";
+#include "core\gear\native.sqf";
 //-----------------------------------
 //-FIND LOCATIONS
 if (isServer) then {
@@ -124,7 +110,8 @@ waitUntil {NAT_serverReady isEqualTo true};
 cutText ["", "BLACK FADED", 999];
 //-----------------------------------
 setViewDistance 3000;
-setObjectViewDistance [(["NATviewDistance"] call NAT_fnc_getSetting), (["NATviewDistance"] call (NAT_fnc_getSetting)/10)]
+_viewDist = ["NATviewDistance"] call NAT_fnc_getSetting;
+setObjectViewDistance [_viewDist,(_viewDist/10)];
 NAT_safeZones = [];
 NAT_clientMarkers = [];
 //-----------------------------------
@@ -215,18 +202,19 @@ player setVariable ["NAT_vInv",[["zk_waterbottle",1],["zk_tacticalBacon",2]],tru
 if (isServer) then {
 	setTimeMultiplier (["NATtimeMultiplier"] call NAT_fnc_getSetting);
 	group player selectLeader player;
+
+	_location = (selectRandom (NAT_mapLocationsCities+NAT_mapLocationsVillages));
+	_pos = [(_location select 0),0,(_location select 1 select 0),0,0,0] call SIN_fnc_findPos;
 	if (prologueEnabled) then {
-		_pos = [[0,0,0],0,999999,0,0,0] call SIN_fnc_findPos;
 		[_pos] spawn NAT_fnc_prologue;
 	} else {
-		_pos = [NATErrorPos,0,999999] call SIN_fnc_findPos;
+		skipTime 0.2;
 		{
 			if (isPlayer _x) then {
 				_x setVariable ["NATspawned", true, true];
 				_x setPos _pos;
 			};
 		} forEach playableUnits;
-		sleep 10;
 		player allowDamage true;
 		[] spawn NAT_fnc_act1;
 	};
@@ -245,12 +233,13 @@ cutText ["", "BLACK IN", 10];
 [] spawn NAT_fnc_handleDamage;
 [] spawn NAT_fnc_healthMonitor;
 [] spawn NAT_fnc_healthRegen;
+[] spawn NAT_fnc_cache;
 //-----------------------------------
 waitUntil {isTouchingGround player};
 setViewDistance (["NATviewDistance"] call NAT_fnc_getSetting);
+[] spawn NAT_fnc_locationDisplay;
 [] spawn NAT_fnc_radObject;
 [] spawn NAT_fnc_radLocation;
-[] spawn NAT_fnc_cache;
 //-----------------------------------
 sleep 30;
 ["NATnotification",["HINT","USE SHIFT+I TO OPEN YOUR STATUS MENU","i"]] call bis_fnc_showNotification;
