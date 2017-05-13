@@ -70,13 +70,13 @@ _pos = [(getPos TASK_ContactCrate),100,200] call SIN_fnc_findPos;
 _group = [_pos,6] call Z_fnc_spawnZombies;
 _group setCombatMode "RED";
 _wp = _group addWaypoint [TASK_ContactCrate,10];
-_wp setWaypointType "SAD";
+_wp setWaypointType "MOVE";
 _wp setWaypointBehaviour "AWARE";
 _wp setWaypointFormation "LINE";
 _wp setWaypointCompletionRadius 5;
 _wp setWaypointTimeout [1, 60, 120];
 //-----------------------------------
-[] call NAT_fnc_saveGame;
+0 = [] call NAT_fnc_saveGame;
 waitUntil {sleep 1; player distance _locPos < (_size select 0) || player distance _locPos < 600};
 //-----------------------------------
 //-PART 2 - LOOT THE CRATE
@@ -109,7 +109,7 @@ _pos = [(getPos TASK_ContactCrate),100,200] call SIN_fnc_findPos;
 _group = [_pos,6] call Z_fnc_spawnZombies;
 _group setCombatMode "RED";
 _wp = _group addWaypoint [TASK_ContactCrate,10];
-_wp setWaypointType "SAD";
+_wp setWaypointType "MOVE";
 _wp setWaypointBehaviour "AWARE";
 _wp setWaypointFormation "LINE";
 _wp setWaypointCompletionRadius 5;
