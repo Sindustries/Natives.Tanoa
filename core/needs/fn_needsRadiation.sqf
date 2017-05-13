@@ -22,6 +22,7 @@ while {alive player} do {
 
 	sleep (_time/(player getVariable ["NATneedsRadiationMult",1]));
 	[7,2,_value] call NAT_fnc_needsUpdate;
+	[8,0,(player getVariable ["NATneedsRadiationMult",1])] call NAT_fnc_needsUpdate;
 
 	if ((player getVariable ["NATneedsRadiation",0]) > 0.1) then {
 		player setVariable ["NATneedsHealthy",false];

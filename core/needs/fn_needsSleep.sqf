@@ -18,6 +18,8 @@ while {alive player} do {
 
 	sleep (_time/(player getVariable ["NATneedsSleepMult",1]));
 	[5,1,_value] call NAT_fnc_needsUpdate;
+	[6,0,(player getVariable ["NATneedsSleepMult",1])] call NAT_fnc_needsUpdate;
+
 	if ((player getVariable ["NATneedsRadiationLevel",0]) < 2) then {
 		player setCustomAimCoef (player getVariable "NATneedsSleep");
 	};

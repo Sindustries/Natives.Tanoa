@@ -22,6 +22,7 @@ while {alive player} do {
 
 	sleep (_time/(player getVariable ["NATneedsThirstMult",1]));
 	[3,1,_value] call NAT_fnc_needsUpdate;
+	[4,0,(player getVariable ["NATneedsThirstMult",1])] call NAT_fnc_needsUpdate;
 };
 
 //-----------------------------------
