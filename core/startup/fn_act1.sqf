@@ -4,7 +4,7 @@
 */
 private ["_spawnPos","_locPos","_size"];
 //-----------------------------------
-//-FIND CLOSEST LOCATION & CREATE A DEAD DUDE IN A RANDOM HOUSE
+//-FIND CLOSEST LOCATION
 _nearbyLocations = nearestLocations [(getPos player), ["NameCity","NameCityCapital","NameVillage"], 999999, (getPos player)];
 _houseFound = false;
 _counter = 0;
@@ -24,7 +24,6 @@ while {!_houseFound} do {
 		_counter = _counter + 1;
 	};
 };
-
 //CREATE CRATE
 _crate = "Box_Syndicate_Ammo_F" createVehicle NATErrorPos;
 [_crate] call NAT_fnc_emptyVeh;
@@ -66,8 +65,10 @@ TASK_Contact setTaskState "Assigned";
 _pos = [(getPos TASK_ContactCrate),0,20] call SIN_fnc_findPos;
 _group = [_pos,west,"military",8,0.2] call NAT_fnc_createGroup;
 [_group,(getPos TASK_ContactCrate)] call BIS_fnc_taskDefend;
+_group setCombatMode "RED";
 _pos = [(getPos TASK_ContactCrate),100,200] call SIN_fnc_findPos;
 _group = [_pos,6] call Z_fnc_spawnZombies;
+_group setCombatMode "RED";
 _wp = _group addWaypoint [TASK_ContactCrate,10];
 _wp setWaypointType "SAD";
 _wp setWaypointBehaviour "AWARE";
@@ -78,7 +79,7 @@ _wp setWaypointTimeout [1, 60, 120];
 [] call NAT_fnc_saveGame;
 waitUntil {sleep 1; player distance _locPos < (_size select 0) || player distance _locPos < 600};
 //-----------------------------------
-//-PART 2 - LOOT THE CORPSE
+//-PART 2 - LOOT THE CRATE
 
 TASK_Contact setTaskState "Succeeded";
 ["TaskSucceeded",["","Investigate the nearby settlement"]] call bis_fnc_showNotification;
@@ -100,12 +101,13 @@ TASK1EH = player addEventHandler ["InventoryClosed", {
 }];
 
 waitUntil {sleep 1; taskState TASK_Contact2 isEqualTo "Succeeded"};
-player removeEventHandler ["InventoryOpened",TASK1EH];
+player removeEventHandler ["InventoryClosed",TASK1EH];
 //-----------------------------------
-//-PART 3 DEFEAT THE MILITIA
+//-PART 3 DEFEAT THE NATIVES
 
 _pos = [(getPos TASK_ContactCrate),100,200] call SIN_fnc_findPos;
 _group = [_pos,6] call Z_fnc_spawnZombies;
+_group setCombatMode "RED";
 _wp = _group addWaypoint [TASK_ContactCrate,10];
 _wp setWaypointType "SAD";
 _wp setWaypointBehaviour "AWARE";
@@ -117,7 +119,8 @@ private "_groups";
 _groups = [];
 for "_i" from 1 to 4 do {
 	_pos = [(getPos TASK_ContactCrate),200,300] call SIN_fnc_findPos;
-	_group = [_pos,east,"militia",3,0.1] call NAT_fnc_createGroup;
+	_group = [_pos,resistance,"native",3,0.1] call NAT_fnc_createGroup;
+	_group setCombatMode "RED";
 	_wp = _group addWaypoint [TASK_ContactCrate,10];
 	_wp setWaypointType "SAD";
 	_wp setWaypointBehaviour "AWARE";
@@ -127,15 +130,15 @@ for "_i" from 1 to 4 do {
 	_groups pushBack _group;
 };
 
-TASK_Contact3 = player createSimpleTask ["Defeat the Militia Assault"];
+TASK_Contact3 = player createSimpleTask ["Defeat the Native Assault"];
 TASK_Contact3 setSimpleTaskType "kill";
-TASK_Contact3 setSimpleTaskDescription ["Defeat the Militia Assault", "Defeat the Militia Assault", "Miltiia"];
+TASK_Contact3 setSimpleTaskDescription ["Defeat the Native Assault", "Defeat the Native Assault", "Natives"];
 TASK_Contact3 setTaskState "Assigned";
 //TASK_Contact3 setSimpleTaskDestination TASK_ContactCrate;
-["TaskAssigned",["","Defeat the Militia Assault"]] call bis_fnc_showNotification;
+["TaskAssigned",["","Defeat the Native Assault"]] call bis_fnc_showNotification;
 
-waitUntil {sleep 1; {alive _x && side _x isEqualTo EAST && _x distance _locPos < 600} count allUnits isEqualTo 0};
+waitUntil {sleep 1; {alive _x && side _x isEqualTo RESISTANCE && _x distance _locPos < 600} count allUnits isEqualTo 0};
 TASK_Contact3 setTaskState "Succeeded";
-["TaskSucceeded",["","Defeat the Militia Assault"]] call bis_fnc_showNotification;
+["TaskSucceeded",["","Defeat the Native Assault"]] call bis_fnc_showNotification;
 
 //-----------------------------------
