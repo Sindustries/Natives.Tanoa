@@ -34,6 +34,7 @@ switch (_type) do {
 		_weapons = NAT_militiaWeapons;
 		_items = NAT_militiaItems;
 		_grenades = NAT_militiaGrenades;
+		[_unit,"tacs_Insignia_ZombieOutbreakResponseTeam"] call bis_fnc_setUnitInsignia;
 	};
 	case "military": {
 		_medChance = 50;
@@ -65,40 +66,55 @@ switch (_type) do {
 		if ((random 100) < 50) then {
 			_unit addGoggles (selectRandom NAT_nativeGoggles);
 		};
-		_weapons = NAT_militiaWeapons;
-		_items = NAT_militiaItems;
+		_weapons = NAT_nativeWeapons;
+		_items = NAT_nativeItems;
 		_unit setFace (selectRandom ["RyanZombieFace1","RyanZombieFace1_Glowing","RyanZombieFace2","RyanZombieFace2_Glowing","RyanZombieFace3","RyanZombieFace3_Glowing","RyanZombieFace4","RyanZombieFace4_Glowing","RyanZombieFace5","RyanZombieFace5_Glowing","RyanZombieFace6","RyanZombieFace6_Glowing"]);
 
 	};
 };
 //-----------------------------------
 if (_wep isEqualTo true && (!(isNil "_weapons"))) then {
-	private ["_weapon","_mags"];
+	private ["_wepCount","_pistolCount","_weapon","_mags"];
+	//COUNT THE WEAPONS
+	_wepCount = 0;
+	_pistolCount = 0;
+	{
+		if (_x isKindOf ["Rifle", configFile >> "CfgWeapons"]) then {
+			_wepCount = _wepCount + 1;
+		};
+		if (_x isKindOf ["Pistol", configFile >> "CfgWeapons"]) then {
+			_pistolCount = _pistolCount + 1;
+		};
+	} forEach _weapons;
 	//ADD THE WEAPONS
-	_weaponFound = false;
-	while {!_weaponFound} do {
-		_weapon = (selectRandom _weapons);
-		if (_weapon isKindOf ["Rifle", configFile >> "CfgWeapons"]) then {
-			_weaponFound = true;
-			_mags = (getArray (configFile >> "CfgWeapons" >> _weapon >> "magazines"));
-			if (count _mags > 0) then {
-				_unit addMagazines [(selectRandom _mags),(4+floor(random 4))];
+	if (_wepCount > 0) then {
+		_weaponFound = false;
+		while {!_weaponFound} do {
+			_weapon = (selectRandom _weapons);
+			if (_weapon isKindOf ["Rifle", configFile >> "CfgWeapons"]) then {
+				_weaponFound = true;
+				_mags = (getArray (configFile >> "CfgWeapons" >> _weapon >> "magazines"));
+				if (count _mags > 0) then {
+					_unit addMagazines [(selectRandom _mags),(4+floor(random 4))];
+				};
+				_unit addWeaponGlobal _weapon;
+				{_unit addPrimaryWeaponItem _x} forEach ["acc_flashlight","acc_pointer_IR"];
+				_unit addPrimaryWeaponItem (selectRandom ["optic_ACO_grn","optic_Aco","optic_Arco_blk_F","optic_Arco_ghex_F","optic_ERCO_blk_F","optic_Holosight","optic_Holosight_blk_F","optic_Holosight_khk_F","optic_Holosight_smg","optic_Holosight_smg_blk_F","optic_MRCO","optic_Hamr","optic_Hamr_khk_F"]);
 			};
-			_unit addWeaponGlobal _weapon;
-			{_unit addPrimaryWeaponItem _x} forEach ["acc_flashlight","acc_pointer_IR"];
-			_unit addPrimaryWeaponItem (selectRandom ["optic_ACO_grn","optic_Aco","optic_Arco_blk_F","optic_Arco_ghex_F","optic_ERCO_blk_F","optic_Holosight","optic_Holosight_blk_F","optic_Holosight_khk_F","optic_Holosight_smg","optic_Holosight_smg_blk_F","optic_MRCO","optic_Hamr","optic_Hamr_khk_F"]);
 		};
 	};
-	_weaponFound = false;
-	while {!_weaponFound} do {
-		_weapon = (selectRandom _weapons);
-		if (_weapon isKindOf ["Pistol", configFile >> "CfgWeapons"]) then {
-			_weaponFound = true;
-			_mags = (getArray (configFile >> "CfgWeapons" >> _weapon >> "magazines"));
-			if (count _mags > 0) then {
-				_unit addMagazines [(selectRandom _mags),2];
+	if (_pistolCount > 0) then {
+		_weaponFound = false;
+		while {!_weaponFound} do {
+			_weapon = (selectRandom _weapons);
+			if (_weapon isKindOf ["Pistol", configFile >> "CfgWeapons"]) then {
+				_weaponFound = true;
+				_mags = (getArray (configFile >> "CfgWeapons" >> _weapon >> "magazines"));
+				if (count _mags > 0) then {
+					_unit addMagazines [(selectRandom _mags),2];
+				};
+				_unit addWeaponGlobal _weapon;
 			};
-			_unit addWeaponGlobal _weapon;
 		};
 	};
 };
