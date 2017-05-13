@@ -22,7 +22,7 @@ switch (_type) do {
 		_unit forceAddUniform (selectRandom NAT_militiaUniforms);
 		_unit addBackpack (selectRandom NAT_militiaBackpacks);
 		_unit addVest (selectRandom NAT_militiaVests);
-		if ((random 100) < 20) then {
+		if ((random 100) < 80) then {
 			_unit addHeadgear (selectRandom NAT_militiaHeadgear);
 		};
 		if ((random 100) < 50) then {
@@ -50,9 +50,25 @@ switch (_type) do {
 		_unit linkItem "ItemWatch";
 		_unit linkItem "ItemRadio";
 		_unit linkItem "ItemMap";
+		_unit addItem "sc_dogtag";
 		_weapons = NAT_militaryWeapons;
 		_items = NAT_militaryItems;
 		_grenades = NAT_militaryGrenades;
+	};
+	case "native": {
+		_medChance = 5;
+		_unit forceAddUniform (selectRandom NAT_nativeUniforms);
+		_unit addBackpack (selectRandom NAT_nativeBackpacks);
+		if ((random 100) < 25) then {
+			_unit addHeadgear (selectRandom NAT_nativeHeadgear);
+		};
+		if ((random 100) < 50) then {
+			_unit addGoggles (selectRandom NAT_nativeGoggles);
+		};
+		_weapons = NAT_militiaWeapons;
+		_items = NAT_militiaItems;
+		_unit setFace (selectRandom ["RyanZombieFace1","RyanZombieFace1_Glowing","RyanZombieFace2","RyanZombieFace2_Glowing","RyanZombieFace3","RyanZombieFace3_Glowing","RyanZombieFace4","RyanZombieFace4_Glowing","RyanZombieFace5","RyanZombieFace5_Glowing","RyanZombieFace6","RyanZombieFace6_Glowing"]);
+
 	};
 };
 //-----------------------------------
@@ -69,10 +85,8 @@ if (_wep isEqualTo true && (!(isNil "_weapons"))) then {
 				_unit addMagazines [(selectRandom _mags),(4+floor(random 4))];
 			};
 			_unit addWeaponGlobal _weapon;
-			_unit addPrimaryWeaponItem (selectRandom ["acc_flashlight","acc_pointer_IR"]);
-			if (_type isEqualTo "military") then {
-				_unit addPrimaryWeaponItem (selectRandom ["optic_Aco","optic_Arco_blk_F","optic_ERCO_blk_F","optic_Holosight","optic_Holosight_blk_F","optic_Holosight_khk_F","optic_MRCO","optic_Hamr","optic_Hamr_khk_F"]);
-			};
+			{_unit addPrimaryWeaponItem _x} forEach ["acc_flashlight","acc_pointer_IR"];
+			_unit addPrimaryWeaponItem (selectRandom ["optic_ACO_grn","optic_Aco","optic_Arco_blk_F","optic_Arco_ghex_F","optic_ERCO_blk_F","optic_Holosight","optic_Holosight_blk_F","optic_Holosight_khk_F","optic_Holosight_smg","optic_Holosight_smg_blk_F","optic_MRCO","optic_Hamr","optic_Hamr_khk_F"]);
 		};
 	};
 	_weaponFound = false;
