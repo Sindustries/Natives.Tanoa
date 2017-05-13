@@ -8,5 +8,7 @@
 
 if (DebugMode) then {systemChat "DEBUG MODE :: SAVING*"} else {enableSaving [false, true]};
 
+true;
+
 //-----------------------------------
 
