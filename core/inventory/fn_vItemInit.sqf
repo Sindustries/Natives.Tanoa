@@ -3,6 +3,24 @@
 	Author: Sinbane
 	Classifies vItems for use
 */
+
+NATvInvItems = ["vInvItems"] call NAT_fnc_getSetting;
+NATvInvItemsOnly = [];
+//GET NAMES & ICONS
+for "_i" from 0 to (count (NATvInvItems)-1) do {
+	private ["_name","_item","_icon"];
+	_item = (NATvInvItems select _i);
+	if (_item isKindOf ["CA_Magazine", configFile >> "CfgMagazines"]) then {
+		_icon = getText (configFile >> "CfgMagazines" >> _item >> "picture");
+		_name = getText (configFile >> "CfgMagazines" >> _item >> "displayName");
+	} else {
+		_icon = getText (configFile >> "CfgWeapons" >> _item >> "picture");
+		_name = getText (configFile >> "CfgWeapons" >> _item >> "displayName");
+	};
+	NATvInvItems set [_i,[_name,_item,_icon]];
+	NATvInvItemsOnly pushBackUnique _item;
+};
+
 //-----------------------------------
 //-ITEM LISTS
 NATvInvMedicalItems = [
