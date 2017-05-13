@@ -27,12 +27,11 @@ switch (_side) do {
 		_class = "C_man_1_1_F";
 	};
 };
-if (isNil "_class") exitWith {};
 //-----------------------------------
 _group = createGroup _side;
 for "_i" from 1 to _count do {
 	_spawnPos = [_pos,0,30] call SIN_fnc_findPos;
-	_unit =_group createUnit [_class, _spawnPos, [], 0, "NONE"];
+	_unit = _group createUnit [_class, _spawnPos, [], 0, "NONE"];
 	[_unit,_type,true] call NAT_fnc_equip;
 	_unit setUnitAbility _skill;
 	NATcache pushBack _unit;
