@@ -17,6 +17,14 @@ class NAT {
 
 	#include "cfgvItems.hpp"
 
+/* NEEDS SETTINGS */
+
+	NATneedsHealthTime = 24;		//Time (in hours) until health is full (if healthy)
+	NATneedsHungerTime = 18; 		//Time (in hours) until hunger is full
+	NATneedsThirstTime = 12; 		//Time (in hours) until thirst is full
+	NATneedsSleepTime = 16; 		//Time (in hours) until sleep is full
+	NATneedsRadiationTime = 24; 	//Time (in hours) until radiation is full
+
 /* WEATHER SETTINGS */
 
 	NATweatherVariation = 0.2;		//Increments of weather change
