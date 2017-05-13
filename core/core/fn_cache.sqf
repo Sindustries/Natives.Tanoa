@@ -11,13 +11,14 @@ _checkTime = 30;
 _cacheDist = 1000;
 
 NATcache = [];
-_menCached = 0;
-_vehCached = 0;
 
 //-----------------------------------
 while {true} do {
 
 	sleep _checkTime;
+
+	_menCached = 0;
+	_vehCached = 0;
 
 	if (count NATcache > 0) then {
 		/* REMOVE NULL ENTRIES */
@@ -39,7 +40,7 @@ while {true} do {
 		{
 			for "_i" from 0 to ((count _playerPosArray)-1) do {
 				/* UNITS */
-				if (_X isKindOf ["Man", configFile >> "CfgVehicles"]) then {
+				if ((typeOf _x) isKindOf ["Man", configFile >> "CfgVehicles"]) then {
 					if (_x distance (_playerPosArray select _i) > _cacheDist && _x != (leader _x)) then {
 						_x hideObjectGlobal true;
 						_x enableSimulationGlobal false;
@@ -56,11 +57,13 @@ while {true} do {
 						if (vehicle _x isEqualTo _x) then {
 							detach _x;
 						};
-						_menCached = _menCached - 1;
+						if (_menCached > 0) then {
+							_menCached = _menCached - 1;
+						};
 					};
 				};
 				/* VEHICLES */
-				if (_X isKindOf ["Land", configFile >> "CfgVehicles"]) then {
+				if ((typeOf _x) isKindOf ["Land", configFile >> "CfgVehicles"]) then {
 					if (_x distance (_playerPosArray select _i) > _cacheDist && (count crew _x) isEqualTo 0) then {
 						_x hideObjectGlobal true;
 						_x enableSimulationGlobal false;
@@ -69,7 +72,9 @@ while {true} do {
 					if (_x distance (_playerPosArray select _i) < _cacheDist && (count crew _x) isEqualTo 0) then {
 						_x hideObjectGlobal false;
 						_x enableSimulationGlobal true;
-						_vehCached = _vehCached - 1;
+						if (_vehCached > 0) then {
+							_vehCached = _vehCached - 1;
+						};
 					};
 				};
 			};
