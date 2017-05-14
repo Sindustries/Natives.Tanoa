@@ -43,7 +43,9 @@ for "_i" from 1 to 5 do {
 	_mags = (getArray (configFile >> "CfgWeapons" >> _weapon >> "magazines"));
 	_crate addWeaponCargoGlobal [_weapon,1];
 	_crate addMagazineCargoGlobal [(selectRandom _mags), floor(random 3)];
+	_crate addItemCargoGlobal [(selectRandom ["optic_ACO_grn","optic_Aco","optic_Arco_blk_F","optic_Arco_ghex_F","optic_ERCO_blk_F","optic_Holosight","optic_Holosight_blk_F","optic_Holosight_khk_F","optic_Holosight_smg","optic_Holosight_smg_blk_F","optic_MRCO","optic_Hamr","optic_Hamr_khk_F"),1];
 };
+{_crate addItemCargoGlobal [_x,1]} forEach ["acc_flashlight","acc_pointer_IR"]
 for "_i" from 0 to (floor (random 5)) do {
 	_item = (selectRandom NAT_militiaItems);
 	if (_item isKindOf ["CA_Magazine", configFile >> "CfgMagazines"]) then {
@@ -52,6 +54,8 @@ for "_i" from 0 to (floor (random 5)) do {
         _crate addItemCargoGlobal [_item,1];
     };
 };
+_crate addItemCargoGlobal ["itemMap",1];
+_crate addItemCargoGlobal ["itemCompass",1];
 _crate setPos _spawnPos;
 TASK_ContactCrate = _crate;
 //CREATE TASK
@@ -70,9 +74,7 @@ _pos = [(getPos TASK_ContactCrate),100,200] call SIN_fnc_findPos;
 _group = [_pos,6] call Z_fnc_spawnZombies;
 _group setCombatMode "RED";
 _wp = _group addWaypoint [TASK_ContactCrate,10];
-_wp setWaypointType "MOVE";
-_wp setWaypointBehaviour "AWARE";
-_wp setWaypointFormation "LINE";
+_wp setWaypointType "SAD";
 _wp setWaypointCompletionRadius 5;
 _wp setWaypointTimeout [1, 60, 120];
 //-----------------------------------
@@ -109,9 +111,7 @@ _pos = [(getPos TASK_ContactCrate),100,200] call SIN_fnc_findPos;
 _group = [_pos,6] call Z_fnc_spawnZombies;
 _group setCombatMode "RED";
 _wp = _group addWaypoint [TASK_ContactCrate,10];
-_wp setWaypointType "MOVE";
-_wp setWaypointBehaviour "AWARE";
-_wp setWaypointFormation "LINE";
+_wp setWaypointType "SAD";
 _wp setWaypointCompletionRadius 5;
 _wp setWaypointTimeout [1, 60, 120];
 
