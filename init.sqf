@@ -221,7 +221,6 @@ if (isServer) then {
 };
 waitUntil {(player getVariable "NATspawned") isEqualTo true};
 //-----------------------------------
-//enableSaving [false, true];
 enableEnvironment true;
 player enableSimulation true;
 player enableStamina true;
