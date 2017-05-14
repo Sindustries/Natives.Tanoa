@@ -40,7 +40,7 @@ player setVariable ["NATneedsHealthy",false];
 player setVariable ["NATneedsEnergised",false];
 player setVariable ["NATneedsHungry",false];
 player setVariable ["NATneedsThirsty",false];
-player setVariable ["NATneedsTired",false];
+player setVariable ["NATneedsSleepLevel",0];
 player setVariable ["NATneedsRadiationLevel",0];
 //-----------------------------------
 [_hungerTime,_hungerVar] spawn NAT_fnc_needsHunger;
