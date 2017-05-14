@@ -12,6 +12,7 @@ _radObjCars = _this select 0;
 		{
 			if (player distance (_x select 0) < ((_x select 1)*4) && (_x select 2) isEqualTo false) then {
 				NATRadioActiveLocations set [_forEachIndex,[(_x select 0),(_x select 1),true]];
+				publicVariable "NATradioActiveLocations";
 				[_radObjCars,(_x select 0),(_x select 1)] call NAT_fnc_radObjSpawner;
 			};
 		} forEach NATRadioActiveLocations;
