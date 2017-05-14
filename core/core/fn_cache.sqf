@@ -78,7 +78,7 @@ while {true} do {
 					};
 				};
 				/* WRECKS */
-				if ((typeOf _x) isKindOf ["Wreck_Base", configFile >> "CfgVehicles"]) then {
+				if ((typeOf _x) isKindOf ["Building", configFile >> "CfgVehicles"]) then {
 					if (_x distance (_playerPosArray select _i) > _cacheDist && (count crew _x) isEqualTo 0) then {
 						_x hideObjectGlobal true;
 						_x enableSimulationGlobal false;
