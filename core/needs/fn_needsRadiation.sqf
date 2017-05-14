@@ -1,9 +1,9 @@
 /*
-    fn_needsThirst
+    fn_needsRadiation
     Author: Sinbane
 
     Description:
-    Monitors the player thirst level
+    Monitors the player radiation level
 */
 
 params [
