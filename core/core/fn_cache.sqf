@@ -50,7 +50,7 @@ while {true} do {
 						};
 						_menCached = _menCached + 1;
 					};
-					if (_x distance (_playerPosArray select _i) < _cacheDist && _x != (leader _x)) then {
+					if (_x distance (_playerPosArray select _i) <= _cacheDist && _x != (leader _x)) then {
 						_x hideObjectGlobal false;
 						_x enableSimulationGlobal true;
 						_x enableAI "ALL";
@@ -69,7 +69,22 @@ while {true} do {
 						_x enableSimulationGlobal false;
 						_vehCached = _vehCached + 1;
 					};
-					if (_x distance (_playerPosArray select _i) < _cacheDist && (count crew _x) isEqualTo 0) then {
+					if (_x distance (_playerPosArray select _i) <= _cacheDist && (count crew _x) isEqualTo 0) then {
+						_x hideObjectGlobal false;
+						_x enableSimulationGlobal true;
+						if (_vehCached > 0) then {
+							_vehCached = _vehCached - 1;
+						};
+					};
+				};
+				/* WRECKS */
+				if ((typeOf _x) isKindOf ["Wreck_Base", configFile >> "CfgVehicles"]) then {
+					if (_x distance (_playerPosArray select _i) > _cacheDist && (count crew _x) isEqualTo 0) then {
+						_x hideObjectGlobal true;
+						_x enableSimulationGlobal false;
+						_vehCached = _vehCached + 1;
+					};
+					if (_x distance (_playerPosArray select _i) <= _cacheDist && (count crew _x) isEqualTo 0) then {
 						_x hideObjectGlobal false;
 						_x enableSimulationGlobal true;
 						if (_vehCached > 0) then {
@@ -80,19 +95,16 @@ while {true} do {
 			};
 		} forEach NATcache;
 		if (DebugMode) then {
-			systemChat format["DEBUG :: CACHE : REMOVING %1 NULL ENTRIES",(count _toRemove)];
-			systemChat format["DEBUG :: CACHE : %1 UNITS CACHED",_menCached];
-			systemChat format["DEBUG :: CACHE : %1 VEHICLES CACHED",_vehCached];
-			systemChat format["DEBUG :: CACHE : %1 TOTAL ENTRIES",(count NATcache)];
-			showChat true;
+			hintSilent parseText format["
+				<t align='center'>NATIVES CACHE DEBUG<br />
+				%1 TOTAL ENTRIES<br />
+				%2 UNITS CACHED<br />
+				%3 VEHICLES CACHED<br />
+				%4 NULL ENTRIES REMOVED</t>",
+				(count NATcache),_menCached,_vehCached,(count _toRemove)
+			];
 		};
 	};
 
 };
 //-----------------------------------
-/*
-
-jim hideObjectGlobal true; jim enableSimulationGlobal false; jim attachTo [player];
-jim hideObjectGlobal false; jim enableSimulationGlobal true; detach jim;
-
-*/

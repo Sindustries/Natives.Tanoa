@@ -66,9 +66,10 @@ while {_objCreated < _maxNumObjLoc} do {
 			[_objPos] spawn Z_fnc_setSpawn;
 		};
 
+		NATcache pushBack _obj;
 		_objCreated = _objCreated + 1;
 		_usedPosArray pushBackUnique _objPos;
-		sleep 0.01;
+		sleep 0.001;
 	} else {
 		_errorCount = _errorCount + 1;
 	};
