@@ -36,6 +36,7 @@ for "_i" from 1 to _count do {
 	_unit setUnitAbility _skill;
 	NATcache pushBack _unit;
 };
+[_group] spawn NAT_fnc_pinMarker;
 if (DebugMode) then {systemChat format["DEBUG MODE :: SPAWNED %1 UNITS AT %2",_count,_spawnPos]; showChat true;};
 _group;
 //-----------------------------------
