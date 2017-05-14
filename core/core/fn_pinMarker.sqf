@@ -5,7 +5,7 @@
 */
 private ["_colour","_aMarker"];
 params [
-	["_group"]
+	["_group",""]
 ];
 
 switch ((side (leader _group))) do {
@@ -34,28 +34,34 @@ if ((side (leader _group)) in [RESISTANCE,CIVILIAN]) exitWith {};
 } forEach (units _group);
 
 while {{alive _x} count (units _group) > 0} do {
-	_aMarker setPos (getPos (leader _group));
+	systemchat "MARKER 37";
+	switch ((side (leader _group))) do {
+		case WEST: {
+			if  ("ItemRadio" in (assignedItems player)) then {
+				_aMarker setMarkerAlpha 0.8;
+				_aMarker setMarkerText (groupid _group);
+			} else {
+				_aMarker setMarkerAlpha 0;
+			};
+		};
+		case EAST: {
+			if ((["sc_receiver"] call NAT_fnc_vInvCheck)) then {
+				_aMarker setMarkerAlpha 0.8;
+			} else {
+				_aMarker setMarkerAlpha 0;
+			};
+		};
+	};
+
+	_aMarker setMarkerPos (getPos (leader _group));
 	_aMarker setMarkerDir (getDir (leader _group));
 
-	if ((side (leader _group)) isEqualTo WEST && "itemRadio" in (assignedItems player)) then {
-		_aMarker setMarkerAlpha 0.8;
-		_aMarker setMarkerText (groupid _group);
-	} else {
-		_aMarker setMarkerAlpha 0;
-	};
-
-	if ((side (leader _group)) isEqualTo EAST && (["sc_receiver"] call NAT_fnc_vInvCheck)) then {
-		_aMarker setMarkerAlpha 0.8;
-	} else {
-		_aMarker setMarkerAlpha 0;
-	};
-
-	sleep 3;
+	sleep 10;
 };
 
 _aMarker setMarkerType "mil_destroy";
 _aMarker setMarkerDir 45;
-_aMarker setMarkerColor "ColorRed";
+_aMarker setMarkerText "";
 
 sleep 600;
 
