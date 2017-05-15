@@ -3,7 +3,7 @@
 	Author: Sinbane
 	Spawns a group of AI
 */
-private ["_class"];
+private ["_class","_spawnPos"];
 params [
 	["_pos",[0,0,0]],
 	["_side",nil],
@@ -30,10 +30,11 @@ switch (_side) do {
 //-----------------------------------
 _group = createGroup _side;
 for "_i" from 1 to _count do {
-	_spawnPos = [_pos,0,30] call SIN_fnc_findPos;
+	_spawnPos = [_pos,0,30,1] call SIN_fnc_findPos;
 	_unit = _group createUnit [_class, _spawnPos, [], 0, "NONE"];
 	[_unit,_type,true] call NAT_fnc_equip;
 	_unit setUnitAbility _skill;
+	_unit allowFleeing 0;
 	NATcache pushBack _unit;
 };
 [_group] remoteExec ["NAT_fnc_pinMarker",0];
