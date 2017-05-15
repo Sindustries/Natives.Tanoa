@@ -9,7 +9,7 @@ params [
     ["_pos",[]],
     ["_minDist",10],
     ["_maxDist",100],
-    ["_objDist",0.2],
+    ["_objDist",1],
 	["_water",0],
 	["_maxGrad",1],
 	["_shore",0]
