@@ -3,7 +3,6 @@
 	Author: Sinbane
 	Spawn the zombees!
 */
-if ((count NAT_zombieArrayClient) >= NAT_maxZombies) exitWith {};
 private ["_pos","_zombieCount","_zombie","_group","_exclusions","_spawnPos"];
 //-----------------------------------
 
@@ -13,8 +12,9 @@ private ["_pos","_zombieCount","_zombie","_group","_exclusions","_spawnPos"];
 
 	for "_zombieCount" from 1 to _maxNum do {
 		if ((count NAT_zombieArrayClient) <= NAT_maxZombies) then {
-			_spawnPos = [_pos,0,50,0,0,0,0] call SIN_fnc_findPos;
+			_spawnPos = [_pos,0,20,1] call SIN_fnc_findPos;
 			_zombie = _group createUnit [(selectRandom NAT_Zombies), _spawnPos, [], 0, "NONE"];
+			_zombie allowFleeing 0;
 			[_zombie,"AmovPercMstpSnonWnonDnon_SaluteOut"] remoteExec ["switchMove", 0];
 			NAT_zombieArray pushBack _zombie;
 			NAT_zombieArrayClient pushBack _zombie;
