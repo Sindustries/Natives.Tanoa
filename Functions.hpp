@@ -99,6 +99,12 @@ class NAT_Core {
 		class radObjMonitor {};
 		class radObjSpawner {};
 	};
+	class warbot {
+		file = "core\warbot";
+		class createCamp {};
+		class findCampPos {};
+		class warbotInit {};
+	};
 	class weather {
 		file = "core\weather";
 		class dustStorm {};
