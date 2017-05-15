@@ -6,6 +6,7 @@
 private [];
 
 #include "cfgCompositions.sqf";
+#include "cfgRequest.sqf";
 
 NATmilitaryCamps = [];
 NATmilitiaCamps = [];
