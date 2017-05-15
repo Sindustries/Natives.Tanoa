@@ -34,7 +34,6 @@ if ((side (leader _group)) in [RESISTANCE,CIVILIAN]) exitWith {};
 } forEach (units _group);
 
 while {{alive _x} count (units _group) > 0} do {
-	systemchat "MARKER 37";
 	switch ((side (leader _group))) do {
 		case WEST: {
 			if  ("ItemRadio" in (assignedItems player)) then {
