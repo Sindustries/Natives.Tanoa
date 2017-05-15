@@ -16,11 +16,9 @@ _helipad = createVehicle ["Land_HelipadEmpty_F", _heliLandPos, [], 0, "CAN_COLLI
 _heli = createVehicle ["O_Heli_Light_02_unarmed_F",[(_pos select 0),(_pos select 1),500],[],0,"FLY"];
 [
 	_heli,
-	["Blue",1],
+	["Black",1],
 	["Proxy",0,"Missiles_revolving",0,"AddCargoHook_COver",0]
 ] call BIS_fnc_initVehicle;
-
-[_heli,true,true] call SIN_fnc_emptyVeh;
 
 //_heli flyInHeight 300+(random 200);
 _heli setDir ((getPos _heli) getDir _heliLandPos);
@@ -33,10 +31,9 @@ _pilot disableAI "TARGET";
 _pilot disableAI "AUTOTARGET";
 
 [_pilot] call NAT_fnc_Unequip;
-[_pilot,"civ",false] call NAT_fnc_Equip;
+[_pilot,"military",false] call NAT_fnc_Equip;
 _pilot addHeadgear "TRYK_H_EARMUFF";
 _pilot addGoggles "TRYK_headset_Glasses";
-
 _heligroup setBehaviour "CARELESS";
 _heligroup setCombatMode "BLUE";
 _heligroup allowfleeing 0;
@@ -44,21 +41,31 @@ _heli lock true;
 _heli allowDamage false;
 _pilot allowDamage false;
 _pilot assignAsDriver _heli;
-
 _pilot moveindriver _heli;
 _pilot doMove _heliLandPos;
 _heligroup setSpeedMode "FULL";
+
+[_heli,true,true] call SIN_fnc_emptyVeh;
 
 sleep 3;
 
 //-----------------------------------
 //-MOVE PLAYERS INSIDE
 
+_aiCount = (8-({isPlayer _x} count playableUnits));
+_groupMil = [_heliLandPos,west,"military",_aiCount,0.2] call NAT_fnc_createGroup;
+
 {
+	if (!isPlayer _x && (group _x) isEqualTo _groupMil) then {
+		_x assignAsCargo _heli;
+		_x moveInCargo _heli;
+		_x allowDamage false;
+	};
 	if (isPlayer _x) then {
 		_x assignAsCargo _heli;
 		_x moveInCargo _heli;
 		_x enableSimulationGlobal true;
+		[_x] joinSilent _groupMil;
 		_x setVariable ["NATspawned", true, true];
 		[_x] spawn {
 			sleep 3;
@@ -84,20 +91,30 @@ waitUntil {_heli distance2D _helipad < 1400};
 waitUntil {(damage _heli) > 0};
 _pilot setDamage 1;
 
+{
+	unassignVehicle _x;
+	_x action ["Eject",vehicle _x];
+} forEach (units _groupMil);
+
+{
+	sleep (random 2);
+	cutText ["", "WHITE OUT", 0];
+	waitUntil {(getPos player select 2) < 10};
+	player setDamage 0.2;
+	enableEnvironment false;
+} remoteExec ["bis_fnc_call", 0];
+
 _fire = createVehicle ["test_EmptyObjectForSmoke", (getPos _heli),[], 0, "NONE"];
 _fire attachTo [_heli, [0,0,0.7]];
-
-waitUntil {((getPos _heli) select 2) < 1 || isTouchingGround _heli};
-
-"vehicle_collision" remoteExec ["playSound", 0];
-{cutText ["", "WHITE OUT", 0]; player setDamage 0.2; enableEnvironment false} remoteExec ["bis_fnc_call", 0];
-
-//_alarm = createSoundSource ["Sound_Alarm", (getPos _heli), [], 0];
 _sparks1 = createSoundSource ["Sound_SparklesWreck1", (getPos _heli), [], 0];
 _sparks2 = createSoundSource ["Sound_SparklesWreck2", (getPos _heli), [], 0];
-//_alarm attachTo [_heli];
 _sparks1 attachTo [_heli];
 _sparks2 attachTo [_heli];
+
+[_heli] spawn {
+	waitUntil {isTouchingGround (_this select 0)};
+	[(_this select 0),"vehicle_collision"] remoteExec ["say3D", 0];
+};
 
 [_heli,_sparks1,_sparks2,_fire] spawn {
 	private ["_alarm","_sparks1","_sparks2","_fire"];
@@ -116,23 +133,18 @@ sleep 3;
 //-----------------------------------
 //-FIND A CRASH SITE
 
-//waitUntil {velocityModelSpace _heli isEqualTo [0,0,0]};
-
-//_crashSite = [(getPos _heli),0,100,0] call SIN_fnc_findPos;
-//_heli setDamage 1;
-//_heli setPos _crashSite;
 {
-	if (isPlayer _x) then {
+	if (alive _x) then {
 		if (surfaceIsWater (getPos _x)) then {
-			_pos = [(getPos _heli),0,100,0.2,0,1,1] call SIN_fnc_findPos;
+			_pos = [(getPos (leader (group _x))),0,100,2,0,1,1] call SIN_fnc_findPos;
+			_x setPos _pos;
+			_x setDir (random 360);
 		} else {
-			_pos = [(getPos _heli),0,100] call SIN_fnc_findPos;
+			_x setPos [(getPos _x select 0),(getPos _x select 1),0];
 		};
-		_x setPos _pos;
-		_x setDir (random 360);
 		_x enableSimulationGlobal false;
 	};
-} forEach allUnits;
+} forEach (units _groupMil);
 
 sleep 3;
 //-----------------------------------
@@ -156,13 +168,21 @@ sleep 3;
 				player removeWeapon "hgun_P07_F";
 			};
 		} remoteExec ["bis_fnc_call", _x];
+	} else {
+		_x enableSimulationGlobal true;
+		_x setUnconscious true;
+		_x allowDamage true;
+		[_x] spawn {
+			sleep 10;
+			(_this select 0) setUnconscious false;
+		};
 	};
-} forEach allUnits;
+} forEach (units _groupMil);
 
 //-----------------------------------
 //-ACT 1
 sleep 20;
 if (isServer) then {
-	[] spawn NAT_fnc_act1;
+	[_groupMil] spawn NAT_fnc_act1;
 };
 //-----------------------------------
