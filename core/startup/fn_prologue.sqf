@@ -100,7 +100,6 @@ _pilot setDamage 1;
 	sleep (random 2);
 	cutText ["", "WHITE OUT", 0];
 	waitUntil {(getPos player select 2) < 10};
-	player setDamage 0.2;
 	enableEnvironment false;
 } remoteExec ["bis_fnc_call", 0];
 
@@ -136,7 +135,8 @@ sleep 3;
 {
 	if (alive _x) then {
 		if (surfaceIsWater (getPos _x)) then {
-			_pos = [(getPos (leader (group _x))),0,100,2,0,1,1] call SIN_fnc_findPos;
+			_shore = [(getPos (leader (group _x))),0,100,2,0,1,1] call SIN_fnc_findPos;
+			_pos = [_shore,0,50] call SIN_fnc_findPos;
 			_x setPos _pos;
 			_x setDir (random 360);
 		} else {
@@ -155,12 +155,12 @@ sleep 3;
 		{
 			player enableSimulationGlobal true;
 			player setUnconscious true;
+			player allowDamage true;
 			sleep 6;
 			cutText ["", "WHITE IN", 4];
 			enableEnvironment true;
 			sleep 4;
 			player setUnconscious false;
-			player allowDamage true;
 
 			if (primaryWeapon player isEqualTo "" && secondaryWeapon player isEqualTo "" && handgunWeapon player isEqualTo "") then {
 				player addWeapon "hgun_P07_F";
@@ -178,6 +178,10 @@ sleep 3;
 		};
 	};
 } forEach (units _groupMil);
+
+{
+	_x setDamage 0.2;
+} forEach playableUnits;
 
 //-----------------------------------
 //-ACT 1
