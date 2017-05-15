@@ -14,7 +14,7 @@ enableSaving [false, false];
 enableSentences false;
 enableEnvironment false;
 player enableSimulation false;
-player allowDamage false;
+// allowDamage false;
 player enableStamina false;
 removeAllWeapons player;
 removeAllItems player;
@@ -188,35 +188,40 @@ cutText ["", "BLACK FADED", 999];
 [] call NAT_fnc_eventHandlers;
 //-----------------------------------
 [] call NAT_fnc_fuelStation;
+[] spawn NAT_fnc_cache;
 //-----------------------------------
 //-PLAYER VARIABLES
 player setVariable ["NATspawned",false,true];
 player setVariable ["NAT_pumpingFuel",false];
 //-----------------------------------
 //-PLAYER STARTING GEAR
-player forceAddUniform (selectRandom NAT_civUniforms);
-player linkItem "itemWatch";
-player setVariable ["NAT_vInv",[["zk_waterbottle",1],["zk_tacticalBacon",2]],true];
+[player,"military",true] call NAT_fnc_equip;
+player setVariable ["NAT_vInv",[["zk_waterbottle",2],["zk_tacticalBacon",2]],true];
 //-----------------------------------
 //-BEGIN PROLOGUE
 if (isServer) then {
 	setTimeMultiplier (["NATtimeMultiplier"] call NAT_fnc_getSetting);
-	group player selectLeader player;
-
 	_location = (selectRandom (NAT_mapLocationsCities+NAT_mapLocationsVillages));
 	_pos = [(_location select 0),0,(_location select 1 select 0),0,0,0] call SIN_fnc_findPos;
 	if (prologueEnabled) then {
 		[_pos] spawn NAT_fnc_prologue;
 	} else {
 		skipTime 0.2;
+		_aiCount = (8-({isPlayer _x} count playableUnits));
+		_groupMil = [_pos,west,"military",_aiCount,0.2] call NAT_fnc_createGroup;
+		{
+			if (isPlayer _x) then {
+				[_x] joinSilent _groupMil;
+			};
+		} forEach playableUnits;
 		{
 			if (isPlayer _x) then {
 				_x setVariable ["NATspawned", true, true];
-				_x setPos _pos;
 			};
-		} forEach playableUnits;
+			_x setPos _pos;
+		} forEach (units _groupMil);
 		player allowDamage true;
-		[] spawn NAT_fnc_act1;
+		[_groupMil] spawn NAT_fnc_act1;
 	};
 };
 waitUntil {(player getVariable "NATspawned") isEqualTo true};
@@ -227,12 +232,11 @@ player enableStamina true;
 cutText ["", "BLACK IN", 10];
 //-----------------------------------
 [] call NAT_fnc_needsInit;
-[player] spawn NAT_fnc_gasMask;
+[] call NAT_fnc_warbotInit;
 [] spawn NAT_fnc_mineDetector;
-[] spawn NAT_fnc_handleDamage;
+[] call NAT_fnc_handleDamage;
 [] spawn NAT_fnc_healthMonitor;
 [] spawn NAT_fnc_healthRegen;
-[] spawn NAT_fnc_cache;
 //-----------------------------------
 waitUntil {isTouchingGround player};
 setViewDistance (["NATviewDistance"] call NAT_fnc_getSetting);
