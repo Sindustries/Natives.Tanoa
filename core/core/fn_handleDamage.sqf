@@ -6,18 +6,23 @@
 */
 //-----------------------------------
 
-	player addEventHandler ["HandleDamage", {
-		_unit = _this select 0;
-		_selectionName = _this select 1;
-		_damage = _this select 2;
-		_source = _this select 3;
-		_projectile = _this select 4;
+player removeAllEventHandlers "handleDamage";
 
-		if (DebugMode) then {systemChat format["DEBUG :: handleDamage :: PRE: %1",_damage]};
-		_damage = (_damage/4);
+player addEventHandler ["handleDamage",{
+	private ["_return","_passedDamage"];
+	_unit = _this select 0;
+	_selection = _this select 1;
+	_passedDamage = _this select 2;
+	_source = _this select 3;
+	_projectile = _this select 4;
 
-		if (DebugMode) then {systemChat format["DEBUG :: handleDamage :: POST: %1",_damage]; _damage = 0};
-		_damage;
-	}];
+	if (DebugMode) then {
+		_return = 0;
+	} else {
+		_return = (_passedDamage/4);
+	};
+
+	_return;
+}];
 
 //-----------------------------------
