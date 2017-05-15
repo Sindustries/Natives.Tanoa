@@ -13,7 +13,7 @@ _objCreated = 0;
 _usedPosArray = [];
 
 //-----------------------------------
-//-OBJECT ARRAYS (WRECKS)
+//-OBJECT ARRAYS
 
 _radObjCars = [
 "Land_Wreck_BMP2_F",
@@ -33,6 +33,27 @@ _radObjCars = [
 "Land_Wreck_Slammer_F",
 "Land_Wreck_Slammer_hull_F",
 "Land_Wreck_T72_hull_F"
+];
+
+_radObjJunk = [
+"Land_Garbage_square3_F",
+"Land_Garbage_square5_F",
+"Land_GarbageBags_F",
+"Land_Garbage_line_F",
+"Land_GarbageBarrel_01_F",
+"Land_GarbageBarrel_01_F",
+"Land_GarbagePallet_F",
+"Land_GarbageWashingMachine_F",
+"Land_LuggageHeap_03_F",
+"Land_LuggageHeap_01_F",
+"Land_LuggageHeap_02_F",
+"Land_LuggageHeap_05_F",
+"Land_LuggageHeap_04_F",
+"Land_GarbageHeap_01_F",
+"Land_GarbageHeap_02_F",
+"Land_GarbageHeap_03_F",
+"Land_GarbageHeap_04_F",
+"Land_JunkPile_F"
 ];
 
 _radObjAir = [
@@ -63,39 +84,10 @@ NATRadioActiveLocations = [];
 publicVariable "NATRadioActiveLocations";
 //-----------------------------------
 //-SPAWN OBJECTS (OUTSIDE LOCATIONS)
+NATradObjCars = _radObjCars;
+NATradObjJunk = _radObjJunk;
 NATRadioActiveObjects = [];
-/*
-_counter = _maxNumObj;
-_errorCount = 0;
-_objCreated = 0;
-while {_objCreated < _maxNumObj} do {
-
-	_spawnPos = [NATErrorPos,0,999999,4,0,0,0] call SIN_fnc_findPos;
-	_distCheck = [_spawnPos,_usedPosArray,_minDistSpawn] call SIN_fnc_checkDist;
-	if (_distCheck) then {
-		_obj = (selectRandom _radObjArray) createVehicle _spawnpos;
-		_obj setDir (random 360);
-		_obj setPos (getPos _obj);
-		_obj setDamage [1,false];
-		_obj enableSimulation false;
-
-		if ((random 100) < 90) then {
-			_size = (getNumber (configfile >> "CfgVehicles" >> (typeOf _obj) >> "mapSize"));
-			NATRadioActiveObjects pushBackUnique [_spawnPos,(_size*3)];
-			//[_spawnPos] spawn Z_fnc_setSpawn;
-		};
-
-		_objCreated = _objCreated + 1;
-		_usedPosArray pushBackUnique _spawnpos;
-	} else {
-		_errorCount = _errorCount + 1;
-	};
-	_counter = _counter - 1;
-	[_counter,_maxNumObj] remoteExec ["NAT_fnc_updateProgressBar", 0];
-	if (_errorCount >= _maxNumObj) exitWith {};
-};*/
+publicVariable "NATradObjCars";
+publicVariable "NATradObjJunk";
 publicVariable "NATRadioActiveObjects";
-//-----------------------------------
-//-LAUNCH FNCS
-[_radObjCars] remoteExec ["NAT_fnc_radObjMonitor",0];
 //-----------------------------------
