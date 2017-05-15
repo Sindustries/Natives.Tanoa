@@ -118,6 +118,9 @@ if (_wep isEqualTo true && (!(isNil "_weapons"))) then {
 		};
 	};
 };
+if (_type isEqualTo "military") then {
+	_unit addWeaponGlobal "binocular";
+};
 //-----------------------------------
 //-MISC ITEMS
 if (_medChance > (random 100)) then {

@@ -47,3 +47,4 @@ Temporary Items
 .apdisk
 Zks Items List.txt
 core/sin/fn_testCode.sqf
+core/gear/fn_autoSort.sqf
