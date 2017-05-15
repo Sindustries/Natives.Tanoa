@@ -98,7 +98,7 @@ if (_wep isEqualTo true && (!(isNil "_weapons"))) then {
 					_unit addMagazines [(selectRandom _mags),(4+floor(random 4))];
 				};
 				_unit addWeaponGlobal _weapon;
-				{_unit addPrimaryWeaponItem _x} forEach ["acc_flashlight","acc_pointer_IR"];
+				_unit addPrimaryWeaponItem "acc_flashlight";
 				_unit addPrimaryWeaponItem (selectRandom ["optic_ACO_grn","optic_Aco","optic_Arco_blk_F","optic_Arco_ghex_F","optic_ERCO_blk_F","optic_Holosight","optic_Holosight_blk_F","optic_Holosight_khk_F","optic_Holosight_smg","optic_Holosight_smg_blk_F","optic_MRCO","optic_Hamr","optic_Hamr_khk_F"]);
 			};
 		};
