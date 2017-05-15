@@ -24,6 +24,8 @@ class NAT_Core {
 	class core {
 		file = "core\core";
 		class cache {};
+		class clearWaypoints {};
+		class createWaypoint {};
 		class createGroup {};
 		class emptyVeh {};
 		class fuelPump {};
@@ -82,8 +84,10 @@ class NAT_Core {
 	class startup {
 		file = "core\startup";
 		class act1 {};
+		class act2 {};
 		class addActions {};
 		class eventHandlers {};
+		class dynObjMonitor {};
 		class gravity {};
 		class gravity_ray {};
 		class gravity_ray_effect {};
@@ -96,13 +100,13 @@ class NAT_Core {
 		class tpw_animals {};
 		class tpw_core {};
 		class radInit {};
-		class radObjMonitor {};
 		class radObjSpawner {};
 	};
 	class warbot {
 		file = "core\warbot";
-		class createCamp {};
-		class findCampPos {};
+		class baseMenu {};
+		class createBase {};
+		class findBasePos {};
 		class warbotInit {};
 	};
 	class weather {
