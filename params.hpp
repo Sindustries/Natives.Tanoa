@@ -9,9 +9,9 @@ class Params {
     };
 
 	class game5 {
-		title = "Trip Skip";
-		values[] = {0,1};
-		texts[] = {"False","True"};
+		title = "Start Point";
+		values[] = {0,1,2};
+		texts[] = {"Prologue","Act 1","Act 2"};
 		default = 0;
 		isGlobal = 1;
 	};
