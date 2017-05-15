@@ -22,6 +22,7 @@ private ["_pos","_zombieCount","_zombie","_group","_exclusions","_spawnPos"];
 			NATcache pushBack _zombie;
 		};
 	};
+	_group setCombatMode "RED";
 	if (DebugMode) then {systemChat format["DEBUG MODE :: SPAWNED %1 ZOMBIES AT %2",_maxNum,_pos]; showChat true;};
 	_group;
 
