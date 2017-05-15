@@ -84,16 +84,22 @@ _math = [_math,0] call BIS_fnc_cutDecimals;
 _radBar ctrlSetTooltip format ["%1%2",_math,"%"];
 _radIcon ctrlSetTooltip "RADIATION";
 //-----------------------------------
-//-PLAYER LIST
+//-GIVE LIST
 lbClear _playerSelect;
-_index = _playerSelect lbAdd (name player);
-_playerSelect lbSetCurSel _index;
 {
 	if (_x != player && isPlayer _x && alive _x && _x distance player < 6) then {
 		_index = _playerSelect lbAdd (name _x);
 	};
 } forEach playableUnits;
-_playerSelect ctrlSetTooltip "Select a player to use/give item";
+if (count NATmilitaryCamps > 0) then {
+	{
+		if ((damage (_x select 1)) < 0.97 && (_x select 1) distance player < 10) then {
+			_index = _playerSelect lbAdd "BASE STORAGE";
+		};
+	} forEach NATmilitaryCamps;
+};
+_playerSelect lbSetCurSel 0;
+_playerSelect ctrlSetTooltip "Select a player or base to give item to";
 //-----------------------------------
 //-INVENTORY
 lbClear _itemList;
