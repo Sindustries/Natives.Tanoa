@@ -132,8 +132,8 @@ class RscText
 		0,
 		0.5
 	};
-	font = "RobotoCondensed";
-	SizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
+	font = "PuristaMedium";
+	sizeEX = "0.016 / (getResolution select 5)";
 	linespacing = 1;
 	tooltipColorText[] =
 	{
@@ -174,7 +174,7 @@ class RscStructuredText
 	};
 	class Attributes
 	{
-		font = "RobotoCondensed";
+		font = "PuristaMedium";
 		color = "#ffffff";
 		colorLink = "#D09B43";
 		align = "left";
@@ -210,8 +210,8 @@ class RscPicture
 		1,
 		1
 	};
-	font = "TahomaB";
-	sizeEx = 0;
+	font = "PuristaMedium";
+	sizeEX = "0.016 / (getResolution select 5)";
 	lineSpacing = 0;
 	text = "";
 	fixedWidth = 0;
@@ -271,8 +271,8 @@ class ProgressBaseTextHUD
 	h = 0;
 	w = 0;
 	shadow = 2;
-	font = "puristaMedium";
-	sizeEx = "0.035";
+	font = "PuristaMedium";
+	sizeEX = "0.016 / (getResolution select 5)";
 };
 class RscEdit
 {
@@ -316,9 +316,9 @@ class RscEdit
 	text = "";
 	size = 0.2;
 	style = "0x00 + 0x40";
-	font = "RobotoCondensed";
+	font = "PuristaMedium";
+	sizeEX = "0.016 / (getResolution select 5)";
 	shadow = 2;
-	sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
 	canModify = 1;
 	tooltipColorText[] =
 	{
@@ -497,8 +497,8 @@ class RscCombo
 		};
 	};
 	style = "0x10 + 0x200";
-	font = "RobotoCondensed";
-	sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
+	font = "PuristaMedium";
+	sizeEX = "0.016 / (getResolution select 5)";
 	shadow = 0;
 	x = 0;
 	y = 0;
@@ -696,8 +696,8 @@ class RscListBox
 	w = 0.3;
 	h = 0.3;
 	style = 16;
-	font = "RobotoCondensed";
-	sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
+	font = "PuristaMedium";
+	sizeEX = "0.016 / (getResolution select 5)";
 	shadow = 0;
 	colorShadow[] =
 	{
@@ -803,8 +803,8 @@ class RscButton
 	w = 0.095589;
 	h = 0.039216;
 	shadow = 2;
-	font = "RobotoCondensed";
-	sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
+	font = "PuristaMedium";
+	sizeEX = "0.016 / (getResolution select 5)";
 	offsetX = 0;
 	offsetY = 0;
 	offsetPressedX = 0;
@@ -918,7 +918,7 @@ class RscShortcutButton
 	};
 	class Attributes
 	{
-		font = "RobotoCondensed";
+		font = "PuristaMedium";
 		color = "#E5E5E5";
 		align = "left";
 		shadow = "true";
@@ -969,14 +969,14 @@ class RscShortcutButton
 	periodFocus = 1.2;
 	periodOver = 0.8;
 	period = 0.4;
-	font = "RobotoCondensed";
+	font = "PuristaMedium";
 	size = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
-	sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
+	sizeEX = "0.016 / (getResolution select 5)";
 	text = "";
 	action = "";
 	class AttributesImage
 	{
-		font = "RobotoCondensed";
+		font = "PuristaMedium";
 		color = "#E5E5E5";
 		align = "left";
 	};
@@ -1030,21 +1030,21 @@ class RscShortcutButtonMain
 	animTexturePressed = "\A3\ui_f\data\GUI\RscCommon\RscShortcutButtonMain\down_ca.paa";
 	animTextureDefault = "\A3\ui_f\data\GUI\RscCommon\RscShortcutButtonMain\normal_ca.paa";
 	period = 0.5;
-	font = "RobotoCondensed";
+	font = "PuristaMedium";
 	size = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1.2)";
-	sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1.2)";
+	sizeEX = "0.016 / (getResolution select 5)";
 	text = "";
 	action = "";
 	class Attributes
 	{
-		font = "RobotoCondensed";
+		font = "PuristaMedium";
 		color = "#E5E5E5";
 		align = "left";
 		shadow = "false";
 	};
 	class AttributesImage
 	{
-		font = "RobotoCondensed";
+		font = "PuristaMedium";
 		color = "#E5E5E5";
 		align = "false";
 	};
@@ -1069,8 +1069,8 @@ class RscFrame
 		1,
 		1
 	};
-	font = "RobotoCondensed";
-	sizeEx = 0.02;
+	font = "PuristaMedium";
+	sizeEX = "0.016 / (getResolution select 5)";
 	text = "";
 	x = 0;
 	y = 0;
@@ -1117,8 +1117,8 @@ class IGUIBack
 		0,
 		0
 	};
-	font = "RobotoCondensed";
-	sizeEx = 0;
+	font = "PuristaMedium";
+	sizeEX = "0.016 / (getResolution select 5)";
 	shadow = 0;
 	x = 0.1;
 	y = 0.1;
@@ -1354,8 +1354,8 @@ class RscTextCheckBox
 		0,
 		0.65
 	};
-	font = "RobotoCondensed";
-	sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
+	font = "PuristaMedium";
+	sizeEX = "0.016 / (getResolution select 5)";
 	rows = 1;
 	columns = 1;
 	strings[] =
@@ -1475,7 +1475,7 @@ class RscButtonMenu
 	periodFocus = 1.2;
 	periodOver = 1.2;
 	size = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
-	sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
+	sizeEX = "0.016 / (getResolution select 5)";
 	tooltipColorText[] =
 	{
 		1,
@@ -1506,7 +1506,7 @@ class RscButtonMenu
 	};
 	class Attributes
 	{
-		font = "PuristaLight";
+		font = "PuristaMedium";
 		color = "#E5E5E5";
 		align = "left";
 		shadow = "false";
