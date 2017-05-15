@@ -34,28 +34,29 @@ if ((side (leader _group)) in [RESISTANCE,CIVILIAN]) exitWith {};
 } forEach (units _group);
 
 while {{alive _x} count (units _group) > 0} do {
+	_aMarker setMarkerPos (getPos (leader _group));
+	_aMarker setMarkerDir (getDir (leader _group));
 	switch ((side (leader _group))) do {
 		case WEST: {
 			if  ("ItemRadio" in (assignedItems player)) then {
 				_aMarker setMarkerAlpha 0.8;
 				_aMarker setMarkerText (groupid _group);
+				sleep 3;
 			} else {
 				_aMarker setMarkerAlpha 0;
+				sleep 12;
 			};
 		};
 		case EAST: {
 			if ((["sc_receiver"] call NAT_fnc_vInvCheck)) then {
 				_aMarker setMarkerAlpha 0.8;
+				sleep 6;
 			} else {
 				_aMarker setMarkerAlpha 0;
+				sleep 12;
 			};
 		};
 	};
-
-	_aMarker setMarkerPos (getPos (leader _group));
-	_aMarker setMarkerDir (getDir (leader _group));
-
-	sleep 10;
 };
 
 _aMarker setMarkerType "mil_destroy";
