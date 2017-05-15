@@ -5,7 +5,6 @@
 */
 //-----------------------------------
 NAT_version = "0.0.1-alpha";
-publicVariable "NAT_version";
 NAT_serverReady = false;
 publicVariable "NAT_serverReady";
 //-----------------------------------
@@ -25,7 +24,8 @@ removeBackpack player;
 removeHeadgear player;
 removeGoggles player;
 //-----------------------------------
-if ((paramsArray select 1) isEqualTo 0) then {prologueEnabled = true} else {prologueEnabled = false};
+private ["_startPoint"];
+_startPoint = (paramsArray select 1);
 //-----------------------------------
 NATErrorPos = (getArray(configFile >> "CfgWorlds" >> worldName >> "centerPosition"));
 //-----------------------------------
@@ -53,7 +53,10 @@ if (isServer) then {
 #include "core\gear\military.sqf";
 #include "core\gear\native.sqf";
 //-----------------------------------
+if (DebugMode) then {systemChat format["%1 version %2",briefingName,NAT_version]};
+//-----------------------------------
 //-FIND LOCATIONS
+private ["_startPos"];
 if (isServer) then {
 	NAT_mapLocations = [];
 	NAT_mapLocationsCities = [];
@@ -76,6 +79,9 @@ if (isServer) then {
 	publicVariable "NAT_mapLocationsCities";
 	publicVariable "NAT_mapLocationsVillages";
 	publicVariable "NAT_mapLocationsAirports";
+	if (worldName isEqualTo "Tanoa") then {
+		_startPos = [[10000,10000,0],3500];
+	};
 };
 //-----------------------------------
 //-TPW init
@@ -117,6 +123,9 @@ NAT_clientMarkers = [];
 //-----------------------------------
 "HVPGasMaskLayer" cutRsc ["equipment_prot","PLAIN",-1,false];
 "HVPGasMaskLayer" cutFadeOut 0;
+[] spawn NAT_fnc_cache;
+[] call NAT_fnc_needsInit;
+[] call NAT_fnc_warbotInit;
 //-----------------------------------
 //-INIT LOOT, CARS, BOATS, ZOMBEES! & FURNITURE, RADOBJECTS
 ("NATHUDpBar" call BIS_fnc_rscLayer) cutRsc ["NATHUDpBar","PLAIN",-1,true];
@@ -188,7 +197,6 @@ cutText ["", "BLACK FADED", 999];
 [] call NAT_fnc_eventHandlers;
 //-----------------------------------
 [] call NAT_fnc_fuelStation;
-[] spawn NAT_fnc_cache;
 //-----------------------------------
 //-PLAYER VARIABLES
 player setVariable ["NATspawned",false,true];
@@ -198,14 +206,28 @@ player setVariable ["NAT_pumpingFuel",false];
 [player,"military",true] call NAT_fnc_equip;
 player setVariable ["NAT_vInv",[["zk_waterbottle",2],["zk_tacticalBacon",2]],true];
 //-----------------------------------
+[] spawn NAT_fnc_dynObjMonitor;
+[] spawn NAT_fnc_mineDetector;
+[] call NAT_fnc_handleDamage;
+[] spawn NAT_fnc_healthMonitor;
+[] spawn NAT_fnc_healthRegen;
+//-----------------------------------
 //-BEGIN PROLOGUE
+cutText ["PREPARING GAME, PLEASE WAIT", "BLACK FADED", 999];
 if (isServer) then {
+	private ["_location"];
 	setTimeMultiplier (["NATtimeMultiplier"] call NAT_fnc_getSetting);
-	_location = (selectRandom (NAT_mapLocationsCities+NAT_mapLocationsVillages));
-	_pos = [(_location select 0),0,(_location select 1 select 0),0,0,0] call SIN_fnc_findPos;
-	if (prologueEnabled) then {
-		[_pos] spawn NAT_fnc_prologue;
+	if (!(isNil "_startPos")) then {
+		_loc = (selectRandom (nearestLocations [(_startPos select 0), ["NameCity","NameCityCapital","NameVillage"], (_startPos select 1)]));
+		_location = [(locationPosition _loc),(size _loc)];
 	} else {
+		_location = (selectRandom (NAT_mapLocationsCities+NAT_mapLocationsVillages));
+	};
+	_pos = [(_location select 0),0,(_location select 1 select 0),0,0,0] call SIN_fnc_findPos;
+	if (_startPoint isEqualTo 0) then {
+		[_pos] spawn NAT_fnc_prologue;
+	};
+	if (_startPoint isEqualTo 1) then {
 		skipTime 0.2;
 		_aiCount = (8-({isPlayer _x} count playableUnits));
 		_groupMil = [_pos,west,"military",_aiCount,0.2] call NAT_fnc_createGroup;
@@ -217,11 +239,30 @@ if (isServer) then {
 		{
 			if (isPlayer _x) then {
 				_x setVariable ["NATspawned", true, true];
+				_x allowDamage true;
 			};
 			_x setPos _pos;
 		} forEach (units _groupMil);
-		player allowDamage true;
 		[_groupMil] spawn NAT_fnc_act1;
+	};
+	if (_startPoint isEqualTo 2) then {
+		skipTime 2;
+		_campPos = [_pos] call NAT_fnc_findBasePos;
+		[_campPos,"military",6] call NAT_fnc_createBase;
+		_aiCount = (8-({isPlayer _x} count playableUnits));
+		_groupMil = [_campPos,west,"military",_aiCount,0.2] call NAT_fnc_createGroup;
+		{
+			if (isPlayer _x) then {
+				[_x] joinSilent grpNull;
+				_x setPos _pos;
+				_x setVariable ["NATspawned", true, true];
+				_x allowDamage true;
+			};
+		} forEach playableUnits;
+		{
+			_x setPos _pos;
+		} forEach (units _groupMil);
+		[_campPos,_groupMil] spawn NAT_fnc_act2;
 	};
 };
 waitUntil {(player getVariable "NATspawned") isEqualTo true};
@@ -231,13 +272,6 @@ player enableSimulation true;
 player enableStamina true;
 cutText ["", "BLACK IN", 10];
 //-----------------------------------
-[] call NAT_fnc_needsInit;
-[] call NAT_fnc_warbotInit;
-[] spawn NAT_fnc_mineDetector;
-[] call NAT_fnc_handleDamage;
-[] spawn NAT_fnc_healthMonitor;
-[] spawn NAT_fnc_healthRegen;
-//-----------------------------------
 waitUntil {isTouchingGround player};
 setViewDistance (["NATviewDistance"] call NAT_fnc_getSetting);
 [] spawn NAT_fnc_locationDisplay;
@@ -245,4 +279,4 @@ setViewDistance (["NATviewDistance"] call NAT_fnc_getSetting);
 [] spawn NAT_fnc_radLocation;
 //-----------------------------------
 sleep 30;
-["NATnotification",["HINT","USE SHIFT+I TO OPEN YOUR STATUS MENU","i"]] call bis_fnc_showNotification;
+["NATnotification",["HINT","PRESS F1 TO OPEN YOUR STATUS MENU","i"]] call bis_fnc_showNotification;
