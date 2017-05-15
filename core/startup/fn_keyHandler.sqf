@@ -15,6 +15,12 @@ _ctrl = _this select 3;
 _alt = _this select 4;
 _handled = false;
 //-----------------------------------
+private ["_bases"];
+_bases = [];
+if (count NATmilitaryCamps > 0) then {
+    {_bases pushBack (_x select 1)} forEach NATmilitaryCamps;
+};
+//-----------------------------------
 switch (_code) do {
 	//H - GasMask toggle
 	case 35: {
@@ -41,14 +47,26 @@ switch (_code) do {
         };
     };
 
-    //I - Virtual INV
-    case 23: {
-        if (_shift && !_ctrl && !_alt && !dialog) then {
+    //F1 - Virtual INV
+    case 59: {
+        if (!_shift && !_ctrl && !_alt && !dialog) then {
             [] spawn NAT_fnc_vInvOpen;
             _handled = true;
         };
     };
-
+    //F2 - Base Menu
+    case 60: {
+        if (!_shift && !_ctrl && !_alt && !dialog) then {
+            if (!alive player || lifeState player in ["DEAD","DEAD-RESPAWN","DEAD-SWITCHING","INCAPACITATED"]) exitWith {};
+            if (cursorObject in _bases && player distance cursorObject < 10) then {
+                disableSerialization;
+                createDialog "NAT_baseMenu";
+                waitUntil {dialog};
+                [] call NAT_fnc_baseMenu;
+            };
+            _handled = true;
+        };
+    };
 };
 
 _handled;
