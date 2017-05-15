@@ -167,6 +167,14 @@ if ((player getVariable "NATneedsHealthy") isEqualTo true) then {
 	_modifier1 ctrlSetText "GUI\img\sick.paa";
 	_modifier1 ctrlSetTooltip "SICK: No health regeneration";
 };
+/* STEADY */
+if ((player getVariable "NATneedsSteady") isEqualTo true) then {
+	_modifier8 ctrlSetText "GUI\img\steady.paa";
+	_modifier8 ctrlSetTooltip "STEADY: Weapon control increased";
+} else {
+	_modifier9 ctrlShow false;
+};
+
 /* ENERGIZED */
 if ((player getVariable "NATneedsEnergised") isEqualTo true) then {
 	_modifier9 ctrlSetText "GUI\img\energised.paa";

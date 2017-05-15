@@ -23,6 +23,8 @@ while {alive player} do {
 	if (player getVariable "NATneedsSleep" <= 0.25 && player getVariable "NATneedsSleep" > 0) then {
 		if ((player getVariable ["NATneedsRadiationLevel",0]) < 2) then {
 			player setAnimSpeedCoef 1.1;
+			player setCustomAimCoef (player getVariable "NATneedsSleep");
+			player setVariable ["NATneedsSteady",true];
 		};
 		player setVariable ["NATneedsEnergised",true];
 		player setVariable ["NATneedsSleepLevel",0];
@@ -30,6 +32,7 @@ while {alive player} do {
 	if (player getVariable "NATneedsSleep" <= 0.5 && player getVariable "NATneedsSleep" > 0.25) then {
 		if ((player getVariable ["NATneedsRadiationLevel",0]) < 2) then {
 			player setAnimSpeedCoef 1;
+			player setVariable ["NATneedsSteady",true];
 		};
 		player setVariable ["NATneedsEnergised",false];
 		player setVariable ["NATneedsSleepLevel",1];
@@ -39,6 +42,7 @@ while {alive player} do {
 			player setAnimSpeedCoef 0.9;
 		};
 		player setVariable ["NATneedsEnergised",false];
+		player setVariable ["NATneedsSteady",false];
 		player setVariable ["NATneedsSleepLevel",2];
 	};
 	if (player getVariable "NATneedsSleep" <= 1 && player getVariable "NATneedsSleep" > 0.75) then {
@@ -46,6 +50,7 @@ while {alive player} do {
 			player setAnimSpeedCoef 0.8;
 		};
 		player setVariable ["NATneedsEnergised",false];
+		player setVariable ["NATneedsSteady",false];
 		player setVariable ["NATneedsSleepLevel",3];
 	};
 };
