@@ -48,6 +48,7 @@ while {true} do {
 						if (vehicle _x isEqualTo _x) then {
 							_x attachTo [(leader _x)];
 						};
+						_x setVariable ["NATcache",true];
 						_menCached = _menCached + 1;
 					};
 					if (_x distance (_playerPosArray select _i) <= _cacheDist && _x != (leader _x)) then {
@@ -57,9 +58,13 @@ while {true} do {
 						if (vehicle _x isEqualTo _x) then {
 							detach _x;
 						};
+						_x setVariable ["NATcache",false];
 						if (_menCached > 0) then {
 							_menCached = _menCached - 1;
 						};
+					};
+					if (_x distance player < 100 && (_x getVariable "NATcache") isEqualTo false) then {
+						[_unit] spawn NAT_fnc_gasMask;
 					};
 				};
 				/* VEHICLES */
@@ -67,11 +72,13 @@ while {true} do {
 					if (_x distance (_playerPosArray select _i) > _cacheDist && (count crew _x) isEqualTo 0) then {
 						_x hideObjectGlobal true;
 						_x enableSimulationGlobal false;
+						_x setVariable ["NATcache",true];
 						_vehCached = _vehCached + 1;
 					};
 					if (_x distance (_playerPosArray select _i) <= _cacheDist && (count crew _x) isEqualTo 0) then {
 						_x hideObjectGlobal false;
 						_x enableSimulationGlobal true;
+						_x setVariable ["NATcache",false];
 						if (_vehCached > 0) then {
 							_vehCached = _vehCached - 1;
 						};
@@ -82,11 +89,13 @@ while {true} do {
 					if (_x distance (_playerPosArray select _i) > _cacheDist && (count crew _x) isEqualTo 0) then {
 						_x hideObjectGlobal true;
 						_x enableSimulationGlobal false;
+						_x setVariable ["NATcache",true];
 						_vehCached = _vehCached + 1;
 					};
 					if (_x distance (_playerPosArray select _i) <= _cacheDist && (count crew _x) isEqualTo 0) then {
 						_x hideObjectGlobal false;
 						_x enableSimulationGlobal true;
+						_x setVariable ["NATcache",false];
 						if (_vehCached > 0) then {
 							_vehCached = _vehCached - 1;
 						};
