@@ -13,7 +13,6 @@ enableSaving [false, false];
 enableSentences false;
 enableEnvironment false;
 player enableSimulation false;
-// allowDamage false;
 player enableStamina false;
 removeAllWeapons player;
 removeAllItems player;
