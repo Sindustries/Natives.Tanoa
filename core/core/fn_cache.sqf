@@ -63,8 +63,8 @@ while {true} do {
 							_menCached = _menCached - 1;
 						};
 					};
-					if (_x distance player < 100 && (_x getVariable "NATcache") isEqualTo false) then {
-						[_unit] spawn NAT_fnc_gasMask;
+					if (_x distance player < 100 && (_x getVariable "NATcache") isEqualTo false && (_x getVariable "NATgasMask") isEqualTo false) then {
+						[_x] spawn NAT_fnc_gasMask;
 					};
 				};
 				/* VEHICLES */
