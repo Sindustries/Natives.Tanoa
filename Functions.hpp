@@ -105,6 +105,7 @@ class NAT_Core {
 	class warbot {
 		file = "core\warbot";
 		class baseMenu {};
+		class baseRequest {};
 		class createBase {};
 		class findBasePos {};
 		class warbotInit {};
