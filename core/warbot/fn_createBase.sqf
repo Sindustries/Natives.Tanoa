@@ -60,7 +60,6 @@ if (count _fireObjs > 0) then {
 	_fire setPos [(getPos _fire select 0),(getPos _fire select 1),0];
 	NATcache pushBack _fire;
 };
-systemChat str (count _defenceObjs);
 if (count _defenceObjs > 0) then {
 	for "_i" from 1 to (2+floor(random 2)) do {
 		_pos = [_campPos,_mainObjSize,20,2] call SIN_fnc_findPos;
@@ -84,6 +83,12 @@ if (count _extraObjs > 0) then {
 		_numObjects = _numObjects - 1;
 		NATcache pushBack _obj;
 	};
+};
+//-----------------------------------
+//-HELIPAD / VEH BUILD SITE
+if (_type isEqualTo "military") then {
+	_pos = [_campPos,(_mainObjSize+3),20,2] call SIN_fnc_findPos;
+	_heliPad = "Land_JumpTarget_F" createVehicle _pos;
 };
 //-----------------------------------
 //-MAP MARKER
