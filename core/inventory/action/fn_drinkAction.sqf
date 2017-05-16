@@ -17,11 +17,13 @@ switch (_item) do {
 		_use = true;
 		[3,2,0.66] call NAT_fnc_needsUpdate;
 		[4,2,0.8] call NAT_fnc_needsUpdate;
+		["zk_e_canteen",1,true] call NAT_fnc_vInvAdjust;
 	};
 	case "zk_waterbottle": {
 		_use = true;
 		[3,2,0.45] call NAT_fnc_needsUpdate;
 		[4,2,0.6] call NAT_fnc_needsUpdate;
+		["sc_empty_bottle",1,true] call NAT_fnc_vInvAdjust;
 	};
 	case "sc_energy_drink": {
 		_use = true;
@@ -46,6 +48,7 @@ switch (_item) do {
 		_use = true;
 		[3,2,0.15] call NAT_fnc_needsUpdate;
 		[7,1,0.05] call NAT_fnc_needsUpdate;
+		["sc_empty_bottle",1,true] call NAT_fnc_vInvAdjust;
 	};
 	case "sc_coffee": {
 		_use = true;
