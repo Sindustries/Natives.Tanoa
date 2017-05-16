@@ -14,7 +14,6 @@ params [
 
 if (_item isEqualTo "" || _count isEqualTo 0) exitWith {};
 _vInv = (player getVariable ["NAT_vInv",[]]);
-if (DebugMode) then {systemChat str _item};
 //-----------------------------------
 if (_add) then {
 	if (count _vInv > 0) then {
