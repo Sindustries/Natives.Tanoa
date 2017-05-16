@@ -7,6 +7,7 @@ params [
 	["_unit",objNull]
 ];
 if (isNull _unit) exitWith {};
+if (_unit != player && !((headgear _unit) in NATgasMasks) && !((goggles _unit) in NATgasMasks)) exitWith {};
 
 if (_unit isEqualTo player) then {
 	waitUntil {(headgear _unit) in NATgasMasks || (goggles _unit) in NATgasMasks};
@@ -16,7 +17,8 @@ if (_unit isEqualTo player) then {
 while {alive _unit} do {
 //-----------------------------------
 
-	waitUntil {(headgear _unit) in NATgasMasks || (goggles _unit) in NATgasMasks};
+	waitUntil {sleep 1; (headgear _unit) in NATgasMasks || (goggles _unit) in NATgasMasks || _unit distance player > 100};
+	if (_unit distance player > 100) exitWith {};
 	if ((headgear player) in NATgasMasks) then {
 		player setVariable ["NATsavedHeadgear",(headgear player),false];
 	};
@@ -24,7 +26,7 @@ while {alive _unit} do {
 		player setVariable ["NATsavedGoggles",(goggles player),false];
 	};
 
-	[_unit,["echipare",14]] remoteExec ["say3D", 0];
+	_unit say3D ["echipare",14];
 	if (_unit isEqualTo player) then {
 		"HVPGasMaskLayer" cutRsc ["equipment_prot","PLAIN",-1,false];
 	};
@@ -33,14 +35,16 @@ while {alive _unit} do {
 	[_unit] spawn {
 		_unit = _this select 0;
 		while {(headgear _unit) in NATgasMasks || (goggles _unit) in NATgasMasks && alive _unit} do {
+			if (_unit distance player > 100) exitWith {};
 			_int_b = linearConversion [0, 1,(getFatigue _unit), 5, 0, true];
-			[_unit,["breath",10]] remoteExec ["say3D", 0];
+			_unit say3D ["breath",10];
 			sleep (2 + _int_b);
 		};
 	};
 
-	waitUntil {!((headgear _unit) in NATgasMasks) && !((goggles _unit) in NATgasMasks) || !alive _unit};
-	[_unit,["dezechipare",14]] remoteExec ["say3D", 0];
+	waitUntil {sleep 1; !((headgear _unit) in NATgasMasks) && !((goggles _unit) in NATgasMasks) || !alive _unit || _unit distance player > 100};
+	if (_unit distance player > 100) exitWith {};
+	_unit say3D ["dezechipare",14];
 	if (_unit isEqualTo player) then {
 	 	"HVPGasMaskLayer" cutfadeout 0;
 	};
