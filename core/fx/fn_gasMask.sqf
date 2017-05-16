@@ -13,12 +13,15 @@ if (_unit isEqualTo player) then {
 	waitUntil {(headgear _unit) in NATgasMasks || (goggles _unit) in NATgasMasks};
 	["NATnotification",["HINT","USE SHIFT+H TO TOGGLE GAS MASK"]] call bis_fnc_showNotification;
 };
+if ((_unit getVariable "NATgasMask") isEqualTo true) exitWith {};
+
+_unit setVariable ["NATgasMask",true];
 
 while {alive _unit} do {
 //-----------------------------------
 
 	waitUntil {sleep 1; (headgear _unit) in NATgasMasks || (goggles _unit) in NATgasMasks || _unit distance player > 100};
-	if (_unit distance player > 100) exitWith {};
+	if (_unit distance player > 100) exitWith {_unit setVariable ["NATgasMask",false]};
 	if ((headgear player) in NATgasMasks) then {
 		player setVariable ["NATsavedHeadgear",(headgear player),false];
 	};
@@ -35,7 +38,7 @@ while {alive _unit} do {
 	[_unit] spawn {
 		_unit = _this select 0;
 		while {(headgear _unit) in NATgasMasks || (goggles _unit) in NATgasMasks && alive _unit} do {
-			if (_unit distance player > 100) exitWith {};
+			if (_unit distance player > 100) exitWith {_unit setVariable ["NATgasMask",false]};
 			_int_b = linearConversion [0, 1,(getFatigue _unit), 5, 0, true];
 			_unit say3D ["breath",10];
 			sleep (2 + _int_b);
@@ -43,7 +46,7 @@ while {alive _unit} do {
 	};
 
 	waitUntil {sleep 1; !((headgear _unit) in NATgasMasks) && !((goggles _unit) in NATgasMasks) || !alive _unit || _unit distance player > 100};
-	if (_unit distance player > 100) exitWith {};
+	if (_unit distance player > 100) exitWith {_unit setVariable ["NATgasMask",false]};
 	_unit say3D ["dezechipare",14];
 	if (_unit isEqualTo player) then {
 	 	"HVPGasMaskLayer" cutfadeout 0;
