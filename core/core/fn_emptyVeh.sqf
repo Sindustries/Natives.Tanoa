@@ -6,7 +6,8 @@
 */
 //-----------------------------------
 params [
-	["_veh",objNull,[ObjNull]]
+	["_veh",objNull],
+	["_wep",true]
 ];
 if (isNull _veh) exitWith {};
 //-----------------------------------
@@ -14,5 +15,7 @@ clearMagazineCargoGlobal _veh;
 clearWeaponCargoGlobal _veh;
 clearItemCargoGlobal _veh;
 clearBackpackCargoGlobal _veh;
-_veh setVehicleAmmo 0;
+if (_wep) then {
+	_veh setVehicleAmmo 0;
+};
 //-----------------------------------
