@@ -42,6 +42,8 @@ private ["_grpPlayers"];
 _grpPlayers = {!isPlayer _x && alive _x} count (units group player);
 //-----------------------------------
 /* UNIT & VEHICLE LIST */
+lbClear _unitsList;
+lbClear _vehList;
 if (count NATbaseUnitRequest > 0) then {
 	for "_i" from 0 to ((count NATbaseUnitRequest)-1) do {
 		_entry = (NATbaseUnitRequest select _i);
@@ -74,16 +76,19 @@ _vehReqBtn ctrlSetText "BUILD VEHICLE";
 _vehReqBtn ctrlSetTooltip "Build selected vehicle from list above (BUILD TIME IS SCRAP COST DIVIDED BY 3)";
 _vehReqBtn buttonSetAction "[2] call NAT_fnc_baseRequest";
 //-----------------------------------
-/* ICONS */
+/* RESOURCES */
 _foodIcon ctrlSetText "GUI\img\meat.paa";
 _waterIcon ctrlSetText "GUI\img\water.paa";
 _scrapIcon ctrlSetText "\scorch_invitems\images\scrap.paa";
+_foodTXT ctrlSetText format["%1",NATresFood];
+_waterTXT ctrlSetText format["%1",NATresWater];
+_scrapTXT ctrlSetText format["%1",NATresScrap];
 //-----------------------------------
 /* MISSIONS BUTTON */
 _sideBarBtn1 ctrlSetText "MISSIONS";
 if (isServer) then {
 	_sideBarBtn1 ctrlSetTooltip "Find a mission";
-	_sideBarBtn1 buttonSetAction "[2] call NAT_fnc_baseRequest";
+	//_sideBarBtn1 buttonSetAction "[2] call NAT_fnc_baseRequest";
 } else {
 	_sideBarBtn1 ctrlEnable false;
 	_sideBarBtn1 ctrlSetTooltip "Find a mission - HOST ONLY";
