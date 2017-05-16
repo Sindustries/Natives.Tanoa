@@ -18,6 +18,7 @@ switch (_item) do {
 			_use = true;
 			[1,2,0.3] call NAT_fnc_needsUpdate;
 			[2,2,0.3] call NAT_fnc_needsUpdate;
+			["zk_e_can",1,true] call NAT_fnc_vInvAdjust;
 		};
 	};
 	case "sc_cookedmeat": {
@@ -30,6 +31,7 @@ switch (_item) do {
 			_use = true;
 			[1,2,0.25] call NAT_fnc_needsUpdate;
 			[2,2,0.25] call NAT_fnc_needsUpdate;
+			["zk_e_can",1,true] call NAT_fnc_vInvAdjust;
 		};
 	};
 	case "sc_mre": {
@@ -43,6 +45,7 @@ switch (_item) do {
 			_use = true;
 			[1,2,0.25] call NAT_fnc_needsUpdate;
 			[2,2,0.25] call NAT_fnc_needsUpdate;
+			["zk_e_can",1,true] call NAT_fnc_vInvAdjust;
 		};
 	};
 	case "zk_ricebox": {
