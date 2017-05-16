@@ -7,25 +7,10 @@ private [];
 _campPos = _this select 0;
 _groupMil = _this select 1;
 
-
-
 //-----------------------------------
 //-PART 4 - DEFEND THE CAMP
-/*
-Parameters:
-    - Group (Group or Object)
 
-Optional:
-    - Position (XYZ, Object, Location or Group)
-    - Defend Radius (Scalar)
-    - Building Size Threshold (Integer, default 2)
-    - Can patrol (boolean)
-
-Example:
-    (begin example)
-    [this] call CBA_fnc_taskDefend
-    (end)
-*/
+(group player) setFormation "STAG COLUMN";
 
 {_x setSkill 0.8} forEach (units _groupMil);
 [_groupMil,[(_campPos select 0),(_campPos select 1),0],50,2,true] call CBA_fnc_taskDefend;
@@ -33,7 +18,6 @@ Example:
 for "_i" from 1 to 2 do {
 	_pos = [_campPos,200,300] call SIN_fnc_findPos;
 	_group = [_pos,east,"militia",12,0.1] call NAT_fnc_createGroup;
-	//[_group,[(_campPos select 0),(_campPos select 1),0],1] call CBA_fnc_taskAttack;
 	[_group,_campPos,"SAD","RED","AWARE"] call NAT_fnc_createWaypoint;
 };
 
