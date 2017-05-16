@@ -81,8 +81,8 @@ if (_use) then {
 		if (_heal > 0) then {
 			player setDamage ((damage player)-_heal);
 		};
-		NATaction = false;
 	};
 };
+NATaction = false;
 _use;
 //-----------------------------------
