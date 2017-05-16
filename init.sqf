@@ -80,7 +80,7 @@ if (isServer) then {
 	publicVariable "NAT_mapLocationsVillages";
 	publicVariable "NAT_mapLocationsAirports";
 	if (worldName isEqualTo "Tanoa") then {
-		_startPos = [[10000,10000,0],3500];
+		_startPos = [[10000,10000,0],4500];
 	};
 };
 //-----------------------------------
