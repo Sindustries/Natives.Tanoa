@@ -43,9 +43,10 @@ NATbaseUnitRequest = [
 		["Mask_M40"],		//GOGGLES
 		["TRYK_balaclava_NV"]		//LINKED ITEMS
 	],
+	0.75,	//SKILL
 	30,		//FOOD COST
 	30		//WATER COST
-	],
+	]
 ];
 
 //-----------------------------------
