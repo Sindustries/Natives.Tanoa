@@ -13,6 +13,10 @@ NATmilitiaCamps = [];
 NATnativeCamps = [];
 NATcivilianCamps = [];
 
+NATresFood = 8;
+NATresWater = 8;
+NATresScrap = 50;
+
 NATmilitaryForce = [];
 NATmilitiaForce = [];
 NATnativeForce = [];
