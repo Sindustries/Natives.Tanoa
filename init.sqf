@@ -203,7 +203,7 @@ player setVariable ["NAT_pumpingFuel",false];
 //-----------------------------------
 //-PLAYER STARTING GEAR
 [player,"military",true] call NAT_fnc_equip;
-player setVariable ["NAT_vInv",[["zk_waterbottle",2],["zk_tacticalBacon",2]],true];
+player setVariable ["NAT_vInv",[["zk_f_canteen",1],["sc_mre",2]],true];
 //-----------------------------------
 [] spawn NAT_fnc_dynObjMonitor;
 [] spawn NAT_fnc_mineDetector;
