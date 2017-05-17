@@ -34,7 +34,7 @@ if (_type isEqualTo 1) then {
 
 	_spawnPos = [(getPos player),2,20] call SIN_fnc_findPos;
 	_time = floor(random _unitFood)+floor(random _unitWater);
-	systemChat format["RECRUITING: %1 | ETA: %2 seconds",_unitName,_time];
+	systemChat format["RECRUITING: %1 | ETA: %2 seconds",_unitName,[_time,0] call BIS_fnc_cutDecimals];
 
 	[_unitEquip,_unitSkill,_time,_spawnPos] spawn {
 		private ["_weapon","_sidearm"];
@@ -87,7 +87,7 @@ if (_type isEqualTo 1) then {
 		if (count _pWeps > 0) then {
 			_weapon = (selectRandom _pWeps);
 			_mags = (getArray (configFile >> "CfgWeapons" >> _weapon >> "magazines"));
-			_unit addMagazines [(selectRandom _mags),8];
+			_unit addMagazines [(selectRandom _mags),9];
 			_unit addWeapon _weapon;
 			if (count _pWepAccs > 0) then {
 				{_unit addPrimaryWeaponItem _x} forEach _pWepAccs;
@@ -96,12 +96,16 @@ if (_type isEqualTo 1) then {
 		if (count _sWeps > 0) then {
 			_weapon = (selectRandom _sWeps);
 			_mags = (getArray (configFile >> "CfgWeapons" >> _weapon >> "magazines"));
-			_unit addMagazines [(selectRandom _mags),8];
+			_unit addMagazines [(selectRandom _mags),4];
 			_unit addWeapon _weapon;
 			if (count _sWepAccs > 0) then {
 				{_unit addHandgunItem _x} forEach _pWepAccs;
 			};
 		};
+		_unit linkItem "itemMap";
+		_unit linkItem "itemRadio";
+		_unit linkItem "itemWatch";
+		_unit addWeapon "binocular";
 	};
 };
 //-----------------------------------
@@ -124,7 +128,7 @@ if (_type isEqualTo 2) then {
 
 	_spawnPos = (getPos nearestObject [(getPos player),"Land_JumpTarget_F"]); //[(getPos player),2,20,4] call SIN_fnc_findPos;
 	_time = (_cost/3);
-	systemChat format["BUILDING: %1 | ETA: %2 seconds",_name,_time];
+	systemChat format["BUILDING: %1 | ETA: %2 seconds",_name,[_time,0] call BIS_fnc_cutDecimals];
 
 	[_classes,_time,_spawnPos] spawn {
 		private ["_time","_hitPoints"];
@@ -133,37 +137,48 @@ if (_type isEqualTo 2) then {
 		_spawnPos = _this select 2;
 
 		_veh = (selectRandom _classes) createVehicle _spawnPos;
-		[_veh,false] call NAT_fnc_emptyVeh;
+		[_veh,true,false,true] call SIN_fnc_emptyVeh;
 		_veh setFuel (0.25+(random 0.5));
 		_veh lock true;
-		_hitpoints = [];
-		_cfg = (configFile >> "CfgVehicles" >> (typeOf _veh) >> "HitPoints");
-		for "_i" from 0 to ((count _cfg)-1) do {
-			_hitpoints pushBackUnique (getText ((_cfg select _i) >> "name"));
-		};
 
-		while {_time > 0} do {
+		_hull = ["karoserie","hull_hit"];
+		_glass = ["glass1","glass2","glass3","glass4"];
+		_wheels = ["wheel_1_1_steering","wheel_1_4_steering","wheel_1_3_steering","wheel_1_2_steering","wheel_2_1_steering","wheel_2_4_steering","wheel_2_3_steering","wheel_2_2_steering","track_l_hit","track_r_hit"];
+
+		{_veh setHit [_x,0.9]} forEach _hull;
+		{_veh setHit [_x,1]} forEach (_glass+_wheels);
+
+		_hullTime = (_time/3);
+		_glassTime = (_time/3);
+		_wheelTime = (_time/3);
+
+		while {_hullTime > 0} do {
 			private "_hit";
-			_hit = (1-(1/_time));
-			if (_hit > 0.9) then {
-				_hit = 0.9;
+			_hit = (1-(1/_hullTime));
+			if (_hit < 0.9) then {
+				{_veh setHit [_x,_hit]} forEach _hull;
 			};
-			{
-				_veh setHit [_x,_hit,false];
-			} forEach _hitPoints;
 			sleep 1;
-			_time = _time - 1;
+			_hullTime = _hullTime - 1;
+		};
+		while {_glassTime > 0} do {
+			private "_hit";
+			_hit = (1-(1/_glassTime));
+			{_veh setHit [_x,_hit]} forEach _glass;
+			sleep 1;
+			_glassTime = _glassTime - 1;
+		};
+		while {_wheelTime > 0} do {
+			private "_hit";
+			_hit = (1-(1/_wheelTime));
+			{_veh setHit [_x,_hit]} forEach _wheels;
+			sleep 1;
+			_wheelTime = _wheelTime - 1;
 		};
 
-		_veh lock false;
+		_veh lock false;	//name = "engine_hit";
+		_veh setDamage 0;
 	};
 };
 //-----------------------------------
 [] call NAT_fnc_baseMenu;
-
-//{_hitPoints pushback (getText (configfile >> "CfgVehicles" >> (typeOf _veh) >> "HitPoints" >> _x))} forEach (configfile >> "CfgVehicles" >> (typeOf _veh) >> "HitPoints");
-
-_cfg = (configFile >> "CfgVehicles" >> (typeOf cursorObject) >> "HitPoints");
-for "_i" from 0 to ((count _cfg)-1) do {
-	systemChat str (getText ((_cfg select _i) >> "name"));
-};
