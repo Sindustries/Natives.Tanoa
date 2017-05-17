@@ -30,4 +30,7 @@ if (isServer) then {
 	[] spawn NAT_fnc_warbotZoneMonitor;
 };
 
+NATwarbotLoaded = true;
+publicVariable "NATwarbotLoaded";
+
 //-----------------------------------
