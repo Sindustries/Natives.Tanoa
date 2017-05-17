@@ -36,7 +36,7 @@ NATbaseUnitRequest = [
 		["acc_flashlight","optic_Holosight_blk_F"],		//PRIMARY WEAPON ITEMS
 		["hgun_Rook40_F"],		//SIDEARMS
 		[],		//SIDEARM ITEMS
-		[["SmokeShell",1],["ACE_HandFlare_White",1]],		//GRENADES
+		[["SmokeShell",1]],		//GRENADES
 		NAT_militaryUniforms,		//UNIFORMS
 		NAT_militaryVests,		//VESTS
 		NAT_militaryBackpacks,		//BACKPACKS
@@ -55,7 +55,7 @@ NATbaseUnitRequest = [
 		["muzzle_snds_65_TI_blk_F","acc_pointer_IR","optic_ERCO_blk_F","bipod_01_F_blk"],		//PRIMARY WEAPON ITEMS
 		["hgun_Rook40_F"],		//SIDEARMS
 		["muzzle_snds_L"],		//SIDEARM ITEMS
-		[["ACE_M14",3],["ACE_HandFlare_Red",3],["SmokeShellRed",3]],		//GRENADES
+		[["SmokeShellRed",3]],		//GRENADES
 		["TRYK_U_B_PCUHsW8","TRYK_U_B_PCUHsW3","TRYK_U_B_PCUHs","TRYK_U_B_PCUGHs","TRYK_U_B_PCUODHs"],		//UNIFORMS
 		["V_TacVestIR_blk","tacs_Vest_Tactical_DarkBlack"],		//VESTS
 		["TRYK_B_Kitbag_blk","TRYK_B_BAF_BAG_BLK"],		//BACKPACKS
