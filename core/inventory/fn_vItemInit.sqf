@@ -39,4 +39,12 @@ NATvInvCampItems = [
 "zk_tent","sc_bedroll","zk_wood"
 ];
 
+NATvInvRepairItems = [
+"sc_tire","sc_tape","sc_wires","sc_carbattery","sc_jumpercables"
+];
+
+NATvInvRepairReqItems = [
+"sc_toolbox","zk_butanetorch","zk_drill","zk_grinder","zk_hammer","zk_knife","zk_pliers","zk_screwdriver","ToolKit","zk_wrench","sc_tire_iron"
+];
+
 //-----------------------------------
