@@ -26,22 +26,40 @@ switch (_item) do {
 	case "FirstAidKit": {
 		_use = true;
 		_heal = ((random 0.075)+(random 0.15));
+		if (player getVariable ["NATneedsDamageModif",1] > 0.75) then {
+			player setVariable ["NATneedsDamageModif",0.75];
+		};
 	};
 	case "Medikit": {
 		_use = true;
 		_heal = ((random 0.15)+(random 0.1));
+		if (player getVariable ["NATneedsDamageModif",1] > 0.5) then {
+			player setVariable ["NATneedsDamageModif",0.5];
+		};
 	};
 	case "sc_ibuprofen": {
-		_use = false;
-
+		if (player getVariable ["NATneedsDamageModif",1] > 0.9) then {
+			player setVariable ["NATneedsDamageModif",0.9];
+			_use = true;
+		} else {
+			_use = false;
+		};
 	};
 	case "zk_painKillers": {
-		_use = false;
-
+		if (player getVariable ["NATneedsDamageModif",1] > 0.75) then {
+			player setVariable ["NATneedsDamageModif",0.75];
+			_use = true;
+		} else {
+			_use = false;
+		};
 	};
 	case "sc_morphine": {
-		_use = false;
-
+		if (player getVariable ["NATneedsDamageModif",1] > 0.5) then {
+			player setVariable ["NATneedsDamageModif",0.5];
+			_use = true;
+		} else {
+			_use = false;
+		};
 	};
 	case "sc_epinephrine": {
 		_use = false;
