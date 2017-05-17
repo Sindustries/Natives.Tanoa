@@ -12,7 +12,6 @@ NAT_zhordeSize = ["NAT_zhordeSize"] call NAT_fnc_getSetting;;
 NAT_zSpawnChance = ["NAT_zSpawnChance"] call NAT_fnc_getSetting;
 NAT_zBossChance = ["NAT_zBossChance"] call NAT_fnc_getSetting;
 
-NAT_zActive = false;
 NAT_zSpawnerArray = [];
 NAT_usedSpawnerArray = [];
 NAT_zombies = [];
@@ -31,36 +30,25 @@ if (isServer) then {
 
 	NAT_BossZombies = ["RyanZombieboss1","RyanZombieboss2","RyanZombieboss3","RyanZombieboss4","RyanZombieboss5","RyanZombieboss6","RyanZombieboss7","RyanZombieboss8","RyanZombieboss9","RyanZombieboss10","RyanZombieboss11","RyanZombieboss12","RyanZombieboss13","RyanZombieboss14","RyanZombieboss15","RyanZombieboss16","RyanZombieboss17","RyanZombieboss18","RyanZombieboss19","RyanZombieboss20","RyanZombieboss21","RyanZombieboss22","RyanZombieboss23","RyanZombieboss24","RyanZombieboss25","RyanZombieboss26","RyanZombieboss27","RyanZombieboss28","RyanZombieboss29","RyanZombieboss30","RyanZombieboss31","RyanZombieboss32"];
 
-	/*_cfg = (configFile >> "CfgVehicles");
-	for "_i" from 0 to ((count _cfg)-1) do {
-		if (isClass (_cfg select _i)) then {
-			_cfgName = configName (_cfg select _i);
-			if (_cfgName isKindOf "Man" && (getNumber ((_cfg select _i) >> "scope") == 2) && (getText ((_cfg select _i) >> "faction") isEqualTo "Ryanzombiesfaction") && (!(_cfgName in _exclusions)) &&
-			(!(_cfgName in NAT_BossZombies))) then {
-				NAT_zombies pushBackUnique _cfgName;
-			};
-		};
-	};*/
-
 	publicVariable "NAT_BossZombies";
 	publicVariable "NAT_zombies";
-/*
+
 	//-SPAWN EACH ZOMBIE ONCE AND DELETE (TO CACHE)
 	_counter = (count NAT_zombies);
 	{
 		_temp = createVehicle [_x,[0,0,0], [], 0, "NONE"];
+		sleep 0.001;
 		deleteVehicle _temp;
 		_counter = _counter - 1;
 		[_counter,(count NAT_zombies)] remoteExec ["NAT_fnc_updateProgressBar", 0];
-	} forEach (NAT_zombies+NAT_BossZombies); */
+	} forEach (NAT_zombies+NAT_BossZombies);
 };
 //-----------------------------------
 //-LAUNCH FUNCS
 
-[] spawn z_fnc_zMonitor;
 [] spawn z_fnc_zMask;
 if (isServer) then {
-	//[] spawn z_fnc_zDeleter;
+	[] spawn z_fnc_zMonitor;
 };
 
 //-----------------------------------
