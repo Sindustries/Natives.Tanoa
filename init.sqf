@@ -79,7 +79,7 @@ if (isServer) then {
 	publicVariable "NAT_mapLocationsVillages";
 	publicVariable "NAT_mapLocationsAirports";
 	if (worldName isEqualTo "Tanoa") then {
-		_startPos = [[10000,10000,0],4500];
+		_startPos = [[10000,10000,0],4000];
 	};
 };
 //-----------------------------------
@@ -198,6 +198,7 @@ cutText ["", "BLACK FADED", 999];
 [] call NAT_fnc_fuelStation;
 //-----------------------------------
 //-PLAYER VARIABLES
+player setUnitRank "LIEUTENANT";
 player setVariable ["NATspawned",false,true];
 player setVariable ["NAT_pumpingFuel",false];
 //-----------------------------------
