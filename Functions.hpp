@@ -110,7 +110,12 @@ class NAT_Core {
 		class baseRequest {};
 		class createBase {};
 		class findBasePos {};
+		class findNearestBase {};
+		class findNearestZone {};
 		class warbotInit {};
+		class warbotWave {};
+		class warbotZoneCreator {};
+		class warbotZoneMonitor {};
 	};
 	class weather {
 		file = "core\weather";
