@@ -20,8 +20,9 @@
 		[],		//BACKPACKS
 		[],		//HEADGEAR
 		[],		//GOGGLES
-		[]		//LINKED ITEMS,
+		[]		//LINKED ITEMS
 	],
+	0.2,	//SKILL
 	30,		//FOOD COST
 	30		//WATER COST
 	],
@@ -29,21 +30,40 @@
 
 NATbaseUnitRequest = [
 	[
+	"Operator",
+	[
+		["arifle_SPAR_01_blk_F"],		//PRIMARY WEAPONS
+		["acc_flashlight","optic_Holosight_blk_F"],		//PRIMARY WEAPON ITEMS
+		["hgun_Rook40_F"],		//SIDEARMS
+		[],		//SIDEARM ITEMS
+		[["SmokeShell",1],["ACE_HandFlare_White",1]],		//GRENADES
+		NAT_militaryUniforms,		//UNIFORMS
+		NAT_militaryVests,		//VESTS
+		NAT_militaryBackpacks,		//BACKPACKS
+		NAT_militaryHeadgear,		//HEADGEAR
+		NAT_militaryGoggles,		//GOGGLES
+		[]		//LINKED ITEMS
+	],
+	0.2,	//SKILL
+	10,		//FOOD COST
+	10		//WATER COST
+	],
+	[
 	"Biohazard",
 	[
 		["arifle_ARX_blk_F"],		//PRIMARY WEAPONS
 		["muzzle_snds_65_TI_blk_F","acc_pointer_IR","optic_ERCO_blk_F","bipod_01_F_blk"],		//PRIMARY WEAPON ITEMS
-		["Desert_Eagle"],		//SIDEARMS
-		[],		//SIDEARM ITEMS
+		["hgun_Rook40_F"],		//SIDEARMS
+		["muzzle_snds_L"],		//SIDEARM ITEMS
 		[["ACE_M14",3],["ACE_HandFlare_Red",3],["SmokeShellRed",3]],		//GRENADES
-		["TRYK_U_B_PCUHs"],		//UNIFORMS
-		["V_TacVestIR_blk"],		//VESTS
-		["TRYK_B_Kitbag_blk"],		//BACKPACKS
+		["TRYK_U_B_PCUHsW8","TRYK_U_B_PCUHsW3","TRYK_U_B_PCUHs","TRYK_U_B_PCUGHs","TRYK_U_B_PCUODHs"],		//UNIFORMS
+		["V_TacVestIR_blk","tacs_Vest_Tactical_DarkBlack"],		//VESTS
+		["TRYK_B_Kitbag_blk","TRYK_B_BAF_BAG_BLK"],		//BACKPACKS
 		[],		//HEADGEAR
 		["Mask_M40"],		//GOGGLES
-		["TRYK_balaclava_NV"]		//LINKED ITEMS
+		["TRYK_balaclava_NV","TRYK_balaclava_BLACK_NV"]		//LINKED ITEMS
 	],
-	0.75,	//SKILL
+	0.5,	//SKILL
 	30,		//FOOD COST
 	30		//WATER COST
 	]
@@ -51,7 +71,7 @@ NATbaseUnitRequest = [
 
 //-----------------------------------
 /*
-	UNITS
+	VEHICLES
 	[DISPLAY NAME, CLASSNAMES,SCRAP COST]
 
 	[
