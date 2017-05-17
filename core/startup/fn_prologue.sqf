@@ -140,7 +140,8 @@ sleep 3;
 			_x setPos _pos;
 			_x setDir (random 360);
 		} else {
-			_x setPos [(getPos _x select 0),(getPos _x select 1),0];
+			_pos = [(getPos _x),0,50,3] call SIN_fnc_findPos;
+			_x setPos _pos;
 		};
 		_x enableSimulationGlobal false;
 	};
@@ -179,9 +180,13 @@ sleep 3;
 	};
 } forEach (units _groupMil);
 
+sleep 1;
+
 {
-	_x setDamage 0.2;
-} forEach playableUnits;
+	if (isPlayer) then {
+		_x setDamage 0.2;
+	};
+} forEach allUnits;
 
 //-----------------------------------
 //-ACT 1
