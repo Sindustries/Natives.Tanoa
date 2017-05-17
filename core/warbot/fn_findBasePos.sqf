@@ -9,9 +9,9 @@ params [
     ["_pos",[]],
     ["_minDist",0],
     ["_maxDist",50],
-    ["_objDist",30],
+    ["_objDist",20],
 	["_water",0],
-	["_maxGrad",0.1],
+	["_maxGrad",0.125],
 	["_shore",0]
 ];
 
@@ -25,7 +25,7 @@ while {!_posFound} do {
 	if ((_return select 0) != (_errorPos select 0) && (_return select 1) != (_errorPos select 1)) then {
 		_posFound = true;
 	} else {
-		_maxDist = _maxDist + 25;
+		_maxDist = _maxDist + 100;
 	};
 };
 
