@@ -54,6 +54,7 @@ class NAT_Core {
 	};
 	class inventory {
 		file = "core\inventory";
+		class interact {};
 		class vInvAdjust {};
 		class vInvCheck {};
 		class vInvDrop {};
@@ -69,6 +70,7 @@ class NAT_Core {
 		class eatAction {};
 		class firstAidAction {};
 		class gasMaskAction {};
+		class repairAction {};
 	};
 	class needs {
 		file = "core\needs";
