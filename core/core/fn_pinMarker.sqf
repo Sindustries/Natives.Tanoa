@@ -18,47 +18,54 @@ switch ((side (leader _group))) do {
 };
 
 if ((side (leader _group)) in [RESISTANCE,CIVILIAN]) exitWith {};
+if (_group in NATpinnedGroups) exitWith {};
+NATpinnedGroups pushBack _group;
 
 //-----------------------------------
 
 {
 	if (_x isEqualTo (leader _group)) then {
 		_aMarkername = format["%1%2",(getPos _x),(random 10000)];
-		_aMarker = createMarker [_aMarkername,(getPos _x)];
-		_aMarker setMarkerShape "ICON";
-		_aMarker setMarkerType "mil_triangle";
-		_aMarker setMarkerColor _colour;
-		_aMarker setMarkerSize [0.75,0.75];
-		_aMarker setMarkerAlpha 0;
+		_aMarker = createMarkerLocal [_aMarkername,(getPos _x)];
+		_aMarker setMarkerShapeLocal "ICON";
+		_aMarker setMarkerTypeLocal "mil_triangle";
+		_aMarker setMarkerColorLocal _colour;
+		_aMarker setMarkerSizeLocal [0.75,0.75];
+		_aMarker setMarkerAlphaLocal 0;
 	};
 } forEach (units _group);
 
 while {{alive _x} count (units _group) > 0} do {
-	_aMarker setMarkerPos (getPos (leader _group));
-	_aMarker setMarkerDir (getDir (leader _group));
+	_aMarker setMarkerPosLocal (getPos (leader _group));
+	_aMarker setMarkerDirLocal (getDir (leader _group));
 	switch ((side (leader _group))) do {
 		case WEST: {
 			if  ("ItemRadio" in (assignedItems player)) then {
-				_aMarker setMarkerAlpha 0.8;
-				_aMarker setMarkerText (groupid _group);
+				_aMarker setMarkerAlphaLocal 0.8;
+				_aMarker setMarkerTextLocal (groupid _group);
 				sleep 3;
 			} else {
-				_aMarker setMarkerAlpha 0;
+				_aMarker setMarkerAlphaLocal 0;
 				sleep 12;
 			};
 		};
 		case EAST: {
 			if ((["sc_receiver"] call NAT_fnc_vInvCheck)) then {
-				_aMarker setMarkerAlpha 0.8;
+				_aMarker setMarkerAlphaLocal 0.8;
 				sleep 6;
 			} else {
-				_aMarker setMarkerAlpha 0;
+				_aMarker setMarkerAlphaLocal 0;
 				sleep 12;
 			};
 		};
 	};
 };
 
+{
+	if (_x isEqualTo _group) then {
+		NATpinnedGroups deleteAt _forEachIndex;
+	};
+} forEach NATpinnedGroups;
 _aMarker setMarkerType "mil_destroy";
 _aMarker setMarkerDir 45;
 _aMarker setMarkerText "";
