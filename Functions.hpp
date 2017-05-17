@@ -109,6 +109,7 @@ class NAT_Core {
 		class baseMenu {};
 		class baseRequest {};
 		class createBase {};
+		class createZonePatrol {};
 		class findBasePos {};
 		class findNearestBase {};
 		class findNearestZone {};
