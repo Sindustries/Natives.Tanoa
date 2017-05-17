@@ -15,11 +15,15 @@ player addEventHandler ["handleDamage",{
 	_passedDamage = _this select 2;
 	_source = _this select 3;
 	_projectile = _this select 4;
+	_selections = ["head","body","arms","legs"];
+
+	_return = ((_passedDamage/4)*(player getVariable ["NATneedsDamageModif",1]));
 
 	if (DebugMode) then {
 		_return = 0;
-	} else {
-		_return = (_passedDamage/4);
+	};
+	if (!(_selection in _selections)) then {
+		_return = 0;
 	};
 
 	_return;
