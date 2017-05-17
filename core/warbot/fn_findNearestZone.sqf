@@ -14,25 +14,28 @@ _zonePosArray = [];
 _return = 0;
 //-----------------------------------
 switch (_type) do {
+	case "all": {
+		{_zonePosArray pushBack [(_x select 1),(_x select 2 select 0)]} forEach (NATmilitaryZones+NATmilitiaZones+NATnativeZones);
+	};
 	case "military": {
 		if (count NATmilitaryZones > 0) then {
-			{_zonePosArray pushBack (_x select 1)} forEach NATmilitaryZones;
+			{_zonePosArray pushBack [(_x select 1),(_x select 2 select 0)]} forEach NATmilitaryZones;
 		};
 	};
 	case "militia": {
 		if (count NATmilitiaZones > 0) then {
-			{_zonePosArray pushBack (_x select 0)} forEach NATmilitiaZones;
+			{_zonePosArray pushBack [(_x select 1),(_x select 2 select 0)]} forEach NATmilitiaZones;
 		};
 	};
 	case "native": {
 		if (count NATnativeZones > 0) then {
-			{_zonePosArray pushBack (_x select 0)} forEach NATnativeZones;
+			{_zonePosArray pushBack [(_x select 1),(_x select 2 select 0)]} forEach NATnativeZones;
 		};
 	};
 };
 //-----------------------------------
 if (count _zonePosArray > 0) then {
-	_zonePosArray = [_zonePosArray,[],{_pos distance _x},"ASCEND"] call BIS_fnc_sortBy;
+	_zonePosArray = [_zonePosArray,[],{_pos distance (_x select 0)},"ASCEND"] call BIS_fnc_sortBy;
 	_return = (_zonePosArray select 0);
 };
 //-----------------------------------
