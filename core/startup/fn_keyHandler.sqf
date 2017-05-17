@@ -50,19 +50,24 @@ switch (_code) do {
     //F1 - Virtual INV
     case 59: {
         if (!_shift && !_ctrl && !_alt && !dialog) then {
-            [] spawn NAT_fnc_vInvOpen;
+            ["vInv"] spawn NAT_fnc_vInvOpen;
             _handled = true;
         };
     };
-    //F2 - Base Menu
+    //F2 - Interaction Menu
     case 60: {
         if (!_shift && !_ctrl && !_alt && !dialog) then {
             if (!alive player || lifeState player in ["DEAD","DEAD-RESPAWN","DEAD-SWITCHING","INCAPACITATED"]) exitWith {};
+            //-BASE?
             if (cursorObject in _bases && player distance cursorObject < 10) then {
                 disableSerialization;
                 createDialog "NAT_baseMenu";
                 waitUntil {dialog};
                 [] call NAT_fnc_baseMenu;
+            };
+            //-CAR?
+            if (((typeOf cursorObject) isKindOf ["Land", configFile >> "CfgVehicles"]) && (damage cursorObject) < 1 && player distance cursorObject < 4 && !((locked cursorObject) in [2,3])) then {
+                ["interact_land"] spawn NAT_fnc_vInvOpen;
             };
             _handled = true;
         };
