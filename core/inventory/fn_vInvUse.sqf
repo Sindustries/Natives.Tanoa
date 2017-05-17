@@ -35,9 +35,5 @@ if (_use) then {
 };
 //-----------------------------------
 //-CLOSE OR UPDATE
-if (NATaction) then {
-	closeDialog 0;
-} else {
-	[] call NAT_fnc_vInvUpdate;
-};
+[] call NAT_fnc_vInvUpdate;
 //-----------------------------------
