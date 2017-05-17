@@ -173,9 +173,18 @@ if ((player getVariable "NATneedsHealthy") isEqualTo true) then {
 	_modifier1 ctrlSetText "GUI\img\sick.paa";
 	_modifier1 ctrlSetTooltip "SICK: No health regeneration";
 };
+/* DAMAGE REDUCTION */
+if (player getVariable "NATneedsDamageModif" < 1) then {
+	_math = ((1-(player getVariable "NATneedsDamageModif"))*100);
+	//_modif = [player getVariable ["NATneedsDamageModif",1],0] call BIS_fnc_cutDecimals;
+	_modifier2 ctrlSetText "\A3\ui_f\data\igui\cfg\simpleTasks\types\defend_ca.paa";
+	_modifier2 ctrlSetTooltip format["DAMAGE REDUCTION: You are taking %1%2 less damage",[_math,0] call BIS_fnc_cutDecimals,"%"];
+} else {
+	_modifier2 ctrlShow false;
+};
 /* STEADY */
 if ((player getVariable "NATneedsSteady") isEqualTo true) then {
-	_modifier8 ctrlSetText "GUI\img\steady.paa";
+	_modifier8 ctrlSetText "\A3\ui_f\data\igui\cfg\simpleTasks\types\rifle_ca.paa";		//"GUI\img\steady.paa";
 	_modifier8 ctrlSetTooltip "STEADY: Weapon control increased";
 } else {
 	_modifier9 ctrlShow false;
@@ -183,7 +192,7 @@ if ((player getVariable "NATneedsSteady") isEqualTo true) then {
 
 /* ENERGIZED */
 if ((player getVariable "NATneedsEnergised") isEqualTo true) then {
-	_modifier9 ctrlSetText "GUI\img\energised.paa";
+	_modifier9 ctrlSetText "\A3\ui_f\data\igui\cfg\simpleTasks\types\run_ca.paa";	//"GUI\img\energised.paa";
 	_modifier9 ctrlSetTooltip "ENERGISED: Movement speed increased";
 } else {
 	_modifier9 ctrlShow false;
