@@ -31,6 +31,11 @@ waitUntil {{isPlayer _x && _x distance (leader _groupMil) < 20} count playableUn
 TASK_Contact setTaskState "Succeeded";
 ["TaskSucceeded",["","Regroup with your squad"]] call bis_fnc_showNotification;
 
+if (surfaceIsWater _locPos) then {
+	_shore = [_locPos,0,100,2,0,1,1] call SIN_fnc_findPos;
+	_locPos = [_shore,0,50] call SIN_fnc_findPos;
+};
+
 TASK_Contact1 = player createSimpleTask ["Investigate the nearby settlement"];
 TASK_Contact1 setSimpleTaskType "scout";
 TASK_Contact1 setSimpleTaskDescription ["Investigate the settlement, maybe someone knows what the hell is going on", "Investigate", "Investigate"];
