@@ -34,6 +34,7 @@ for "_i" from 1 to _count do {
 	_unit = _group createUnit [_class, _spawnPos, [], 0, "NONE"];
 	[_unit,_type,true] call NAT_fnc_equip;
 	_unit setUnitAbility _skill;
+	_unit setUnitRank "MAJOR";
 	_unit allowFleeing 0;
 	NATcache pushBack _unit;
 };
