@@ -13,18 +13,18 @@ _minDistSpawn = 100;
 _radChance = 90;
 _minDistLocation = 0.4;
 _maxNumObj = 100;
-_objCreated = 0;
 _usedPosArray = [];
 
 //-----------------------------------
 //-SPAWN OBJECTS (INSIDE LOCATIONS)
 
-private ["_objPos","_selObj","_objSize","_add","_spawnPos","_dir"];
+private ["_objCreated","_objPos","_selObj","_objSize","_add","_spawnPos","_dir"];
 
 _maxNumObjLoc = (_size/2);
 _errorCount = 0;
 _objCreated = 0;
-if (DebugMode) then {systemChat format["SPAWNING %1 radObj's at %2",_maxNumObjLoc,_location]; showChat true};
+_houseList = _location nearObjects ["Building",_size];
+
 while {_objCreated < _maxNumObjLoc} do {
 	_roadFound = false;
 	_add = 5;
@@ -73,7 +73,7 @@ while {_objCreated < _maxNumObjLoc} do {
 	} else {
 		_errorCount = _errorCount + 1;
 	};
-	_spawnPos = [_location,0,(_size*0.75),0] call SIN_fnc_findPos;
+	_spawnPos = [(getPos (selectRandom _houseList)),0,10,2] call SIN_fnc_findPos;
 	_obj = (selectRandom NATradObjJunk) createVehicle _spawnPos;
 	_obj setDir (_dir+(random 75)-(random 75));
 	_obj setPos [(getPos _obj select 0),(getPos _obj select 1),0];
@@ -83,6 +83,7 @@ while {_objCreated < _maxNumObjLoc} do {
 	if (_errorCount >= _maxNumObjLoc) exitWith {};
 };
 
+if (DebugMode) then {systemChat format["SPAWNED %1 radObj's at %2",_objCreated,_location]; showChat true};
 //-----------------------------------
 publicVariable "NATRadioActiveObjects";
 //-----------------------------------
