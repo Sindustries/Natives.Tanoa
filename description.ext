@@ -46,6 +46,7 @@ ReviveBleedOutDelay = 120;              //unconscious state duration (in secs)
 #include "SINadmin\SIN_admin.hpp"
 #include "GUI\NATHUDinv.hpp"
 #include "GUI\NATbaseMenu.hpp"
+#include "GUI\NATinteract.hpp"
 
 class CfgFunctions {
     #include "Functions.hpp"
