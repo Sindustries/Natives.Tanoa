@@ -29,11 +29,13 @@ while {true} do {
 			};
 		} forEach NATcache;
 		NATcache = NATcache - _toRemove;
-		/* GET PLAYER POSITIONS */
+		/* GET PLAYER POSITIONS & GROUPS */
 		_playerPosArray = [];
+		_playerGroups = [];
 		{
 			if (isPlayer _x && alive _x) then {
 				_playerPosArray pushBack (getPos _x);
+				_playerGroups pushBack (group _x);
 			};
 		} forEach playableUnits;
 		/* TOGGLE CACHE */
@@ -41,7 +43,7 @@ while {true} do {
 			for "_i" from 0 to ((count _playerPosArray)-1) do {
 				/* UNITS */
 				if ((typeOf _x) isKindOf ["Man", configFile >> "CfgVehicles"]) then {
-					if (_x distance (_playerPosArray select _i) > _cacheDist && _x != (leader _x)) then {
+					if (_x distance (_playerPosArray select _i) > _cacheDist && _x != (leader _x) && !((group _x) in _playerGroups)) then {
 						_x hideObjectGlobal true;
 						_x enableSimulationGlobal false;
 						_x disableAI "ALL";
@@ -51,7 +53,7 @@ while {true} do {
 						_x setVariable ["NATcache",true];
 						_menCached = _menCached + 1;
 					};
-					if (_x distance (_playerPosArray select _i) <= _cacheDist && _x != (leader _x)) then {
+					if (_x distance (_playerPosArray select _i) <= _cacheDist && _x != (leader _x) && !((group _x) in _playerGroups)) then {
 						_x hideObjectGlobal false;
 						_x enableSimulationGlobal true;
 						_x enableAI "ALL";
