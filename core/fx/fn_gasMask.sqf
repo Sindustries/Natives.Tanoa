@@ -11,7 +11,7 @@ if (_unit != player && !((headgear _unit) in NATgasMasks) && !((goggles _unit) i
 
 if (_unit isEqualTo player) then {
 	waitUntil {(headgear _unit) in NATgasMasks || (goggles _unit) in NATgasMasks};
-	["NATnotification",["HINT","USE SHIFT+H TO TOGGLE GAS MASK"]] call bis_fnc_showNotification;
+	["NATnotification",["i","USE SHIFT+H TO TOGGLE GAS MASK"]] call bis_fnc_showNotification;
 };
 if ((_unit getVariable "NATgasMask") isEqualTo true) exitWith {};
 
@@ -31,7 +31,7 @@ while {alive _unit} do {
 
 	_unit say3D ["echipare",14];
 	if (_unit isEqualTo player) then {
-		"HVPGasMaskLayer" cutRsc ["equipment_prot","PLAIN",-1,false];
+		("HVPGasMaskLayer" call BIS_fnc_rscLayer) cutRsc ["equipment_prot","PLAIN",-1,false];
 	};
 	sleep 2.5;
 
@@ -49,7 +49,7 @@ while {alive _unit} do {
 	if (_unit distance player > 100) exitWith {_unit setVariable ["NATgasMask",false]};
 	_unit say3D ["dezechipare",14];
 	if (_unit isEqualTo player) then {
-	 	"HVPGasMaskLayer" cutfadeout 0;
+	 	("HVPGasMaskLayer" call BIS_fnc_rscLayer) cutfadeout 0;
 	};
 
 	sleep 0.1;
