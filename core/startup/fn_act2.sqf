@@ -29,7 +29,7 @@ TASK_Contact5 setSimpleTaskDestination [(_campPos select 0),(_campPos select 1),
 TASK_Contact5 setTaskState "Assigned";
 ["TaskAssigned",["","Defend Base Camp"]] call bis_fnc_showNotification;
 
-waitUntil {sleep 3; {alive _x && side _x isequalTo east && _x distance player < 400} count allunits isEqualTo 0};
+waitUntil {sleep 3; {alive _x && side _x isequalTo east && _x distance _campPos < 400} count allunits isEqualTo 0};
 
 TASK_Contact5 setTaskState "Succeeded";
 ["TaskSucceeded",["","Defend Base Camp"]] call bis_fnc_showNotification;
