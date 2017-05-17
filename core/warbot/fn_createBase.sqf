@@ -91,10 +91,12 @@ if (_type isEqualTo "military") then {
 	_heliPad = "Land_JumpTarget_F" createVehicle _pos;
 };
 //-----------------------------------
-//-MAP MARKER
+//-MAP MARKER + DEFENDERS
 switch (_type) do {
 	case "military": {
-		NATmilitaryCamps pushbackUnique [_campPos,_mainObj];
+		_group = [_campPos,west,"military",(3+floor(random 3)),0.33] call NAT_fnc_createGroup;
+		[_group,[(_campPos select 0),(_campPos select 1),0],50,2,true] call CBA_fnc_taskDefend;
+		NATmilitaryCamps pushbackUnique [_campPos,_mainObj,_group];
 		publicVariable "NATmilitaryCamps";
 		_aMarkername = format["%1",_campPos];
 		_aMarker = createMarker [_aMarkername,_campPos];
@@ -105,16 +107,49 @@ switch (_type) do {
 		_aMarker setMarkerAlpha 0.75;
 	};
 	case "militia": {
-		NATmilitiaCamps pushBackUnique [_campPos,_mainObj];
+		_group = [_campPos,east,"militia",(3+floor(random 3)),0.33] call NAT_fnc_createGroup;
+		[_group,[(_campPos select 0),(_campPos select 1),0],50,2,true] call CBA_fnc_taskDefend;
+		NATmilitiaCamps pushBackUnique [_campPos,_mainObj,_group];
 		publicVariable "NATmilitiaCamps";
+		if (DebugMode) then {
+			_aMarkername = format["%1",_campPos];
+			_aMarker = createMarker [_aMarkername,_campPos];
+			_aMarker setMarkerShape "ICON";
+			_aMarker setMarkerType "b_installation";
+			_aMarker setMarkerColor "ColorEAST";
+			_aMarker setMarkerSize [0.75,0.75];
+			_aMarker setMarkerAlpha 0.75;
+		};
 	};
 	case "native": {
-		NATnativeCamps pushBackUnique [_campPos,_mainObj];
+		_group = [_campPos,resistance,"native",(3+floor(random 3)),0.33] call NAT_fnc_createGroup;
+		[_group,[(_campPos select 0),(_campPos select 1),0],50,2,true] call CBA_fnc_taskDefend;
+		NATnativeCamps pushBackUnique [_campPos,_mainObj,_group];
 		publicVariable "NATnativeCamps";
+		if (DebugMode) then {
+			_aMarkername = format["%1",_campPos];
+			_aMarker = createMarker [_aMarkername,_campPos];
+			_aMarker setMarkerShape "ICON";
+			_aMarker setMarkerType "b_installation";
+			_aMarker setMarkerColor "ColorGUER";
+			_aMarker setMarkerSize [0.75,0.75];
+			_aMarker setMarkerAlpha 0.75;
+		};
 	};
 	case "civilian": {
+		_group = [_campPos,civilian,"civilian",(3+floor(random 3)),0.33] call NAT_fnc_createGroup;
+		[_group,[(_campPos select 0),(_campPos select 1),0],50,2,true] call CBA_fnc_taskDefend;
 		NATcivilianCamps pushBackUnique [_campPos,_mainObj];
 		publicVariable "NATcivilianCamps";
+		if (DebugMode) then {
+			_aMarkername = format["%1",_campPos];
+			_aMarker = createMarker [_aMarkername,_campPos];
+			_aMarker setMarkerShape "ICON";
+			_aMarker setMarkerType "b_installation";
+			_aMarker setMarkerColor "ColorCIVILIAN";
+			_aMarker setMarkerSize [0.75,0.75];
+			_aMarker setMarkerAlpha 0.75;
+		};
 	};
 };
 //-----------------------------------
