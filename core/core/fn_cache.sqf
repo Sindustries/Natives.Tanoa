@@ -44,14 +44,18 @@ while {true} do {
 				/* UNITS */
 				if ((typeOf _x) isKindOf ["Man", configFile >> "CfgVehicles"]) then {
 					if (_x distance (_playerPosArray select _i) > _cacheDist && _x != (leader _x) && !((group _x) in _playerGroups)) then {
-						_x hideObjectGlobal true;
-						_x enableSimulationGlobal false;
-						_x disableAI "ALL";
-						if (vehicle _x isEqualTo _x) then {
-							_x attachTo [(leader _x)];
+						if (alive _x) then {
+							_x hideObjectGlobal true;
+							_x enableSimulationGlobal false;
+							_x disableAI "ALL";
+							if (vehicle _x isEqualTo _x) then {
+								_x attachTo [(leader _x)];
+							};
+							_x setVariable ["NATcache",true];
+							_menCached = _menCached + 1;
+						} else {
+							deleteVehicle _x;
 						};
-						_x setVariable ["NATcache",true];
-						_menCached = _menCached + 1;
 					};
 					if (_x distance (_playerPosArray select _i) <= _cacheDist && _x != (leader _x) && !((group _x) in _playerGroups)) then {
 						_x hideObjectGlobal false;
@@ -72,10 +76,14 @@ while {true} do {
 				/* VEHICLES */
 				if ((typeOf _x) isKindOf ["Land", configFile >> "CfgVehicles"]) then {
 					if (_x distance (_playerPosArray select _i) > _cacheDist && (count crew _x) isEqualTo 0) then {
-						_x hideObjectGlobal true;
-						_x enableSimulationGlobal false;
-						_x setVariable ["NATcache",true];
-						_vehCached = _vehCached + 1;
+						if (alive _x) then {
+							_x hideObjectGlobal true;
+							_x enableSimulationGlobal false;
+							_x setVariable ["NATcache",true];
+							_vehCached = _vehCached + 1;
+						} else {
+							deleteVehicle _x;
+						};
 					};
 					if (_x distance (_playerPosArray select _i) <= _cacheDist && (count crew _x) isEqualTo 0) then {
 						_x hideObjectGlobal false;
