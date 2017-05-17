@@ -29,10 +29,10 @@ _startPoint = (paramsArray select 1);
 NATErrorPos = (getArray(configFile >> "CfgWorlds" >> worldName >> "centerPosition"));
 //-----------------------------------
 NATzombiesLoaded = false;
-HVPBoatsLoaded = false;
-NATBoatsLoaded = false;
+NATwarbotLoaded = false;
 NATRadObjsLoaded = false;
 NATaction = false;
+NATpinnedGroups = [];
 //-----------------------------------
 waitUntil {time > 0};
 //-----------------------------------
@@ -110,7 +110,7 @@ if (isServer) then {
 	[] call SIN_fnc_adminInit;
 };
 //-----------------------------------
-cutText ["WAITING FOR SERVER, PLEASE WAIT", "BLACK FADED", 999];
+cutText ["PRELOADING \n WAITING FOR SERVER, PLEASE WAIT", "BLACK FADED", 999];
 waitUntil {NAT_serverReady isEqualTo true};
 cutText ["", "BLACK FADED", 999];
 //-----------------------------------
@@ -120,17 +120,16 @@ setObjectViewDistance [_viewDist,(_viewDist/10)];
 NAT_safeZones = [];
 NAT_clientMarkers = [];
 //-----------------------------------
-"HVPGasMaskLayer" cutRsc ["equipment_prot","PLAIN",-1,false];
-"HVPGasMaskLayer" cutFadeOut 0;
+("HVPGasMaskLayer" call BIS_fnc_rscLayer) cutRsc ["equipment_prot","PLAIN",-1,false];
+("HVPGasMaskLayer" call BIS_fnc_rscLayer) cutFadeOut 0;
 [] spawn NAT_fnc_cache;
 [] call NAT_fnc_needsInit;
-[] call NAT_fnc_warbotInit;
 //-----------------------------------
 //-INIT LOOT, CARS, BOATS, ZOMBEES! & FURNITURE, RADOBJECTS
 ("NATHUDpBar" call BIS_fnc_rscLayer) cutRsc ["NATHUDpBar","PLAIN",-1,true];
 uiNameSpace getVariable "PBarProgress" ctrlSetTextColor [0.2, 0.5, 0.9, 1];
 
-cutText ["RAISING THE DEAD", "BLACK FADED", 999];
+cutText ["PRELOADING \n RAISING THE DEAD", "BLACK FADED", 999];
 ["Z"] call NAT_fnc_getSettings;
 [] call z_fnc_init;
 if (isServer) then {
@@ -140,17 +139,12 @@ if (isServer) then {
 } else {
 	waitUntil {NATzombiesLoaded isEqualTo true};
 };
-/*
-cutText ["LOADING LOOT", "BLACK FADED", 999];
-if (isServer) then {
-	uiSleep 1;
-	[] call HVP_fnc_lootInit;
-	HVPLootLoaded = true;
-	publicVariable "HVPLootLoaded";
-} else {
-	waitUntil {HVPLootLoaded isEqualTo true};
-};
 
+cutText ["PRELOADING \n LOADING WARBOT", "BLACK FADED", 999];
+[] call NAT_fnc_warbotInit;
+waitUntil {NATwarbotLoaded isEqualTo true};
+
+/*
 cutText ["LOADING VEHICLES (LAND)", "BLACK FADED", 999];
 if (isServer) then {
 	uiSleep 1;
@@ -171,7 +165,7 @@ if (isServer) then {
 	waitUntil {NATBoatsLoaded isEqualTo true};
 };
 */
-cutText ["LOADING RADIOACTIVE ZONES", "BLACK FADED", 999];
+cutText ["PRELOADING \n LOADING RADIATION", "BLACK FADED", 999];
 if (isServer) then {
 	uiSleep 1;
 	[] call NAT_fnc_radInit;
@@ -212,8 +206,23 @@ player setVariable ["NAT_vInv",[["zk_f_canteen",1],["sc_mre",2],["sc_carbattery"
 [] spawn NAT_fnc_healthMonitor;
 [] spawn NAT_fnc_healthRegen;
 //-----------------------------------
+//-PLAYER MAP MARKER
+[] spawn {
+	_aMarkername = format["%1%2",(getPos player),(random 10000)];
+	_aMarker = createMarker [_aMarkername,(getPos player)];
+	_aMarker setMarkerShapeLocal "ICON";
+	_aMarker setMarkerTypeLocal "mil_triangle";
+	_aMarker setMarkerColorLocal "ColorGreen";
+	_aMarker setMarkerSizeLocal [0.75,0.75];
+	while {alive player} do {
+		_aMarker setMarkerPosLocal (getPos player);
+		_aMarker setMarkerDirLocal (getDir player);
+		sleep 6;
+	};
+};
+//-----------------------------------
 //-BEGIN PROLOGUE
-cutText ["PREPARING GAME, PLEASE WAIT", "BLACK FADED", 999];
+cutText ["PRELOADING \n PREPARING GAME, PLEASE WAIT", "BLACK FADED", 999];
 if (isServer) then {
 	private ["_location"];
 	setTimeMultiplier (["NATtimeMultiplier"] call NAT_fnc_getSetting);
