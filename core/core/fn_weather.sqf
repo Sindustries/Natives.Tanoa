@@ -40,7 +40,7 @@ if (overcast >= 0.9 && (random 100) < _tornadoChance) then {
 		systemChat "DEBUG MODE :: TORNADO INCOMING";
 	};
 	_pos1 = [[0,0,0],0,999999,0,1] call SIN_fnc_findPos;
-	_pos2 = [_pos,1000,5000,0,1] call SIN_fnc_findPos;
+	_pos2 = [_pos1,1000,5000,0,1] call SIN_fnc_findPos;
 	[_pos1,_pos2] spawn NAT_fnc_tornado;
 };
 //-----------------------------------
