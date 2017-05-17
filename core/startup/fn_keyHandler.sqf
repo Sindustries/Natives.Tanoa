@@ -33,17 +33,17 @@ switch (_code) do {
 	//O - Earplugs
     case 24: {
         if (_shift && !_ctrl && !_alt) then {
-            if ((player getVariable ["NATearPlugs",false]) isEqualTo true) then {
+            if ((player getVariable ["NATearPlugs",false]) isEqualTo false) then {
                 _handled = true;
                 3 fadeSound 0.25;
                 //waitUntil {("ACE_earplugs" in (vestItems player + uniformItems player + backpackItems player))};
                 //player removeItems "ACE_earplugs";
-                player setVariable ["NATearPlugs",false,false];
+                player setVariable ["NATearPlugs",true];
             } else {
                 _handled = true;
                 //[player] call ace_hearing_fnc_putInEarplugs;
                 2 fadeSound 1;
-                player setVariable ["NATearPlugs",true,false];
+                player setVariable ["NATearPlugs",false];
             };
         };
     };
