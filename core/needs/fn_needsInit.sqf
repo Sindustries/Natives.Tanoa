@@ -26,6 +26,7 @@ _radTime = (NATneedsRadiationTime*60*60/timeMultiplier/3600);
 _radVar = (1/3600);
 
 //-----------------------------------
+player setVariable ["NATneedsDamageModif",1];
 player setVariable ["NATneedsHunger",0];
 player setVariable ["NATneedsThirst",0];
 player setVariable ["NATneedsSleep",0];
