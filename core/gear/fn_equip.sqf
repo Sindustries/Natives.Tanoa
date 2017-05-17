@@ -52,6 +52,9 @@ switch (_type) do {
 		_unit linkItem "ItemRadio";
 		_unit linkItem "ItemMap";
 		_unit addItem "sc_dogtag";
+		_unit addItem "FirstAidKit";
+		_unit addItem "FirstAidKit";
+		_unit addItem "FirstAidKit";
 		_weapons = NAT_militaryWeapons;
 		_items = NAT_militaryItems;
 		_grenades = NAT_militaryGrenades;
@@ -95,7 +98,7 @@ if (_wep isEqualTo true && (!(isNil "_weapons"))) then {
 				_weaponFound = true;
 				_mags = (getArray (configFile >> "CfgWeapons" >> _weapon >> "magazines"));
 				if (count _mags > 0) then {
-					_unit addMagazines [(selectRandom _mags),(4+floor(random 4))];
+					_unit addMagazines [(selectRandom _mags),9];
 				};
 				_unit addWeaponGlobal _weapon;
 				_unit addPrimaryWeaponItem "acc_flashlight";
@@ -111,7 +114,7 @@ if (_wep isEqualTo true && (!(isNil "_weapons"))) then {
 				_weaponFound = true;
 				_mags = (getArray (configFile >> "CfgWeapons" >> _weapon >> "magazines"));
 				if (count _mags > 0) then {
-					_unit addMagazines [(selectRandom _mags),2];
+					_unit addMagazines [(selectRandom _mags),5];
 				};
 				_unit addWeaponGlobal _weapon;
 			};
