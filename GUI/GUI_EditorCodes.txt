@@ -91,6 +91,26 @@ $[
 ]
 */
 
+/* #Rigube
+$[
+	1.063,
+	["NATint",[[0,0,1,1],0.025,0.04,"GUI_GRID"],0,0,0],
+	[1600,"NATintBtn1",[1,"INTERACTION 1",["0.438125 * safezoneW + safezoneX","0.291 * safezoneH + safezoneY","0.0670312 * safezoneW","0.033 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1601,"NATintBtn2",[1,"INTERACTION 2",["0.438125 * safezoneW + safezoneX","0.335 * safezoneH + safezoneY","0.0670312 * safezoneW","0.033 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1602,"NATintBtn3",[1,"INTERACTION 3",["0.438125 * safezoneW + safezoneX","0.467 * safezoneH + safezoneY","0.0670312 * safezoneW","0.033 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1603,"NATintBtn4",[1,"INTERACTION 4",["0.438125 * safezoneW + safezoneX","0.511 * safezoneH + safezoneY","0.0670312 * safezoneW","0.033 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1604,"NATintBtn5",[1,"INTERACTION 5",["0.438125 * safezoneW + safezoneX","0.555 * safezoneH + safezoneY","0.0670312 * safezoneW","0.033 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1605,"NATintBtn6",[1,"INTERACTION 6",["0.510312 * safezoneW + safezoneX","0.291 * safezoneH + safezoneY","0.0670312 * safezoneW","0.033 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1606,"NATintBtn7",[1,"INTERACTION 7",["0.510312 * safezoneW + safezoneX","0.335 * safezoneH + safezoneY","0.0670312 * safezoneW","0.033 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1607,"NATintBtn8",[1,"INTERACTION 8",["0.510312 * safezoneW + safezoneX","0.379 * safezoneH + safezoneY","0.0670312 * safezoneW","0.033 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1608,"NATintBtn9",[1,"INTERACTION 9",["0.510312 * safezoneW + safezoneX","0.423 * safezoneH + safezoneY","0.0670312 * safezoneW","0.033 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1609,"NATintBtn10",[1,"INTERACTION 10",["0.510312 * safezoneW + safezoneX","0.467 * safezoneH + safezoneY","0.0670312 * safezoneW","0.033 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1610,"NATintBtn11",[1,"INTERACTION 11",["0.510312 * safezoneW + safezoneX","0.511 * safezoneH + safezoneY","0.0670312 * safezoneW","0.033 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1611,"NATintBtn12",[1,"INTERACTION 12",["0.510312 * safezoneW + safezoneX","0.555 * safezoneH + safezoneY","0.0670312 * safezoneW","0.033 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1500,"NATintWheelBX",[1,"FRONT RIGHT",["0.438125 * safezoneW + safezoneX","0.379 * safezoneH + safezoneY","0.0670312 * safezoneW","0.077 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]]
+]
+*/
+
 
 
 
