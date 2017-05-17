@@ -14,7 +14,7 @@ while {alive player} do {
 		};
 	};
 	if ((player getVariable ["NATneedsDamageModif",1]) < 1) then {
-		player setVariable ["NATneedsDamageModif",((player getVariable ["NATneedsDamageModif",1])+0.0001)];
+		player setVariable ["NATneedsDamageModif",((player getVariable ["NATneedsDamageModif",1])+(random 0.001))];
 	};
 	if ((player getVariable ["NATneedsDamageModif",1]) > 1) then {
 		player setVariable ["NATneedsDamageModif",0];
