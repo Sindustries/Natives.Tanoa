@@ -16,7 +16,7 @@ while {alive player} do {
 //-----------------------------------
 
 	{
-		if ((_x select 0) distance player < (_x select 1)) then {
+		if ((_x select 0) distance2D player < (_x select 1)) then {
 			while {
 				_handle = ppEffectCreate ["ColorCorrections", _priority];
 				_handle < 0;
@@ -35,7 +35,7 @@ while {alive player} do {
 				};
 			};
 			waitUntil {ppEffectCommitted _handle};
-			waitUntil {sleep 3; (_x select 0) distance player > (_x select 1)};
+			waitUntil {sleep 3; (_x select 0) distance2D player > (_x select 1)};
 			_handle ppEffectAdjust _defEffect;
 			_handle ppeffectcommit 8+(random 4);
 			waitUntil {ppEffectCommitted _handle};
