@@ -26,6 +26,7 @@ sleep 20;
 		publicVariable "NATradioActiveLocations";
 		[(_x select 0),(_x select 1)] call NAT_fnc_radObjSpawner;
 	};
+	sleep 0.01;
 } forEach NATRadioActiveLocations;
 
 [] spawn NAT_fnc_dynObjMonitor;

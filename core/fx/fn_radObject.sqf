@@ -27,6 +27,7 @@ while {alive player} do {
 				};
 			};
 		};
+		sleep 0.01;
 	} forEach NATRadioActiveObjects;
 
 	sleep 1;

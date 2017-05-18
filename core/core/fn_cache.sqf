@@ -27,6 +27,7 @@ while {true} do {
 			if (isNull _x) then {
 				_toRemove pushBack _x;
 			};
+			sleep 0.01;
 		} forEach NATcache;
 		NATcache = NATcache - _toRemove;
 		/* GET PLAYER POSITIONS & GROUPS */
@@ -37,6 +38,7 @@ while {true} do {
 				_playerPosArray pushBack (getPos _x);
 				_playerGroups pushBack (group _x);
 			};
+			sleep 0.01;
 		} forEach playableUnits;
 		/* TOGGLE CACHE */
 		{
@@ -112,6 +114,7 @@ while {true} do {
 					};
 				};
 			};
+			sleep 0.01;
 		} forEach NATcache;
 		if (DebugMode) then {
 			hintSilent parseText format["

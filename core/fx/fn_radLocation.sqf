@@ -43,6 +43,7 @@ while {alive player} do {
 			ppEffectDestroy _handle;
 			terminate _ambient;
 		};
+		sleep 0.01;
 	} forEach NATRadioActiveLocations;
 
 	sleep 3;
