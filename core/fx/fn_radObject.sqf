@@ -7,6 +7,8 @@ private [];
 //-----------------------------------
 //-VARIABLES
 
+_cough = ["ryanzombiescough1","ryanzombiescough2","ryanzombiescough3","ryanzombiescough4","ryanzombiescough5","ryanzombiescough6","ryanzombiescough7","ryanzombiescough8","ryanzombiescough9","ryanzombiescough10","ryanzombiescough11","ryanzombiescough12","ryanzombiescough13","ryanzombiescough14"];
+
 //-----------------------------------
 while {alive player} do {
 //-----------------------------------
@@ -19,16 +21,9 @@ while {alive player} do {
 					playsound "geiger";
 				};
 				if ((headgear player) in NATgasMasks || (goggles player) in NATgasMasks) then {sleep 4} else {
-					//_noise_rad = ppEffectCreate ["FilmGrain", 2000];
-					//_noise_rad ppEffectEnable true;
-					//_noise_rad ppEffectAdjust[0.1,0.1,0.5,0.3,0.3,true];
-					//_noise_rad ppEffectCommit 0;
-					//enableCamShake true;
-					//addCamShake [1, 3, 17];
-					[player,["cough",10]] remoteExec ["say3D", 0];
-					[7,1,0.005] call NAT_fnc_needsUpdate;
+					[player,[(selectRandom _cough),20]] remoteExec ["say3D", 0];
+					[7,1,(random 0.005)] call NAT_fnc_needsUpdate;
 					sleep 4;
-					//_noise_rad ppEffectEnable false;
 				};
 			};
 		};
