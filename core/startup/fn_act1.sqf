@@ -77,7 +77,7 @@ TASK_Contact3 setTaskState "Assigned";
 [_groupMil] call NAT_fnc_clearWaypoints;
 [_groupMil,_locPos,"MOVE","RED","AWARE","Sweep the town"] call NAT_fnc_createWaypoint;
 
-waitUntil {sleep 1; {alive _x && side _x isEqualTo RESISTANCE && _x distance _locPos < 600} count allUnits isEqualTo 0};
+waitUntil {sleep 1; {alive _x && side _x isEqualTo RESISTANCE && _x distance _locPos < 400} count allUnits < {alive _x && side _x isEqualTo WEST && _x distance _locPos < 400} count allUnits};
 TASK_Contact3 setTaskState "Succeeded";
 ["TaskSucceeded",["","Clear the town"]] call bis_fnc_showNotification;
 
@@ -120,7 +120,7 @@ createCamp = false;
 [_groupMil] call NAT_fnc_clearWaypoints;
 
 waitUntil {sleep 1; createCamp isEqualTo true};
-[_campPos,"military",6] call NAT_fnc_createBase;
+[_campPos,"military","land",6] call NAT_fnc_createBase;
 createCamp = nil;
 
 sleep 6;
