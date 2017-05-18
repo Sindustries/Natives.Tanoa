@@ -124,6 +124,7 @@ if (_type isEqualTo 1) then {
 //-----------------------------------
 /* BUILD VEHICLE */
 if (_type isEqualTo 2) then {
+	_type = "land";
 	_selected = lbCurSel 1501;
 	_vehArray = NATbaseVehicleRequest select _selected;
 	_name = _vehArray select 0;
@@ -194,4 +195,37 @@ if (_type isEqualTo 2) then {
 	};
 };
 //-----------------------------------
-[] call NAT_fnc_baseMenu;
+/* BUILD BOAT */
+if (_type isEqualTo 3) then {
+	_type = "shore";
+	_selected = lbCurSel 1501;
+	_vehArray = NATbaseBoatRequest select _selected;
+	_name = _vehArray select 0;
+	_classes = _vehArray select 1;
+	_cost = _vehArray select 2;
+
+	if (!DebugMode) then {
+		if (_cost > NATresScrap) exitWith {
+			systemChat "NOT ENOUGH RESOURCES TO BUILD";
+			showChat true;
+		};
+		NATresScrap = NATresScrap - _cost;
+		publicVariable "NATresScrap";
+	};
+
+	_spawnPos = [(getPos player),0,25,10,2] call SIN_fnc_findPos;
+	_veh = (selectRandom _classes) createVehicle _spawnPos;
+	_veh allowDamage false;
+	[_veh,true,false,true] call SIN_fnc_emptyVeh;
+	_veh hideObjectGlobal true;
+	while {getPosATL _veh select 2 < 1} do {
+		_pos = [(getPos _veh),0,25,10,2] call SIN_fnc_findPos;
+		_veh setPos _pos;
+	};
+	_veh hideObjectGlobal false;
+	_veh setFuel (0.25+(random 0.5));
+	_veh setDamage 0;
+	_veh allowDamage true;
+};
+//-----------------------------------
+[(cursorObject getVariable "NATbaseType")] call NAT_fnc_baseMenu;
