@@ -3,12 +3,9 @@
 	Author: Sinbane
 	Opens the base menu
 */
-/*
-if (!alive player || lifeState player in ["DEAD","DEAD-RESPAWN","DEAD-SWITCHING","INCAPACITATED"]) exitWith {};
-disableSerialization;
-createDialog "NAT_baseMenu";
-waitUntil {dialog};
-*/
+params [
+	["_type","land"]
+];
 disableSerialization;
 _display = findDisplay 4040;
 
@@ -56,9 +53,20 @@ if (count NATbaseUnitRequest > 0) then {
 		//_vehList lbSetPicture [_index, _iconPath];
 	};
 };
-if (count NATbaseVehicleRequest > 0) then {
+if (_type isEqualTo "land" && count NATbaseVehicleRequest > 0) then {
 	for "_i" from 0 to ((count NATbaseVehicleRequest)-1) do {
 		_entry = (NATbaseVehicleRequest select _i);
+		_name = (_entry select 0);
+		_classes = (_entry select 1);
+		_cost = (_entry select 2);
+		_format = format["[%1] %2",_cost,_name];
+		_index = _vehList lbAdd _format;
+		//_vehList lbSetPicture [_index, _iconPath];
+	};
+};
+if (_type isEqualTo "shore" && count NATbaseBoatRequest > 0) then {
+	for "_i" from 0 to ((count NATbaseBoatRequest)-1) do {
+		_entry = (NATbaseBoatRequest select _i);
 		_name = (_entry select 0);
 		_classes = (_entry select 1);
 		_cost = (_entry select 2);
@@ -73,8 +81,14 @@ _unitReqBtn ctrlSetTooltip "Request selected unit from list above (RECRUITING CA
 _unitReqBtn buttonSetAction "[1] call NAT_fnc_baseRequest";
 //-----------------------------------
 _vehReqBtn ctrlSetText "BUILD VEHICLE";
-_vehReqBtn ctrlSetTooltip "Build selected vehicle from list above (BUILD TIME IS SCRAP COST DIVIDED BY 3)";
-_vehReqBtn buttonSetAction "[2] call NAT_fnc_baseRequest";
+if (_type isEqualTo "land") then {
+	_vehReqBtn buttonSetAction "[2] call NAT_fnc_baseRequest";
+	_vehReqBtn ctrlSetTooltip "Build selected vehicle from list above (BUILD TIME IS SCRAP COST DIVIDED BY 3)";
+};
+if (_type isEqualTo "shore") then {
+	_vehReqBtn buttonSetAction "[3] call NAT_fnc_baseRequest";
+	_vehReqBtn ctrlSetTooltip "Build selected vehicle from list above";
+};
 //-----------------------------------
 /* RESOURCES */
 _foodIcon ctrlSetText "GUI\img\meat.paa";
@@ -95,7 +109,7 @@ if (isServer) then {
 };
 //-----------------------------------
 /* BASE STORAGE BUTTON */
-_sideBarBtn2 ctrlSetText "OPEN STORAGE";
+_sideBarBtn2 ctrlSetText "ARSENAL";
 _sideBarBtn2 ctrlSetTooltip "Opens the virtual inventory";
 _sideBarBtn2 buttonSetAction "closeDialog 0; [] spawn BIS_fnc_arsenal;";
 //-----------------------------------
