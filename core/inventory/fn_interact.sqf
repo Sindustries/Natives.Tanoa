@@ -134,4 +134,34 @@ case "land": {
 	_Btn4 buttonSetAction "selectedVeh setPos [(getPos selectedVeh select 0),(getPos selectedVeh select 1),1]";
 };
 //-----------------------------------
+	case "pump": {
+		selectedVeh = nearestObject [(getPos player), "car"];
+		_pump = _obj;
+
+		//REFUEL VEHICLE
+		_Btn1 ctrlShow true;
+		_Btn1 ctrlSetText "REFUEL VEHICLE";
+		if (player distance selectedVeh > 3.5 || player distance _pump > 3.5) then {
+			_Btn1 ctrlEnable false;
+			_Btn1 ctrlSetTooltip "TOO FAR FROM VEHICLE";
+		} else {
+			_Btn1 buttonSetAction "closeDialog 0; [1,selectedVeh] spawn NAT_fnc_refuelAction"
+		};
+
+		//REFILL FUEL CAN
+		_Btn6 ctrlShow true;
+		_Btn6 ctrlSetText "FILL FUEL CAN";
+		if (["zk_e_fuelcan"] call NAT_fnc_vInvCheck) then {
+			if (player distance _pump > 3.5) then {
+				_Btn6 ctrlEnable false;
+				_Btn6 ctrlSetTooltip "TOO FAR FROM FUEL PUMP";
+			} else {
+				_Btn6 buttonSetAction "closeDialog 0; [2] spawn NAT_fnc_refuelAction"
+			};
+		} else {
+			_Btn6 ctrlEnable false;
+			_Btn6 ctrlSetTooltip "Required Item(s): Empty Fuel Can"
+		};
+	};
+//-----------------------------------
 };
