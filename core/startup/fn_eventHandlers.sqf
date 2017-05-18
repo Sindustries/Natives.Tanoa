@@ -23,30 +23,34 @@ NATvItemTakeEH = player addEventHandler ["Take", {
             player unassignItem _item;
             player removeItems _item;
             if ("itemWatch" in _assigned) then {
-                player assignItem "itemWatch";
+                player linkItem "itemWatch";
             };
         };
          [_item,1,true] call NAT_fnc_vInvAdjust;
     };
 }];
 
-NATvItemInvOpenEH = player addEventHandler ["InventoryOpened", {
-    private ["_vInv","_assigned"];
-    _assigned = assignedItems player;
-    _vInv = (player getVariable ["NAT_vInv",[]]);
-    {
-        if (_x in NATvInvItemsOnly) then {
-            if (_x isKindOf ["CA_Magazine", configFile >> "CfgMagazines"]) then {
-                player removeMagazines _x;
-            } else {
-                player unassignItem _x;
-                player removeItems _x;
-                if ("itemWatch" in _assigned) then {
-                    player assignItem "itemWatch";
+{
+    player removeAllEventHandlers _x;
+    player addEventHandler [_x, {
+        private ["_vInv","_assigned"];
+        _assigned = assignedItems player;
+        _vInv = (player getVariable ["NAT_vInv",[]]);
+        {
+            if (_x in NATvInvItemsOnly) then {
+                if (_x isKindOf ["CA_Magazine", configFile >> "CfgMagazines"]) then {
+                    player removeMagazines _x;
+                } else {
+                    player unassignItem _x;
+                    player removeItems _x;
+                    if ("itemWatch" in _assigned) then {
+                        player linkItem "itemWatch";
+                    };
                 };
+                 [_x,1,true] call NAT_fnc_vInvAdjust;
             };
-             [_x,1,true] call NAT_fnc_vInvAdjust;
-        };
-    } forEach (uniformItems player+vestItems player+backpackItems player+assignedItems player);
-}];
+        } forEach (uniformItems player+vestItems player+backpackItems player+assignedItems player);
+    }];
+} forEach ["InventoryOpened","InventoryClosed"];
+
 //-----------------------------------
