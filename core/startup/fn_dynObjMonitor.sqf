@@ -5,7 +5,6 @@
 */
 
 _distance = (["NATviewDistance"] call NAT_fnc_getSetting);
-
 //-----------------------------------
 
 sleep 20;
