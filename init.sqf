@@ -287,5 +287,12 @@ setViewDistance (["NATviewDistance"] call NAT_fnc_getSetting);
 [] spawn NAT_fnc_radObject;
 [] spawn NAT_fnc_radLocation;
 //-----------------------------------
+if (isServer) then {
+	[missionNamespace,NAT_militaryWeapons,true,false] call BIS_fnc_addVirtualWeaponCargo;
+	[missionNamespace,(NAT_militaryGrenades+NAT_militaryMagazines),true,false] call BIS_fnc_addVirtualMagazineCargo;
+	[missionNamespace,(NAT_militaryUniforms+NAT_militaryVests+NAT_militaryHeadgear+NAT_militaryGoggles),true,false] call BIS_fnc_addVirtualItemCargo;
+	[missionNamespace,NAT_militaryBackpacks,true,false] call BIS_fnc_addVirtualBackpackCargo;
+};
+//-----------------------------------
 sleep 30;
 ["NATnotification",["HINT","PRESS F1 TO OPEN YOUR STATUS MENU","i"]] call bis_fnc_showNotification;
