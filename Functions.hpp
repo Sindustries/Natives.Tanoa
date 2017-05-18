@@ -113,6 +113,7 @@ class NAT_Core {
 		class findBasePos {};
 		class findNearestBase {};
 		class findNearestZone {};
+		class findShoreBasePos {};
 		class warbotInit {};
 		class warbotWave {};
 		class warbotZoneCreator {};
