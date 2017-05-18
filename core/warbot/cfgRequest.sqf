@@ -257,3 +257,82 @@ NATbaseVehicleRequest = [
 ];
 
 //-----------------------------------
+/*
+	BOATS
+	[DISPLAY NAME, CLASSNAMES,SCRAP COST]
+
+	[
+	"NAME",
+	[
+		""
+	],
+	30,		//SCRAP COST
+	],
+
+*/
+
+NATbaseBoatRequest = [
+[
+	"Jet Ski",
+	[
+		"C_Scooter_Transport_01_F"
+	],
+	40		//SCRAP COST
+],
+[
+	"Dinghy",
+	[
+		"B_Boat_Transport_01_F",
+		"B_T_Boat_Transport_01_F",
+		"O_Boat_Transport_01_F",
+		"O_T_Boat_Transport_01_F",
+		"O_G_Boat_Transport_01_F",
+		"I_Boat_Transport_01_F",
+		"I_G_Boat_Transport_01_F",
+		"I_C_Boat_Transport_01_F",
+		"C_Rubberboat"
+	],
+	60		//SCRAP COST
+],
+[
+	"Motorboat",
+	[
+		"C_Boat_Civil_01_F"
+	],
+	90		//SCRAP COST
+],
+[
+	"RHIB",
+	[
+		"I_C_Boat_Transport_02_F",
+		"C_Boat_Transport_02_F"
+	],
+	90		//SCRAP COST
+],
+[
+	"SDV",
+	[
+		"B_SDV_01_F",
+		"O_SDV_01_F",
+		"I_SDV_01_F"
+	],
+	130		//SCRAP COST
+],
+[
+	"Speedboat (Minigun)",
+	[
+		"B_Boat_Armed_01_minigun_F",
+		"B_T_Boat_Armed_01_minigun_F",
+		"I_Boat_Armed_01_minigun_F"
+	],
+	150		//SCRAP COST
+],
+[
+	"Speedboat (HMG)",
+	[
+		"O_Boat_Armed_01_hmg_F",
+		"O_T_Boat_Armed_01_hmg_F"
+	],
+	175		//SCRAP COST
+]
+];
