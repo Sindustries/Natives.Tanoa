@@ -186,7 +186,6 @@ cutText ["", "BLACK FADED", 999];
 		[_this select 0,_this select 1,_this select 2,_this select 3,_this select 4] call NAT_fnc_keyHandler;
 	}];
 };
-[] spawn NAT_fnc_addActions;
 [] call NAT_fnc_eventHandlers;
 //-----------------------------------
 [] call NAT_fnc_fuelStation;
@@ -197,9 +196,9 @@ player setVariable ["NATspawned",false,true];
 player setVariable ["NAT_pumpingFuel",false];
 //-----------------------------------
 //-PLAYER STARTING GEAR
-["Preload"] call BIS_fnc_arsenal;
+cutText ["PRELOADING \n RANDOMISING GEAR", "BLACK FADED", 999];
 [player,"military",true] call NAT_fnc_equip;
-player setVariable ["NAT_vInv",[["zk_f_canteen",1],["sc_mre",2],["sc_carbattery",100],["sc_wires",3],["zk_wrench",3],["zk_pliers",3],["sc_tire",100],["sc_tire_iron",100],["FirstAidKit",1]],true];
+player setVariable ["NAT_vInv",[["zk_f_canteen",1],["sc_mre",2],["zk_e_fuelcan",3]],true];
 //-----------------------------------
 [] spawn NAT_fnc_dynObjMonitor;
 [] spawn NAT_fnc_mineDetector;
@@ -218,7 +217,7 @@ player setVariable ["NAT_vInv",[["zk_f_canteen",1],["sc_mre",2],["sc_carbattery"
 	while {alive player} do {
 		_aMarker setMarkerPosLocal (getPos player);
 		_aMarker setMarkerDirLocal (getDir player);
-		sleep 6;
+		sleep 0.01;
 	};
 };
 //-----------------------------------
@@ -258,7 +257,7 @@ if (isServer) then {
 	if (_startPoint isEqualTo 2) then {
 		skipTime 2;
 		_campPos = [_pos] call NAT_fnc_findBasePos;
-		[_campPos,"military",6] call NAT_fnc_createBase;
+		[_campPos,"military","land",6] call NAT_fnc_createBase;
 		_aiCount = (8-({isPlayer _x} count playableUnits));
 		_groupMil = [_campPos,west,"military",_aiCount,0.2] call NAT_fnc_createGroup;
 		{
