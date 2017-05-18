@@ -11,7 +11,7 @@ if (_unit != player && !((headgear _unit) in NATgasMasks) && !((goggles _unit) i
 
 if (_unit isEqualTo player) then {
 	waitUntil {(headgear _unit) in NATgasMasks || (goggles _unit) in NATgasMasks};
-	["NATnotification",["i","USE SHIFT+H TO TOGGLE GAS MASK"]] call bis_fnc_showNotification;
+	["NATnotification",["HINT","USE SHIFT+H TO TOGGLE GAS MASK","i"]] call bis_fnc_showNotification;
 };
 if ((_unit getVariable "NATgasMask") isEqualTo true) exitWith {};
 
