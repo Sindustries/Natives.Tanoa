@@ -26,7 +26,7 @@ while {!_posFound} do {
 		_posFound = true;
 	} else {
 		if (_water > 0 || _shore > 0) then {
-			_maxDist = _maxDist + 20;
+			_maxDist = _maxDist + 25;
 		};
 	};
 };
