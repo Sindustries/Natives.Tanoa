@@ -6,6 +6,7 @@ NAT_militaryUniforms = [];
 NAT_militaryVests = [];
 NAT_militaryBackpacks = [];
 NAT_militaryWeapons = [];
+NAT_militaryMagazines = [];
 NAT_militaryItems = ["sc_elasticbandage","sc_morphine","sc_epinephrine","sc_disinfectant","sc_penicillin","sc_potassium","sc_blood","sc_ibuprofen","zk_antibiotic","zk_bandage","FirstAidKit","Medikit","zk_painKillers","sc_tourniquet","sc_energy_drink","zk_f_canteen","zk_waterbottle","sc_bedroll","sc_cigarettepack","sc_cigarette","sc_lighter","sc_boltcutters","sc_tire_iron","sc_transmitter","sc_tire","sc_rope","zk_canopener","ItemGPS","zk_knife","zk_matches","zk_multiMeter","zk_satellitephone","zk_screwdriver"];
 NAT_militaryGrenades = [];
 NAT_militaryHeadgear = [];
@@ -39,6 +40,9 @@ for "_i" from 0 to ((count _autoSort)-1) do {
 	//WEAPONS
 	if ((_autoSort select _i) isKindOf ["Rifle", configFile >> "CfgWeapons"] || (_autoSort select _i) isKindOf ["Pistol", configFile >> "CfgWeapons"]) then {
 		NAT_militaryWeapons pushBackUnique (_autoSort select _i);
+		{
+			NAT_militaryMagazines pushBackUnique _x;
+		} forEach (getArray (configFile >> "CfgWeapons" >> (_autoSort select _i) >> "magazines"));
 	};
 	//GRENADES
 	if ((_autoSort select _i) isKindOf ["CA_Magazine", configFile >> "CfgMagazines"]) then {
