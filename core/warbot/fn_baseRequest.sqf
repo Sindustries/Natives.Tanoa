@@ -65,32 +65,42 @@ if (_type isEqualTo 1) then {
 
 		if (count _uniforms > 0) then {
 			_unit forceAddUniform (selectRandom _uniforms);
+			[missionNamespace,_uniforms,true,false] call BIS_fnc_addVirtualItemCargo;
 		};
 		if (count _vests > 0) then {
 			_unit addVest (selectRandom _vests);
+			[missionNamespace,_vests,true,false] call BIS_fnc_addVirtualItemCargo;
 		};
 		if (count _backpacks > 0) then {
 			_unit addBackpack (selectRandom _backpacks);
+			[missionNamespace,_backpacks,true,false] call BIS_fnc_addVirtualBackpackCargo;
 		};
 		if (count _headgear > 0) then {
 			_unit addHeadgear (selectRandom _headgear);
+			[missionNamespace,_headgear,true,false] call BIS_fnc_addVirtualItemCargo;
 		};
 		if (count _goggles > 0) then {
 			_unit addGoggles (selectRandom _goggles);
+			[missionNamespace,_goggles,true,false] call BIS_fnc_addVirtualItemCargo;
 		};
 		if (count _linked > 0) then {
 			{_unit linkItem _x} forEach _linked;
+			[missionNamespace,_linked,true,false] call BIS_fnc_addVirtualItemCargo;
 		};
 		if (count _grenades > 0) then {
 			{_unit addMagazines [(_x select 0),(_x select 1)]} forEach _grenades;
+			[missionNamespace,_grenades,true,false] call BIS_fnc_addVirtualMagazineCargo;
 		};
 		if (count _pWeps > 0) then {
 			_weapon = (selectRandom _pWeps);
 			_mags = (getArray (configFile >> "CfgWeapons" >> _weapon >> "magazines"));
 			_unit addMagazines [(selectRandom _mags),9];
 			_unit addWeapon _weapon;
+			[missionNamespace,_pWeps,true,false] call BIS_fnc_addVirtualWeaponCargo;
+			[missionNamespace,_mags,true,false] call BIS_fnc_addVirtualMagazineCargo;
 			if (count _pWepAccs > 0) then {
 				{_unit addPrimaryWeaponItem _x} forEach _pWepAccs;
+				[missionNamespace,_pWepAccs,true,false] call BIS_fnc_addVirtualItemCargo;
 			};
 		};
 		if (count _sWeps > 0) then {
@@ -98,8 +108,11 @@ if (_type isEqualTo 1) then {
 			_mags = (getArray (configFile >> "CfgWeapons" >> _weapon >> "magazines"));
 			_unit addMagazines [(selectRandom _mags),4];
 			_unit addWeapon _weapon;
+			[missionNamespace,_sWeps,true,false] call BIS_fnc_addVirtualWeaponCargo;
+			[missionNamespace,_mags,true,false] call BIS_fnc_addVirtualMagazineCargo;
 			if (count _sWepAccs > 0) then {
 				{_unit addHandgunItem _x} forEach _pWepAccs;
+				[missionNamespace,_sWepAccs,true,false] call BIS_fnc_addVirtualItemCargo;
 			};
 		};
 		_unit linkItem "itemMap";
