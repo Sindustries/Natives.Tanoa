@@ -10,7 +10,6 @@ private ["_pos","_count","_posFound","_spawnPos","_posCheck","_distCheck"];
 
 	if (isNil "NAT_zSpawnerArray") then {NAT_zSpawnerArray = []};
 
-	_spawnPos = [_pos,0,50,0.05,0,0,0] call SIN_fnc_findPos;
-	NAT_zSpawnerArray pushBack _spawnPos;
+	NAT_zSpawnerArray pushBack _pos;
 
 //-----------------------------------
