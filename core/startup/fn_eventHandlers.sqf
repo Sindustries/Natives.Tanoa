@@ -7,6 +7,7 @@
 private [];
 //-----------------------------------
 //-REAL ITEM TO vITEM CONVERSION
+
 NATvItemTakeEH = player addEventHandler ["Take", {
     private ["_unit","_container","_item","_vInv","_assigned"];
     _unit = _this select 0;
@@ -29,7 +30,7 @@ NATvItemTakeEH = player addEventHandler ["Take", {
     };
 }];
 
-NATvItemInvCloseEH = player addEventHandler ["InventoryClosed", {
+NATvItemInvOpenEH = player addEventHandler ["InventoryOpened", {
     private ["_vInv","_assigned"];
     _assigned = assignedItems player;
     _vInv = (player getVariable ["NAT_vInv",[]]);
@@ -49,19 +50,3 @@ NATvItemInvCloseEH = player addEventHandler ["InventoryClosed", {
     } forEach (uniformItems player+vestItems player+backpackItems player+assignedItems player);
 }];
 //-----------------------------------
-
-
-/*
-
-{
-    if ((_x select 0) isEqualTo _item) then {
-        if ((_x select 1) > 1) then {
-            _vInv set [_forEachIndex,[(_x select 0),((_x select 1)-1)]];
-        } else {
-            _vInv = _vInv - _x;
-        };
-    };
-} forEach _vInv;
-
-player setvariable NAT_vInv
-*/
