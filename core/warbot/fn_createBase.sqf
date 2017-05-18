@@ -68,7 +68,7 @@ if (count _fireObjs > 0) then {
 	_posFound = false;
 	while {!_posFound} do {
 		_firePos = [_campPos,_mainObjSize,20,2] call SIN_fnc_findPos;
-		if ((getPos nearestObject [_firePos,"Land_JumpTarget_F"]) > 4) then {
+		if ((getPos nearestObject [_firePos,"Land_JumpTarget_F"]) distance _firePos > 4) then {
 			_posFound = true;
 		};
 	};
@@ -85,7 +85,7 @@ if (count _defenceObjs > 0) then {
 		_posFound = false;
 		while {!_posFound} do {
 			_pos = [_campPos,_mainObjSize,20,2] call SIN_fnc_findPos;
-			if ((getPos nearestObject [_pos,"Land_JumpTarget_F"]) > 4) then {
+			if ((getPos nearestObject [_pos,"Land_JumpTarget_F"]) distance _pos > 4) then {
 				_posFound = true;
 			};
 		};
@@ -106,7 +106,7 @@ if (count _extraObjs > 0) then {
 		_posFound = false;
 		while {!_posFound} do {
 			_pos = [_campPos,_mainObjSize,20,2] call SIN_fnc_findPos;
-			if ((getPos nearestObject [_pos,"Land_JumpTarget_F"]) > 4) then {
+			if ((getPos nearestObject [_pos,"Land_JumpTarget_F"]) distance _pos > 4) then {
 				_posFound = true;
 			};
 		};
