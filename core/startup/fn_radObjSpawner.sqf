@@ -73,11 +73,10 @@ while {_objCreated < _maxNumObjLoc} do {
 		NATcache pushBack _obj;
 		_objCreated = _objCreated + 1;
 		_usedPosArray pushBackUnique _objPos;
-		sleep 0.001;
 	} else {
 		_errorCount = _errorCount + 1;
 	};
-	_spawnPos = [(getPos (selectRandom _houseList)),5,20,1] call SIN_fnc_findPos;
+	_spawnPos = [(getPos (selectRandom _houseList)),5,20,0] call SIN_fnc_findPos;
 
 	_placer = (selectRandom NATradObjJunk) createVehicleLocal _spawnPos;
 	_position = getPosWorld _placer;
