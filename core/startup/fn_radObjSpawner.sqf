@@ -55,15 +55,19 @@ while {_objCreated < _maxNumObjLoc} do {
 
 	_distCheck = [_objPos,_usedPosArray,(_objSize/2)] call SIN_fnc_checkDist;
 	if (_distCheck) then {
-		_obj = _selObj createVehicle _objPos;
+		_placer = _selObj createVehicleLocal _objPos;
+		_position = getPosWorld _placer;
+		_vectorDirUp = [vectorDir _placer, vectorUp _placer];
+		_model = getModelInfo _placer select 1;
+		deleteVehicle _placer;
+		_obj = createSimpleObject [_model, _position];
+		_obj setVectorDirAndUp _vectorDirUp;
 		_obj setDir (_dir+(random 75)-(random 75));
-		_obj setPos [(getPos _obj select 0),(getPos _obj select 1),0];
 		_obj allowDamage false;
 		_obj enableSimulation false;
 
 		if ((random 100) < _radChance) then {
 			NATRadioActiveObjects pushBackUnique [_objPos,(_objSize*3)];
-			[_objPos] spawn Z_fnc_setSpawn;
 		};
 
 		NATcache pushBack _obj;
@@ -73,10 +77,16 @@ while {_objCreated < _maxNumObjLoc} do {
 	} else {
 		_errorCount = _errorCount + 1;
 	};
-	_spawnPos = [(getPos (selectRandom _houseList)),0,10,2] call SIN_fnc_findPos;
-	_obj = (selectRandom NATradObjJunk) createVehicle _spawnPos;
+	_spawnPos = [(getPos (selectRandom _houseList)),5,20,1] call SIN_fnc_findPos;
+
+	_placer = (selectRandom NATradObjJunk) createVehicleLocal _spawnPos;
+	_position = getPosWorld _placer;
+	_vectorDirUp = [vectorDir _placer, vectorUp _placer];
+	_model = getModelInfo _placer select 1;
+	deleteVehicle _placer;
+	_obj = createSimpleObject [_model, _position];
+	_obj setVectorDirAndUp _vectorDirUp;
 	_obj setDir (_dir+(random 75)-(random 75));
-	_obj setPos [(getPos _obj select 0),(getPos _obj select 1),0];
 	_obj allowDamage false;
 	_obj enableSimulation false;
 	NATcache pushBack _obj;
