@@ -8,7 +8,7 @@ private [];
 zoneUpdateMsg = {
 	_zoneName = _this select 0;
 	_faction = _this select 1;
-	[[format["LOCATION UPDATE \n %1 has been captured by The %2",_zoneName,_faction],"PLAIN DOWN",0.8]] remoteExec ["titleText",0];
+	[10000,[format["LOCATION UPDATE \n %1 has been captured by The %2",_zoneName,_faction],"PLAIN DOWN",0.8,true]] remoteExec ["cutText",0];
 };
 
 //-----------------------------------
@@ -40,7 +40,7 @@ if (count NATmilitaryZones > 0) then {
 				_marker setMarkerColor "ColorGUER";
 				[_zoneName,"Natives"] remoteExec ["zoneUpdateMsg",0];
 				//CREATE ZOMBIE SPAWNERS
-				for "_i" from 1 to (10+floor(random 10)) do {
+				for "_i" from 1 to floor(random (_zoneSize/20)) do {
 					_pos = [_zonePos,0,(_zoneSize*0.75),0] call SIN_fnc_findPos;
 					[_pos] call Z_fnc_setSpawn;
 				};
@@ -77,7 +77,7 @@ if (count NATmilitiaZones > 0) then {
 				_marker setMarkerColor "ColorGUER";
 				[_zoneName,"Natives"] remoteExec ["zoneUpdateMsg",0];
 				//CREATE ZOMBIE SPAWNERS
-				for "_i" from 1 to (10+floor(random 10)) do {
+				for "_i" from 1 to (random (_zoneSize/20)) do {
 					_pos = [_zonePos,0,(_zoneSize*0.75),0] call SIN_fnc_findPos;
 					[_pos] call Z_fnc_setSpawn;
 				};
