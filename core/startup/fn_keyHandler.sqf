@@ -15,11 +15,12 @@ _ctrl = _this select 3;
 _alt = _this select 4;
 _handled = false;
 //-----------------------------------
-private ["_bases"];
+private ["_bases","_pumps"];
 _bases = [];
 if (count NATmilitaryCamps > 0) then {
     {_bases pushBack (_x select 1)} forEach NATmilitaryCamps;
 };
+_pumps = ["Land_FuelStation_Feed_F","Land_fs_feed_F","Land_FuelStation_01_pump_F","Land_FuelStation_02_pump_F"];
 //-----------------------------------
 switch (_code) do {
 	//H - GasMask toggle
@@ -61,14 +62,19 @@ switch (_code) do {
             if (!alive player || lifeState player in ["DEAD","DEAD-RESPAWN","DEAD-SWITCHING","INCAPACITATED"]) exitWith {};
             //-BASE?
             if (cursorObject in _bases && player distance cursorObject < 10) then {
+                _type = cursorObject getVariable "NATbaseType";
                 disableSerialization;
                 createDialog "NAT_baseMenu";
                 waitUntil {dialog};
-                [] call NAT_fnc_baseMenu;
+                [_type] call NAT_fnc_baseMenu;
             };
             //-CAR?
-            if (((typeOf cursorObject) isKindOf ["Land", configFile >> "CfgVehicles"]) && (damage cursorObject) < 1 && player distance cursorObject < 4 && !((locked cursorObject) in [2,3])) then {
+            if (((typeOf cursorObject) isKindOf ["Land", configFile >> "CfgVehicles"]) && (damage cursorObject) < 0.97 && player distance cursorObject < 4 && !((locked cursorObject) in [2,3]) && vehicle player isEqualTo player) then {
                 ["interact_land"] spawn NAT_fnc_vInvOpen;
+            };
+            //-FUEL PUMP?
+            if ((typeOf cursorObject) in _pumps && (damage cursorObject) < 0.97 && player distance cursorObject < 3.5 && vehicle player isEqualTo player) then {
+                ["interact_pump"] spawn NAT_fnc_vInvOpen;
             };
             _handled = true;
         };
