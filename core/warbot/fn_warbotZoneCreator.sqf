@@ -84,32 +84,31 @@ private [];
 	_zoneMarkerCircle setMarkerSize [(_x select 2 select 0),(_x select 2 select 0)];
 	_zoneMarkerCircle setMarkerAlpha 0.66;
 	NATnativeZones set [_forEachIndex,[(_x select 0),(_x select 1),(_x select 2),_zoneMarkerCircle]];
+	for "_i" from 1 to (random ((_x select 2 select 0)/20)) do {
+		_pos = [(_x select 1),0,((_x select 2 select 0)*0.75),0] call SIN_fnc_findPos;
+		[_pos] call Z_fnc_setSpawn;
+	};
 } forEach NATnativeZones;
 
 //-----------------------------------
 //-CREATE CAMPS
 [] spawn {
-	waitUntil {sleep 6; (count NATmilitaryCamps > 0)};
-	private "_numCamps";
+	private ["_numCamps","_usedPosArray"];
+	_usedPosArray = [];
 	_numCamps = round (((count NATmilitiaZones)+(count NATnativeZones))/2);
 	while {_numCamps > 0} do {
-		systemChat format["%1",_numCamps];
-		showchat true;
 		{
-			systemchat "Finding starting pos...";
 			_pos = [NATErrorPos,0,999999,0] call SIN_fnc_findPos;
-			systemchat "Finding base pos...";
 			_campPos = [_pos] call NAT_fnc_findBasePos;
-			systemchat "Finding nearest base...";
-			_nearestCamp = [_campPos,"all"] call NAT_fnc_findNearestBase;
-			systemchat "Finding nearest zone...";
+			_distCheck = [_campPos,_usedPosArray,500] call SIN_fnc_checkDist;
 			_nearestZone = [_campPos,"all"] call NAT_fnc_findNearestZone;
-			systemchat "checking...";
-			if (_campPos distance _nearestCamp >= 500 && _campPos distance (_nearestZone select 0) >= (_nearestZone select 1)) then {
-				systemchat "Creating camp...";
-				[_campPos,_x] call NAT_fnc_createBase;
+			if (_distCheck && _campPos distance2D (_nearestZone select 0) >= (_nearestZone select 1)) then {
+				[_campPos,_x] spawn {
+					waitUntil {sleep 6; (count NATmilitaryCamps > 0)};
+					[_this select 0,_this select 1,"land"] call NAT_fnc_createBase;
+				};
+				_usedPosArray pushBack _pos;
 			};
-			systemchat "Done.";
 		} forEach ["militia","native"];
 		_numCamps = _numCamps - 1;
 	};
