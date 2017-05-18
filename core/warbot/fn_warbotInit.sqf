@@ -13,6 +13,7 @@ NATmilitiaCamps = [];
 NATnativeCamps = [];
 NATcivilianCamps = [];
 
+NATcivilianZones = [];
 NATmilitaryZones = [];
 NATmilitiaZones = [];
 NATnativeZones = [];
