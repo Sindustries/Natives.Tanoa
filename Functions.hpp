@@ -28,7 +28,6 @@ class NAT_Core {
 		class createWaypoint {};
 		class createGroup {};
 		class emptyVeh {};
-		class fuelPump {};
 		class fuelStation {};
 		class getSetting {};
 		class getSettings {};
@@ -70,6 +69,7 @@ class NAT_Core {
 		class eatAction {};
 		class firstAidAction {};
 		class gasMaskAction {};
+		class refuelAction {};
 		class repairAction {};
 	};
 	class needs {
@@ -87,7 +87,6 @@ class NAT_Core {
 		file = "core\startup";
 		class act1 {};
 		class act2 {};
-		class addActions {};
 		class eventHandlers {};
 		class dynObjMonitor {};
 		class gravity {};
