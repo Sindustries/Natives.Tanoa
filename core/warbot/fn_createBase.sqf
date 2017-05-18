@@ -7,9 +7,10 @@ private ["_mainObjs","_mainObjSize","_defenceObjs","_extraObjs","_fireObjs","_si
 params [
 	["_campPos",[0,0,0]],
 	["_type",nil],
+	["_baseType",nil],
 	["_numObjects",0]
 ];
-if (_campPos isEqualTo [0,0,0] || isNil "_type") exitWith {};
+if (_campPos isEqualTo [0,0,0] || isNil "_type" || isNil "_baseType") exitWith {};
 _defences = [];
 //-----------------------------------
 //-FIND FLAT POS
@@ -46,23 +47,48 @@ switch (_type) do {
 	};
 };
 //-----------------------------------
-//-PLACE MAIN+FIRE+DEFENCES
+//-MAIN OBJECT
 _mainObj = (selectRandom _mainObjs) createVehicle _campPos;
 _mainObj setDir (random 360);
 _mainObj setPos [(getPos _mainObj select 0),(getPos _mainObj select 1),0];
+_mainObj setVariable ["NATbaseType",_baseType];
 _mainObjSize = (getNumber (configfile >> "CfgVehicles" >> (typeOf _mainObj) >> "mapSize"));
 createGuardedPoint [_side, [0,0], -1, _mainObj];
 _campPos = (getPos _mainObj);
+//-----------------------------------
+//-HELIPAD / VEH BUILD SITE
+if (_type isEqualTo "military") then {
+	_pos = [_campPos,(_mainObjSize+3),20,2] call SIN_fnc_findPos;
+	_heliPad = "Land_JumpTarget_F" createVehicle _pos;
+};
+//-----------------------------------
+//-FIRE
 if (count _fireObjs > 0) then {
-	_firePos = [_campPos,_mainObjSize,20,2] call SIN_fnc_findPos;
+	private ["_posFound","_firePos"];
+	_posFound = false;
+	while {!_posFound} do {
+		_firePos = [_campPos,_mainObjSize,20,2] call SIN_fnc_findPos;
+		if ((getPos nearestObject [_firePos,"Land_JumpTarget_F"]) > 4) then {
+			_posFound = true;
+		};
+	};
 	_fire = (selectRandom _fireObjs) createVehicle _firePos;
 	_fire setDir (random 360);
 	_fire setPos [(getPos _fire select 0),(getPos _fire select 1),0];
 	NATcache pushBack _fire;
 };
+//-----------------------------------
+//-TURRETS
 if (count _defenceObjs > 0) then {
 	for "_i" from 1 to (2+floor(random 2)) do {
-		_pos = [_campPos,_mainObjSize,20,2] call SIN_fnc_findPos;
+		private ["_posFound","_pos"];
+		_posFound = false;
+		while {!_posFound} do {
+			_pos = [_campPos,_mainObjSize,20,2] call SIN_fnc_findPos;
+			if ((getPos nearestObject [_pos,"Land_JumpTarget_F"]) > 4) then {
+				_posFound = true;
+			};
+		};
 		_obj = (selectRandom _defenceObjs) createVehicle _pos;
 		_dir = [_obj, _mainObj] call BIS_fnc_DirTo;
 		//_obj setDir (getDir _mainObj);
@@ -76,19 +102,20 @@ if (count _defenceObjs > 0) then {
 //-PLACE EXTRA OBJECTS
 if (count _extraObjs > 0) then {
 	while {_numObjects > 0} do {
-		_pos = [_campPos,_mainObjSize,20,2] call SIN_fnc_findPos;
+		private ["_posFound","_pos"];
+		_posFound = false;
+		while {!_posFound} do {
+			_pos = [_campPos,_mainObjSize,20,2] call SIN_fnc_findPos;
+			if ((getPos nearestObject [_pos,"Land_JumpTarget_F"]) > 4) then {
+				_posFound = true;
+			};
+		};
 		_obj = (selectRandom _extraObjs) createVehicle _pos;
 		_obj setDir (random 360);
 		_obj setPos [(getPos _obj select 0),(getPos _obj select 1),0];
 		_numObjects = _numObjects - 1;
 		NATcache pushBack _obj;
 	};
-};
-//-----------------------------------
-//-HELIPAD / VEH BUILD SITE
-if (_type isEqualTo "military") then {
-	_pos = [_campPos,(_mainObjSize+3),20,2] call SIN_fnc_findPos;
-	_heliPad = "Land_JumpTarget_F" createVehicle _pos;
 };
 //-----------------------------------
 //-MAP MARKER + DEFENDERS
