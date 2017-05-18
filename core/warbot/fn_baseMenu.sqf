@@ -96,8 +96,8 @@ if (isServer) then {
 //-----------------------------------
 /* BASE STORAGE BUTTON */
 _sideBarBtn2 ctrlSetText "OPEN STORAGE";
-_sideBarBtn2 ctrlSetTooltip "Opens the base storage";
-_sideBarBtn2 buttonSetAction "";
+_sideBarBtn2 ctrlSetTooltip "Opens the virtual inventory";
+_sideBarBtn2 buttonSetAction "closeDialog 0; [] spawn BIS_fnc_arsenal;";
 //-----------------------------------
 /* REARM SQUAD BUTTON */
 _sideBarBtn3 ctrlSetText "REARM SQUAD";
