@@ -183,7 +183,7 @@ sleep 3;
 sleep 1;
 
 {
-	if (isPlayer) then {
+	if (isPlayer _x) then {
 		_x setDamage 0.2;
 	};
 } forEach allUnits;
