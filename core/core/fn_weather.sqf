@@ -10,7 +10,6 @@ _dustStormChance = ["NATdustStormChance"] call NAT_fnc_getSetting;
 _tornadoChance = ["NATtornadoChance"] call NAT_fnc_getSetting;
 
 _overcast =  (overcast+(random _variation)-(random _variation));
-_fog = (fog+(random _variation)-(random _variation));
 
 //-----------------------------------
 if (DebugMode) then {
@@ -29,7 +28,7 @@ if (overcast >= 0.7 && overcast < 0.9 && (random 100) < _monsoonChance) then {
 	};
 	[(random 360),((random 10)*60),false] spawn NAT_fnc_monsoon;
 };
-if (overcast < 0.1 && (random 100) < _dustStormChance) then {
+if (sunOrMoon isEqualTo 1 && overcast < 0.1 && (random 100) < _dustStormChance) then {
 	if (DebugMode) then {
 		systemChat "DEBUG MODE :: DUST STORM INCOMING";
 	};
@@ -46,7 +45,7 @@ if (overcast >= 0.9 && (random 100) < _tornadoChance) then {
 //-----------------------------------
 _sleepTime = ((random 20)*60);
 if (DebugMode) then {
-	systemChat format["DEBUG MODE :: WEATHER SET: OVERCAST: %1, FOG: %2. CHANGING IN %3 MINUTES.",overcast,fog,(_sleepTime/60)];
+	systemChat format["DEBUG MODE :: WEATHER SET: OVERCAST: %1, FOG: %2. CHANGING IN %3 MINUTES.",overcast,fog,round(_sleepTime/60)];
 	showChat true;
 };
 sleep _sleepTime;
