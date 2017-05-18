@@ -22,5 +22,10 @@ switch (_UI) do {
 		waitUntil {dialog};
 		[cursorObject,"land"] spawn NAT_fnc_interact;
 	};
+	case "interact_pump": {
+		createDialog "NAT_interact";
+		waitUntil {dialog};
+		[cursorObject,"pump"] spawn NAT_fnc_interact;
+	};
 };
 //-----------------------------------
