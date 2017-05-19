@@ -17,22 +17,22 @@ _use = false;
 switch (_item) do {
 	case "sc_elasticbandage": {
 		_use = true;
-		_heal = ((random 0.05)+(random 0.05));
+		_heal = (0.1+(random 0.05));
 	};
 	case "zk_bandage": {
 		_use = true;
-		_heal = ((random 0.025)+(random 0.025));
+		_heal = (0.25+(random 0.125));
 	};
 	case "FirstAidKit": {
 		_use = true;
-		_heal = ((random 0.075)+(random 0.15));
+		_heal = (0.33+(random 0.15));
 		if (player getVariable ["NATneedsDamageModif",1] > 0.75) then {
 			player setVariable ["NATneedsDamageModif",0.75];
 		};
 	};
 	case "Medikit": {
 		_use = true;
-		_heal = ((random 0.15)+(random 0.1));
+		_heal = (0.5+(random 0.25));
 		if (player getVariable ["NATneedsDamageModif",1] > 0.5) then {
 			player setVariable ["NATneedsDamageModif",0.5];
 		};
