@@ -52,8 +52,8 @@ sleep 3;
 //-----------------------------------
 //-MOVE PLAYERS INSIDE
 
-_aiCount = (8-({isPlayer _x} count playableUnits));
-_groupMil = [_heliLandPos,west,"military",_aiCount,0.2] call NAT_fnc_createGroup;
+_aiCount = (4-({isPlayer _x} count playableUnits));
+_groupMil = [_heliLandPos,west,"military",_aiCount,1] call NAT_fnc_createGroup;
 
 {
 	if (!isPlayer _x && (group _x) isEqualTo _groupMil) then {
@@ -73,6 +73,8 @@ _groupMil = [_heliLandPos,west,"military",_aiCount,0.2] call NAT_fnc_createGroup
 		}
 	};
 } forEach allUnits;
+
+//_groupMil selectLeader player;
 
 //-----------------------------------
 //-WAIT UNTIL IN POSITION
@@ -117,15 +119,18 @@ _sparks2 attachTo [_heli];
 
 [_heli,_sparks1,_sparks2,_fire] spawn {
 	private ["_alarm","_sparks1","_sparks2","_fire"];
-	_pod = _this select 0;
+	_heli = _this select 0;
 	_sparks1 = _this select 1;
 	_sparks2 = _this select 2;
 	_fire = _this select 3;
-	sleep 180+(random 300);
+	sleep 60;
+	waitUntil {sleep 3; {_x distance _heli < 50} count allUnits < 1};
 	{deleteVehicle _x;} forEach (_fire getVariable ["effects", []]);
 	deleteVehicle _fire;
 	deleteVehicle _sparks1;
 	deleteVehicle _sparks2;
+	_heli setDamage 1;
+	NATcache pushBack _heli;
 };
 
 sleep 3;

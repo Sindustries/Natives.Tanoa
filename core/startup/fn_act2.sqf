@@ -29,9 +29,30 @@ TASK_Contact5 setSimpleTaskDestination [(_campPos select 0),(_campPos select 1),
 TASK_Contact5 setTaskState "Assigned";
 ["TaskAssigned",["","Defend Base Camp"]] call bis_fnc_showNotification;
 
-waitUntil {sleep 3; {alive _x && side _x isequalTo east && _x distance _campPos < 400} count allunits isEqualTo 0};
+waitUntil {sleep 3; {alive _x && side _x isequalTo east && _x distance _campPos < 400} count allunits < {alive _x && side _x isequalTo west && _x distance _campPos < 400} count allunits};
 
 TASK_Contact5 setTaskState "Succeeded";
 ["TaskSucceeded",["","Defend Base Camp"]] call bis_fnc_showNotification;
 [_groupMil] call NAT_fnc_clearWaypoints;
 [_groupMil,[(_campPos select 0),(_campPos select 1),0],50,2,true] call CBA_fnc_taskDefend;
+
+//-----------------------------------
+//-PART 5 - CREATE A PORT
+
+_shorePos = [_campPos,50,100] call NAT_fnc_findShoreBasePos;
+
+//SET NEW OBJECTIVE
+TASK_Contact6 = player createSimpleTask ["Create a Shore Base"];
+TASK_Contact6 setSimpleTaskType "defend";
+TASK_Contact6 setSimpleTaskDescription ["Go to a nearby shore and create a Shore Base", "Create a Shore Base", "Shore Base"];
+TASK_Contact6 setSimpleTaskDestination [(_shorePos select 0),(_shorePos select 1),0];
+TASK_Contact6 setTaskState "Assigned";
+["TaskAssigned",["","Create a Shore Base"]] call bis_fnc_showNotification;
+
+waitUntil {sleep 1; player distance _shorePos < 50};
+
+[_shorePos,"military","shore",0] call NAT_fnc_createBase;
+
+TASK_Contact6 setTaskState "Succeeded";
+["TaskSucceeded",["","Create a Shore Base"]] call bis_fnc_showNotification;
+["NATnotification",["HINT","PRESS F2 TO OPEN THE BASE MENU","i"]] call bis_fnc_showNotification;

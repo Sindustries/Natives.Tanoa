@@ -46,14 +46,8 @@ TASK_Contact1 setTaskState "Assigned";
 [_groupMil] call NAT_fnc_clearWaypoints;
 [_groupMil,_locPos,"MOVE","YELLOW","AWARE","Investigate"] call NAT_fnc_createWaypoint;
 
-//CREATE ZOMBIE HORDE
-for "_i" from 1 to 4 do {
-	_pos = [_locPos,0,100] call SIN_fnc_findPos;
-	_group = [_pos,6] call Z_fnc_spawnZombies;
-};
 //-----------------------------------
-0 = [] call NAT_fnc_saveGame;
-waitUntil {sleep 1; player distance _locPos < (_size select 0)};
+waitUntil {sleep 1; (leader _groupMil) distance2D _locPos < (_size select 0) || (leader _groupMil) distance2D _locPos < 60};
 //-----------------------------------
 //-PART 2 - DEFEAT THE NATIVES & ZOMBIES
 
@@ -64,6 +58,7 @@ for "_i" from 1 to 4 do {
 	_pos = [_locPos,0,100] call SIN_fnc_findPos;
 	_group = [_pos,resistance,"native",3,0.1] call NAT_fnc_createGroup;
 	[_group,_locPos,"SAD","RED","AWARE"] call NAT_fnc_createWaypoint;
+	_group = [_pos,6] call Z_fnc_spawnZombies;
 };
 
 TASK_Contact3 = player createSimpleTask ["Sweep the town"];
@@ -77,7 +72,7 @@ TASK_Contact3 setTaskState "Assigned";
 [_groupMil] call NAT_fnc_clearWaypoints;
 [_groupMil,_locPos,"MOVE","RED","AWARE","Sweep the town"] call NAT_fnc_createWaypoint;
 
-waitUntil {sleep 1; {alive _x && side _x isEqualTo RESISTANCE && _x distance _locPos < 400} count allUnits < {alive _x && side _x isEqualTo WEST && _x distance _locPos < 400} count allUnits};
+waitUntil {sleep 1; {alive _x && side _x isEqualTo RESISTANCE && _x distance2D _locPos < 400} count allUnits < {alive _x && side _x isEqualTo WEST && _x distance2D _locPos < 400} count allUnits};
 TASK_Contact3 setTaskState "Succeeded";
 ["TaskSucceeded",["","Clear the town"]] call bis_fnc_showNotification;
 
@@ -85,6 +80,7 @@ TASK_Contact3 setTaskState "Succeeded";
 //-PART 3 - FIND A SPOT FOR A CAMP
 
 _campPos = [(getPos (leader _groupMil))] call NAT_fnc_findBasePos;
+
 
 //SET NEW OBJECTIVE
 TASK_Contact4 = player createSimpleTask ["Find a flat, empty area for a Base Camp"];
@@ -97,31 +93,9 @@ TASK_Contact4 setTaskState "Assigned";
 [_groupMil] call NAT_fnc_clearWaypoints;
 [_groupMil,_campPos,"MOVE","YELLOW","AWARE","Base camp site"] call NAT_fnc_createWaypoint;
 
-waitUntil {sleep 1; (leader _groupMil) distance _campPos < 20};
-createCamp = false;
-
-[] spawn {
-	{
-		player enableSimulationGlobal false;
-		player setCaptive true;
-		cutText ["", "BLACK OUT", 3];
-		sleep 3;
-		if (isServer) then {
-			createCamp = true;
-		};
-		sleep 3;
-		cutText ["", "BLACK IN", 3];
-		sleep 3;
-		player enableSimulationGlobal true;
-		player setCaptive false;
-	} remoteExec ["bis_fnc_call", 0];
-};
-
+waitUntil {sleep 1; (leader _groupMil) distance2D _campPos < 30};
 [_groupMil] call NAT_fnc_clearWaypoints;
-
-waitUntil {sleep 1; createCamp isEqualTo true};
 [_campPos,"military","land",6] call NAT_fnc_createBase;
-createCamp = nil;
 
 sleep 6;
 
