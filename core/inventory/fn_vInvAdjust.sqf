@@ -17,6 +17,7 @@ _vInv = (player getVariable ["NAT_vInv",[]]);
 //-----------------------------------
 if (_add) then {
 	if (count _vInv > 0) then {
+		private "_found";
 	    _found = false;
 	    {
 	        if (_item isEqualTo (_x select 0)) then {
@@ -28,7 +29,7 @@ if (_add) then {
 	        _vInv pushBack [_item,_count];
 	    };
 	} else {
-	    _vInv pushBack [_item,1];
+	    _vInv pushBack [_item,_count];
 	};
 } else {
 	{
