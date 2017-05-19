@@ -8,7 +8,7 @@ private [];
 if (!isServer) exitWith {};
 
 _checkTime = 30;
-_cacheDist = 1000;
+_cacheDist = 600;
 
 NATcache = [];
 
