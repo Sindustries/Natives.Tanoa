@@ -34,7 +34,6 @@ switch (_type) do {
 		_weapons = NAT_militiaWeapons;
 		_items = NAT_militiaItems;
 		_grenades = NAT_militiaGrenades;
-		[_unit,"tacs_Insignia_ZombieOutbreakResponseTeam"] call bis_fnc_setUnitInsignia;
 	};
 	case "military": {
 		_medChance = 50;
@@ -48,16 +47,21 @@ switch (_type) do {
 			_unit addGoggles (selectRandom NAT_militaryGoggles);
 		};
 		_unit linkItem "ItemCompass";
-		_unit linkItem "ItemWatch";
 		_unit linkItem "ItemRadio";
 		_unit linkItem "ItemMap";
-		_unit addItem "sc_dogtag";
-		_unit addItem "FirstAidKit";
-		_unit addItem "FirstAidKit";
-		_unit addItem "FirstAidKit";
+		if (_unit isEqualTo player) then {
+			["sc_dogtag",1,true] call NAT_fnc_vInvAdjust;
+			["FirstAidKit",3,true] call NAT_fnc_vInvAdjust;
+		} else {
+			_unit addItem "sc_dogtag";
+			_unit addItem "FirstAidKit";
+			_unit addItem "FirstAidKit";
+			_unit addItem "FirstAidKit";
+		};
 		_weapons = NAT_militaryWeapons;
 		_items = NAT_militaryItems;
 		_grenades = NAT_militaryGrenades;
+		[_unit,"tacs_Insignia_ZombieOutbreakResponseTeam"] call bis_fnc_setUnitInsignia;
 	};
 	case "native": {
 		_medChance = 5;
@@ -127,7 +131,11 @@ if (_type isEqualTo "military") then {
 //-----------------------------------
 //-MISC ITEMS
 if (_medChance > (random 100)) then {
-	_unit addItem "zk_bandage";
+	if (_unit isEqualTo player) then {
+		["zk_bandage",1,true] call NAT_fnc_vInvAdjust;
+	} else {
+		_unit addItem "zk_bandage";
+	};
 	if (_medChance > (random 100)) then {
 		_unit addItem "RyanZombiesAntiVirusTemporary_Item";
 	};
@@ -140,11 +148,11 @@ if (!(isNil "_grenades")) then {
 if (!(isNil "_items")) then {
 	for "_i" from 0 to (floor (random 3)) do {
 		_item = (selectRandom _items);
-		if (_item isKindOf ["CA_Magazine", configFile >> "CfgMagazines"]) then {
-            _unit addMagazine _item;
-        } else {
-            _unit addItem _item;
-        };
+		if (_unit isEqualTo player) then {
+			[_item,1,true] call NAT_fnc_vInvAdjust;
+		} else {
+			_unit addItem _item;
+		};
 	};
 };
 [_unit] spawn NAT_fnc_gasMask;
