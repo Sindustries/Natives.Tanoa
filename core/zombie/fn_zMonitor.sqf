@@ -19,7 +19,7 @@ _playerPosArray = [];
 /* CHECK DISTANCES */
 {
 	for "_i" from 0 to ((count _playerPosArray)-1) do {
-		if (_x distance (_playerPosArray select _i) <= 125 && !(_x in NAT_usedSpawnerArray) && (random 100) < NAT_zSpawnChance) then {
+		if (_x distance (_playerPosArray select _i) <= 300 && !(_x in NAT_usedSpawnerArray) && (random 100) < NAT_zSpawnChance) then {
 			[_x,floor(random 7)] call Z_fnc_spawnZombies;
 			NAT_usedSpawnerArray pushBack _x;
 		};
@@ -27,6 +27,7 @@ _playerPosArray = [];
 			NAT_usedSpawnerArray = NAT_usedSpawnerArray - _x;
 		};
 	};
+	sleep 0.01;
 } forEach NAT_zSpawnerArray;
 
 [] spawn Z_fnc_zMonitor;
