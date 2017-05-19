@@ -89,6 +89,53 @@ if (isServer) then {
 	[10,25,1000,75,60] spawn NAT_fnc_tpw_animals;
 };
 //-----------------------------------
+//-AI SKILL VALUES
+NATmilitarySkills = [
+["aimingAccuracy",0.66],
+["aimingShake",0.66],
+["aimingSpeed",0.5],
+["spotDistance",0.45],
+["spotTime",1],
+["courage",1],
+["reloadSpeed",1],
+["commanding",1],
+["general",0.75]
+];
+NATmilitiaSkills = [
+["aimingAccuracy",0.45],
+["aimingShake",0.45],
+["aimingSpeed",0.4],
+["spotDistance",0.66],
+["spotTime",1],
+["courage",1],
+["reloadSpeed",1],
+["commanding",1],
+["general",0.66]
+];
+NATnativeSkills = [
+["aimingAccuracy",0.33],
+["aimingShake",0.25],
+["aimingSpeed",0.66],
+["spotDistance",1],
+["spotTime",1],
+["courage",1],
+["reloadSpeed",1],
+["commanding",1],
+["general",0.5]
+];
+NATzombieSkills = [
+["aimingAccuracy",0.66],
+["aimingShake",0.66],
+["aimingSpeed",0.5],
+["spotDistance",0.8],
+["spotTime",1],
+["courage",1],
+["reloadSpeed",1],
+["commanding",1],
+["general",0.66]
+];
+
+//-----------------------------------
 //-SET TIME OF DAY						setDate [year, month, day, hour, minute]
 if (isServer) then {
 	_date = numberToDate [(2015+floor(random 20)),random 1];
@@ -197,14 +244,13 @@ player setVariable ["NAT_pumpingFuel",false];
 //-----------------------------------
 //-PLAYER STARTING GEAR
 cutText ["PRELOADING \n RANDOMISING GEAR", "BLACK FADED", 999];
+player setVariable ["NAT_vInv",[["zk_f_canteen",1],["sc_mre",2]],true];
 [player,"military",true] call NAT_fnc_equip;
-player setVariable ["NAT_vInv",[["zk_f_canteen",1],["sc_mre",2],["zk_e_fuelcan",3]],true];
 //-----------------------------------
 [] spawn NAT_fnc_dynObjMonitor;
 [] spawn NAT_fnc_mineDetector;
 [] call NAT_fnc_handleDamage;
 [] spawn NAT_fnc_healthMonitor;
-[] spawn NAT_fnc_healthRegen;
 //-----------------------------------
 //-PLAYER MAP MARKER
 [] spawn {
@@ -238,13 +284,14 @@ if (isServer) then {
 	};
 	if (_startPoint isEqualTo 1) then {
 		skipTime 0.2;
-		_aiCount = (8-({isPlayer _x} count playableUnits));
-		_groupMil = [_pos,west,"military",_aiCount,0.2] call NAT_fnc_createGroup;
+		_aiCount = (4-({isPlayer _x} count playableUnits));
+		_groupMil = [_pos,west,"military",_aiCount,1] call NAT_fnc_createGroup;
 		{
 			if (isPlayer _x) then {
 				[_x] joinSilent _groupMil;
 			};
 		} forEach playableUnits;
+		//_groupMil selectLeader player;
 		{
 			if (isPlayer _x) then {
 				_x setVariable ["NATspawned", true, true];
@@ -258,8 +305,8 @@ if (isServer) then {
 		skipTime 2;
 		_campPos = [_pos] call NAT_fnc_findBasePos;
 		[_campPos,"military","land",6] call NAT_fnc_createBase;
-		_aiCount = (8-({isPlayer _x} count playableUnits));
-		_groupMil = [_campPos,west,"military",_aiCount,0.2] call NAT_fnc_createGroup;
+		_aiCount = (4-({isPlayer _x} count playableUnits));
+		_groupMil = [_campPos,west,"military",_aiCount,1] call NAT_fnc_createGroup;
 		{
 			if (isPlayer _x) then {
 				[_x] joinSilent grpNull;
@@ -291,6 +338,7 @@ if (isServer) then {
 	[missionNamespace,NAT_militaryWeapons,true,false] call BIS_fnc_addVirtualWeaponCargo;
 	[missionNamespace,(NAT_militaryGrenades+NAT_militaryMagazines),true,false] call BIS_fnc_addVirtualMagazineCargo;
 	[missionNamespace,(NAT_militaryUniforms+NAT_militaryVests+NAT_militaryHeadgear+NAT_militaryGoggles),true,false] call BIS_fnc_addVirtualItemCargo;
+	[missionNamespace,["optic_ACO_grn","optic_Aco","optic_Arco_blk_F","optic_Arco_ghex_F","optic_ERCO_blk_F","optic_Holosight","optic_Holosight_blk_F","optic_Holosight_khk_F","optic_Holosight_smg","optic_Holosight_smg_blk_F","optic_MRCO","optic_Hamr","optic_Hamr_khk_F"],true,false] call BIS_fnc_addVirtualItemCargo;
 	[missionNamespace,NAT_militaryBackpacks,true,false] call BIS_fnc_addVirtualBackpackCargo;
 };
 //-----------------------------------

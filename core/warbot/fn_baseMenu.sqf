@@ -46,8 +46,8 @@ if (count NATbaseUnitRequest > 0) then {
 		_entry = (NATbaseUnitRequest select _i);
 		_name = (_entry select 0);
 		_classes = (_entry select 1);
-		_foodCost = (_entry select 3);
-		_waterCost = (_entry select 4);
+		_foodCost = (_entry select 2);
+		_waterCost = (_entry select 3);
 		_format = format["[f%1 w%2] %3",_foodCost,_waterCost,_name];
 		_index = _unitsList lbAdd _format;
 		//_vehList lbSetPicture [_index, _iconPath];

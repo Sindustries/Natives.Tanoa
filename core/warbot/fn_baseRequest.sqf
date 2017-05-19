@@ -119,6 +119,7 @@ if (_type isEqualTo 1) then {
 		_unit linkItem "itemRadio";
 		_unit linkItem "itemWatch";
 		_unit addWeapon "binocular";
+		{_unit setSkill [(_x select 0),(_x select 1)]} forEach NATmilitarySkills;
 	};
 };
 //-----------------------------------

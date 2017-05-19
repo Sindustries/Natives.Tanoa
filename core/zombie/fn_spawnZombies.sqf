@@ -15,6 +15,7 @@ private ["_pos","_zombieCount","_zombie","_group","_exclusions","_spawnPos"];
 			_spawnPos = [_pos,0,20,1] call SIN_fnc_findPos;
 			_zombie = _group createUnit [(selectRandom NAT_Zombies), _spawnPos, [], 0, "NONE"];
 			_zombie allowFleeing 0;
+			{_zombie setSkill [(_x select 0),(_x select 1)]} forEach NATzombieSkills;
 			[_zombie,"AmovPercMstpSnonWnonDnon_SaluteOut"] remoteExec ["switchMove", 0];
 			NAT_zombieArray pushBack _zombie;
 			NAT_zombieArrayClient pushBack _zombie;

@@ -22,7 +22,6 @@
 		[],		//GOGGLES
 		[]		//LINKED ITEMS
 	],
-	0.2,	//SKILL
 	30,		//FOOD COST
 	30		//WATER COST
 	],
@@ -44,7 +43,6 @@ NATbaseUnitRequest = [
 		NAT_militaryGoggles,		//GOGGLES
 		[]		//LINKED ITEMS
 	],
-	0.2,	//SKILL
 	10,		//FOOD COST
 	10		//WATER COST
 	],
@@ -63,7 +61,6 @@ NATbaseUnitRequest = [
 		["Mask_M40"],		//GOGGLES
 		["TRYK_balaclava_NV","TRYK_balaclava_BLACK_NV"]		//LINKED ITEMS
 	],
-	0.5,	//SKILL
 	30,		//FOOD COST
 	30		//WATER COST
 	]
