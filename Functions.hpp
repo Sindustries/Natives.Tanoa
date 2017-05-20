@@ -4,9 +4,11 @@ class SIN {
 		file = "core\sin";
 		class adminInit {};
 		class checkPos {};
+		class checkTanoaPos {};
 		class checkDist {};
 		class emptyVeh {};
 		class findPos {};
+		class findTanoaPos {};
 		class testCode {};
 	};
 }
@@ -117,6 +119,10 @@ class NAT_Core {
 		class warbotWave {};
 		class warbotZoneCreator {};
 		class warbotZoneMonitor {};
+	};
+	class missions {
+		file = "core\warbot\mission";
+		class missionSelect {};
 	};
 	class weather {
 		file = "core\weather";
