@@ -23,7 +23,8 @@ switch (_type) do {
 		if (isNull _veh) exitWith {};
 		private ["_fuel"];
 		_fuel = fuel _veh;
-		while {_fuel < 1 && player distance _pump < 3.5 && vehicle player isEqualTo player} do {
+		while {_fuel < 1} do {
+			if (player distance _pump > 3.5 || vehicle player != player) exitWith {};
 			player playMove "Acts_carFixingWheel";
 			player setDir ([_pump, _veh] call BIS_fnc_dirTo);
 
@@ -39,7 +40,8 @@ switch (_type) do {
 	case 2: {
 		private ["_fuel","_cans"];
 		_cans = true;
-		while {_cans && player distance _pump < 3.5 && vehicle player isEqualTo player} do {
+		while {_cans} do {
+			if (player distance _pump > 3.5 || vehicle player != player) exitWith {};
 			if (["zk_e_fuelcan"] call NAT_fnc_vInvCheck) then {
 				_fuel = 0;
 				while {_fuel < 10} do {
