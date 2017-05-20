@@ -79,7 +79,12 @@ if (isServer) then {
 	publicVariable "NAT_mapLocationsVillages";
 	publicVariable "NAT_mapLocationsAirports";
 	if (worldName isEqualTo "Tanoa") then {
-		_startPos = [[10000,10000,0],4000];
+		NATislandZones = [
+			[[8092.05,10362.7,0.00175095],4000],
+			[[11196.3,9635.81,0.00164795],4000],
+			[[11212.6,3367.12,0.00170135],2500]
+		];
+		publicVariable "NATislandZones";
 	};
 };
 //-----------------------------------
@@ -102,20 +107,20 @@ NATmilitarySkills = [
 ["general",0.75]
 ];
 NATmilitiaSkills = [
-["aimingAccuracy",0.45],
-["aimingShake",0.45],
-["aimingSpeed",0.4],
-["spotDistance",0.66],
+["aimingAccuracy",0.33],
+["aimingShake",0.33],
+["aimingSpeed",0.25],
+["spotDistance",0.6],
 ["spotTime",1],
 ["courage",1],
 ["reloadSpeed",1],
 ["commanding",1],
-["general",0.66]
+["general",0.45]
 ];
 NATnativeSkills = [
-["aimingAccuracy",0.33],
-["aimingShake",0.25],
-["aimingSpeed",0.66],
+["aimingAccuracy",0.15],
+["aimingShake",0.15],
+["aimingSpeed",0.5],
 ["spotDistance",1],
 ["spotTime",1],
 ["courage",1],
@@ -272,11 +277,19 @@ cutText ["PRELOADING \n PREPARING GAME, PLEASE WAIT", "BLACK FADED", 999];
 if (isServer) then {
 	private ["_location"];
 	setTimeMultiplier (["NATtimeMultiplier"] call NAT_fnc_getSetting);
-	if (!(isNil "_startPos")) then {
-		_loc = (selectRandom (nearestLocations [(_startPos select 0), ["NameCity","NameCityCapital","NameVillage"], (_startPos select 1)]));
-		_location = [(locationPosition _loc),(size _loc)];
+	if (!(isNil "NATislandZones")) then {
+		private "_locationFound";
+		_locationFound = false;
+		while {!_locationFound} do {
+			_loc = (selectRandom NAT_mapLocations);
+			_check = [(_loc select 0)] call SIN_fnc_checkTanoaPos;
+			if (_check) then {
+				_locationFound = true;
+				_location = _loc;
+			};
+		};
 	} else {
-		_location = (selectRandom (NAT_mapLocationsCities+NAT_mapLocationsVillages));
+		_location = (selectRandom NAT_mapLocations);
 	};
 	_pos = [(_location select 0),0,(_location select 1 select 0),0,0,0] call SIN_fnc_findPos;
 	if (_startPoint isEqualTo 0) then {
@@ -285,13 +298,13 @@ if (isServer) then {
 	if (_startPoint isEqualTo 1) then {
 		skipTime 0.2;
 		_aiCount = (4-({isPlayer _x} count playableUnits));
-		_groupMil = [_pos,west,"military",_aiCount,1] call NAT_fnc_createGroup;
+		_group = [_pos,west,"military",_aiCount] call NAT_fnc_createGroup;
 		{
 			if (isPlayer _x) then {
 				[_x] joinSilent _groupMil;
 			};
 		} forEach playableUnits;
-		//_groupMil selectLeader player;
+		_groupMil selectLeader player;
 		{
 			if (isPlayer _x) then {
 				_x setVariable ["NATspawned", true, true];
@@ -306,7 +319,7 @@ if (isServer) then {
 		_campPos = [_pos] call NAT_fnc_findBasePos;
 		[_campPos,"military","land",6] call NAT_fnc_createBase;
 		_aiCount = (4-({isPlayer _x} count playableUnits));
-		_groupMil = [_campPos,west,"military",_aiCount,1] call NAT_fnc_createGroup;
+		_groupMil = [_campPos,west,"military",_aiCount] call NAT_fnc_createGroup;
 		{
 			if (isPlayer _x) then {
 				[_x] joinSilent grpNull;
