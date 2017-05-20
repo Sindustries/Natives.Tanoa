@@ -14,7 +14,7 @@ _groupMil = _this select 1;
 
 {_x setSkill 0.8} forEach (units _groupMil);
 [_groupMil,[(_campPos select 0),(_campPos select 1),0],50,2,true] call CBA_fnc_taskDefend;
-
+/*
 for "_i" from 1 to 2 do {
 	_pos = [_campPos,200,300] call SIN_fnc_findPos;
 	_group = [_pos,east,"militia",12,0.1] call NAT_fnc_createGroup;
@@ -35,11 +35,20 @@ TASK_Contact5 setTaskState "Succeeded";
 ["TaskSucceeded",["","Defend Base Camp"]] call bis_fnc_showNotification;
 [_groupMil] call NAT_fnc_clearWaypoints;
 [_groupMil,[(_campPos select 0),(_campPos select 1),0],50,2,true] call CBA_fnc_taskDefend;
-
+*/
 //-----------------------------------
 //-PART 5 - CREATE A PORT
 
-_shorePos = [_campPos,50,100] call NAT_fnc_findShoreBasePos;
+private ["_baseFound","_shorePos","_shoreBase"];
+_baseFound = false;
+while {!_baseFound} do {
+	_shoreBase = [_campPos] call NAT_fnc_findShoreBasePos;
+	_check = [(_shoreBase select 1)] call SIN_fnc_checkTanoaPos;
+	if (_check) then {
+		_baseFound = true;
+		_shorePos = (_shoreBase select 1);
+	};
+};
 
 //SET NEW OBJECTIVE
 TASK_Contact6 = player createSimpleTask ["Create a Shore Base"];
@@ -51,7 +60,7 @@ TASK_Contact6 setTaskState "Assigned";
 
 waitUntil {sleep 1; player distance _shorePos < 50};
 
-[_shorePos,"military","shore",0] call NAT_fnc_createBase;
+[_shoreBase,"military","shore",0] call NAT_fnc_createBase;
 
 TASK_Contact6 setTaskState "Succeeded";
 ["TaskSucceeded",["","Create a Shore Base"]] call bis_fnc_showNotification;
