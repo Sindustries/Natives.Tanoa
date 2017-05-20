@@ -16,10 +16,12 @@ _alt = _this select 4;
 _handled = false;
 //-----------------------------------
 private ["_bases","_pumps"];
+_baseLocs = [];
 _bases = [];
 if (count NATmilitaryCamps > 0) then {
-    {_bases pushBack (_x select 1)} forEach NATmilitaryCamps;
+    {_bases pushBack (_x select 1); _baseLocs pushBack (_x select 0)} forEach NATmilitaryCamps;
 };
+_baseLocs = [_baseLocs,[],{player distance _x},"ASCEND"] call BIS_fnc_sortBy;
 _pumps = ["Land_FuelStation_Feed_F","Land_fs_feed_F","Land_FuelStation_01_pump_F","Land_FuelStation_02_pump_F"];
 //-----------------------------------
 switch (_code) do {
@@ -61,7 +63,7 @@ switch (_code) do {
         if (!_shift && !_ctrl && !_alt && !dialog) then {
             if (!alive player || lifeState player in ["DEAD","DEAD-RESPAWN","DEAD-SWITCHING","INCAPACITATED"]) exitWith {};
             //-BASE?
-            if (cursorObject in _bases && player distance cursorObject < 10) then {
+            if (cursorObject in _bases && player distance (_baseLocs select 0) < 10) then {
                 _type = cursorObject getVariable "NATbaseType";
                 disableSerialization;
                 createDialog "NAT_baseMenu";
