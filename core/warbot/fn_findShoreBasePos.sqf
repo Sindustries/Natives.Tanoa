@@ -1,31 +1,55 @@
 /*
-	fn_findCampPos
+	fn_findShoreBasePos
 	Author: Sinbane
-	Finds a random location
+	Finds a pier to set as a shore base
 */
-private ["_errorPos","_posFound","_return"];
+private ["_dist","_pierFound","_return"];
 //-----------------------------------
 params [
-    ["_pos",[]],
-    ["_minDist",0],
-    ["_maxDist",50],
-    ["_objDist",20],
-	["_water",0],
-	["_maxGrad",0.125],
-	["_shore",1]
+    ["_pos",[]]
 ];
 
-_errorPos = (getArray(configFile >> "CfgWorlds" >> worldName >> "centerPosition"));
+/*_piers = [
+"Land_Pier_addon",
+"Land_Pier_F",
+"Land_nav_pier_m_F",
+"Land_PierConcrete_01_4m_ladders_F",
+"Land_PierConcrete_01_16m_F",
+"Land_PierConcrete_01_steps_F",
+"Land_PierWooden_02_16m_F",
+"Land_PierWooden_02_barrel_F",
+"Land_PierWooden_02_hut_F",
+"Land_PierWooden_02_ladder_F",
+"Land_PierWooden_01_10m_noRails_F",
+"Land_PierWooden_01_16m_F",
+"Land_PierWooden_01_dock_F",
+"Land_PierWooden_01_hut_F",
+"Land_PierWooden_01_ladder_F",
+"Land_PierWooden_01_platform_F"
+];*/
+
+_piers = [
+"Land_Pier_F",
+"Land_Pier_addon",
+"Land_PierConcrete_01_steps_F",
+"Land_PierWooden_02_hut_F",
+"Land_PierWooden_01_dock_F",
+"Land_PierWooden_01_hut_F"
+];
 
 //-----------------------------------
 
-_posFound = false;
-while {!_posFound} do {
-	_return = [_pos,_minDist,_maxDist,_objDist,_water,_maxGrad,_shore] call BIS_fnc_findSafePos;
-	if ((_return select 0) != (_errorPos select 0) && (_return select 1) != (_errorPos select 1)) then {
-		_posFound = true;
+private ["_pierFound","_dist"];
+_pierFound = false;
+_dist = 100;
+while {!_pierFound} do {
+	_nearestPiers = nearestObjects [_pos,_piers,_dist];
+	if (count _nearestPiers > 0) then {
+		_pier = (_nearestPiers select 0);
+		_return = [_pier,(getPos _pier)];
+		_pierFound = true;
 	} else {
-		_maxDist = _maxDist + 20;
+		_dist = _dist + 100;
 	};
 };
 
