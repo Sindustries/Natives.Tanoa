@@ -60,12 +60,14 @@ while {{alive _x} count (units _group) > 0} do {
 		};
 	};
 };
-
+private "_toRemove";
+_toRemove = [];
 {
 	if (_x isEqualTo _group) then {
-		NATpinnedGroups deleteAt _forEachIndex;
+		_toRemove pushBack _group;
 	};
 } forEach NATpinnedGroups;
+NATpinnedGroups = NATpinnedGroups - _toRemove;
 _aMarker setMarkerType "mil_destroy";
 _aMarker setMarkerDir 45;
 _aMarker setMarkerText "";
