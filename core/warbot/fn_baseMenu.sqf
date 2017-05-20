@@ -53,7 +53,7 @@ if (count NATbaseUnitRequest > 0) then {
 		//_vehList lbSetPicture [_index, _iconPath];
 	};
 };
-if (_type isEqualTo "land" && count NATbaseVehicleRequest > 0) then {
+if (count NATbaseVehicleRequest > 0) then {
 	for "_i" from 0 to ((count NATbaseVehicleRequest)-1) do {
 		_entry = (NATbaseVehicleRequest select _i);
 		_name = (_entry select 0);
@@ -61,6 +61,7 @@ if (_type isEqualTo "land" && count NATbaseVehicleRequest > 0) then {
 		_cost = (_entry select 2);
 		_format = format["[%1] %2",_cost,_name];
 		_index = _vehList lbAdd _format;
+		_vehList lbSetData [_index,"land"];
 		//_vehList lbSetPicture [_index, _iconPath];
 	};
 };
@@ -72,6 +73,7 @@ if (_type isEqualTo "shore" && count NATbaseBoatRequest > 0) then {
 		_cost = (_entry select 2);
 		_format = format["[%1] %2",_cost,_name];
 		_index = _vehList lbAdd _format;
+		_vehList lbSetData [_index,"sea"];
 		//_vehList lbSetPicture [_index, _iconPath];
 	};
 };
@@ -81,14 +83,8 @@ _unitReqBtn ctrlSetTooltip "Request selected unit from list above (RECRUITING CA
 _unitReqBtn buttonSetAction "[1] call NAT_fnc_baseRequest";
 //-----------------------------------
 _vehReqBtn ctrlSetText "BUILD VEHICLE";
-if (_type isEqualTo "land") then {
-	_vehReqBtn buttonSetAction "[2] call NAT_fnc_baseRequest";
-	_vehReqBtn ctrlSetTooltip "Build selected vehicle from list above (BUILD TIME IS SCRAP COST DIVIDED BY 3)";
-};
-if (_type isEqualTo "shore") then {
-	_vehReqBtn buttonSetAction "[3] call NAT_fnc_baseRequest";
-	_vehReqBtn ctrlSetTooltip "Build selected vehicle from list above";
-};
+_vehReqBtn buttonSetAction "[2] call NAT_fnc_baseRequest";
+_vehReqBtn ctrlSetTooltip "Build selected vehicle from list above (BUILD TIME IS SCRAP COST DIVIDED BY 3)";
 //-----------------------------------
 /* RESOURCES */
 _foodIcon ctrlSetText "GUI\img\meat.paa";
@@ -102,13 +98,13 @@ _scrapTXT ctrlSetText format["%1",NATresScrap];
 _sideBarBtn1 ctrlSetText "MISSIONS";
 if (isServer) then {
 	_sideBarBtn1 ctrlSetTooltip "Find a mission";
-	//_sideBarBtn1 buttonSetAction "[2] call NAT_fnc_baseRequest";
+	//_sideBarBtn1 buttonSetAction "[] call NAT_fnc_baseRequest";
 } else {
 	_sideBarBtn1 ctrlEnable false;
 	_sideBarBtn1 ctrlSetTooltip "Find a mission - HOST ONLY";
 };
 //-----------------------------------
-/* BASE STORAGE BUTTON */
+/* ARSENAL BUTTON */
 _sideBarBtn2 ctrlSetText "ARSENAL";
 _sideBarBtn2 ctrlSetTooltip "Opens the virtual inventory";
 _sideBarBtn2 buttonSetAction "closeDialog 0; [] spawn BIS_fnc_arsenal;";
