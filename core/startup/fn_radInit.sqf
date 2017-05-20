@@ -78,8 +78,17 @@ _radObjArray = (_radObjCars+_radObjAir);
 //-----------------------------------
 //-IRRADIATE ALL LOCATIONS
 NATRadioActiveLocations = [];
+_counter = (count NAT_mapLocations);
 {
 	NATRadioActiveLocations pushBack [(_x select 0),((_x select 1) select 0),false];
+	_houses = (_x select 0) nearObjects ["Building",((_x select 1) select 0)];
+	{
+		if ((random 100) < 20) then {
+			_x setDamage [1,false];
+		};
+	} forEach _houses;
+	_counter = _counter - 1;
+	[_counter,(count NAT_mapLocations)] remoteExec ["NAT_fnc_updateProgressBar", 0];
 } forEach NAT_mapLocations;
 publicVariable "NATRadioActiveLocations";
 //-----------------------------------
