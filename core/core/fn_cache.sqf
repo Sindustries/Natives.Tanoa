@@ -56,7 +56,9 @@ while {true} do {
 							_x setVariable ["NATcache",true];
 							_menCached = _menCached + 1;
 						} else {
-							deleteVehicle _x;
+							if ((random 100) < 10) then {
+								deleteVehicle _x;
+							};
 						};
 					};
 					if (_x distance (_playerPosArray select _i) <= _cacheDist && _x != (leader _x) && !((group _x) in _playerGroups)) then {
@@ -84,7 +86,9 @@ while {true} do {
 							_x setVariable ["NATcache",true];
 							_vehCached = _vehCached + 1;
 						} else {
-							deleteVehicle _x;
+							if ((random 100) < 10) then {
+								deleteVehicle _x;
+							};
 						};
 					};
 					if (_x distance (_playerPosArray select _i) <= _cacheDist && (count crew _x) isEqualTo 0) then {
