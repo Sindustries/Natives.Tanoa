@@ -47,13 +47,49 @@ NATbaseUnitRequest = [
 	10		//WATER COST
 	],
 	[
+	"Diver",
+	[
+		["SMG_05_F"],		//PRIMARY WEAPONS
+		["muzzle_snds_L","acc_pointer_IR","optic_Aco"],		//PRIMARY WEAPON ITEMS
+		["hgun_Pistol_heavy_01_F"],		//SIDEARMS
+		["muzzle_snds_acp","acc_flashlight_pistol","optic_MRD"],		//SIDEARM ITEMS
+		[["SmokeShell",1],["SmokeShellBlue",3]],		//GRENADES
+		["U_I_Wetsuit","U_O_Wetsuit","U_B_Wetsuit"],		//UNIFORMS
+		["V_RebreatherIA","V_RebreatherIR","V_RebreatherB"],		//VESTS
+		["tacs_Backpack_AssaultExpanded_Black"],		//BACKPACKS
+		[],		//HEADGEAR
+		["G_Diving","G_I_Diving","G_O_Diving","G_B_Diving"],		//GOGGLES
+		["TRYK_Headset_NV"]		//LINKED ITEMS
+	],
+	10,		//FOOD COST
+	10		//WATER COST
+	],
+	[
+	"Exterminator",
+	[
+		["Mossberg_590"],		//PRIMARY WEAPONS
+		[],		//PRIMARY WEAPON ITEMS
+		["KA_Mk23_black"],		//SIDEARMS
+		["KA_Mk23_Flashlight"],		//SIDEARM ITEMS
+		[["SmokeShell",1],["SmokeShellBlue",3]],		//GRENADES
+		["TRYK_T_PAD","TRYK_U_pad_hood_CSATBlk","TRYK_U_pad_hood_Blod","TRYK_U_pad_hood_Blk","TRYK_U_pad_hood_Cl_blk","TRYK_U_pad_hood_BKT2","TRYK_U_nohoodPcu_gry","TRYK_U_pad_hood_odBK","TRYK_U_pad_hood_Cl","TRYK_U_pad_hood_tan","TRYK_hoodie_3c","TRYK_hoodie_FR","TRYK_hoodie_Blk","TRYK_hoodie_Wood","TRYK_U_hood_mc","TRYK_U_hood_nc","TRYK_T_BLK_PAD","TRYK_T_CSAT_PAD","TRYK_T_OD_PAD","TRYK_T_TAN_PAD","TRYK_T_T2_PAD","TRYK_U_denim_hood_3c","TRYK_U_denim_hood_blk","TRYK_U_denim_hood_mc","TRYK_U_denim_hood_nc","TRYK_U_denim_jersey_blk","TRYK_U_denim_jersey_blu","TRYK_U_pad_j_blk","TRYK_U_pad_j","TRYK_T_camo_3c_BG","TRYK_T_camo_desert_marpat_BG","TRYK_T_camo_Wood_BG","TRYK_T_camo_wood_marpat_BG","TRYK_T_camo_3c","TRYK_T_camo_Desert_marpat","TRYK_T_camo_tan","TRYK_T_camo_Wood","TRYK_T_camo_wood_marpat"],		//UNIFORMS
+		["TRYK_V_PlateCarrier_blk"],		//VESTS
+		[],		//BACKPACKS
+		["TRYK_H_PASGT_BLK"],		//HEADGEAR
+		["G_Balaclava_TI_G_blk_F"],		//GOGGLES
+		["TRYK_Shemagh_G_NV","TRYK_Shemagh_G_NV","TRYK_Shemagh_TAN_NV"]		//LINKED ITEMS
+	],
+	20,		//FOOD COST
+	20		//WATER COST
+	],
+	[
 	"Biohazard",
 	[
 		["arifle_ARX_blk_F"],		//PRIMARY WEAPONS
 		["muzzle_snds_65_TI_blk_F","acc_pointer_IR","optic_ERCO_blk_F","bipod_01_F_blk"],		//PRIMARY WEAPON ITEMS
 		["hgun_Rook40_F"],		//SIDEARMS
 		["muzzle_snds_L"],		//SIDEARM ITEMS
-		[["SmokeShellRed",3]],		//GRENADES
+		[["SmokeShell",1],["SmokeShellBlue",3]],	//GRENADES
 		["TRYK_U_B_PCUHsW8","TRYK_U_B_PCUHsW3","TRYK_U_B_PCUHs","TRYK_U_B_PCUGHs","TRYK_U_B_PCUODHs"],		//UNIFORMS
 		["V_TacVestIR_blk","tacs_Vest_Tactical_DarkBlack"],		//VESTS
 		["TRYK_B_Kitbag_blk","TRYK_B_BAF_BAG_BLK"],		//BACKPACKS
