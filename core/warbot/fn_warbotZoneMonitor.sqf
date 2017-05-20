@@ -3,7 +3,7 @@
 	Author: Sinbane
 	Monitors zones and switches occupying faction accordingly
 */
-private [];
+private ["_toRemove"];
 
 zoneUpdateMsg = {
 	_zoneName = _this select 0;
@@ -17,6 +17,7 @@ sleep 30;
 
 //CIVILIAN CHECK
 if (count NATcivilianZones > 0) then {
+	_toRemove = [];
 	{
 		_zoneName = (_x select 0);
 		_zonePos = (_x select 1);
@@ -27,27 +28,33 @@ if (count NATcivilianZones > 0) then {
 		_native = {alive _x && side _x isEqualTo RESISTANCE && _x distance2D _zonePos < _zoneSize} count allUnits;
 
 		if (_military > _militia && _military > _native) then {
-			NATcivilianZones deleteAt _forEachIndex;
+			//NATcivilianZones deleteAt _forEachIndex;
+			_toRemove pushBackUnique _x;
 			NATmilitaryZones pushBackUnique _x;
 			_marker setMarkerColor "ColorWEST";
+			_marker setMarkerAlpha 0.66;
 			[_zoneName,"Military"] remoteExec ["zoneUpdateMsg",0];
 			if (count NATmilitaryCamps > 0) then {
 				[_zonePos,_zoneSize,west,"military"] call NAT_fnc_createZonePatrol;
 			};
 		};
 		if (_militia > _military && _militia > _native) then {
-			NATcivilianZones deleteAt _forEachIndex;
+			//NATcivilianZones deleteAt _forEachIndex;
+			_toRemove pushBackUnique _x;
 			NATmilitiaZones pushBackUnique _x;
 			_marker setMarkerColor "ColorEAST";
+			_marker setMarkerAlpha 0.66;
 			[_zoneName,"Militia"] remoteExec ["zoneUpdateMsg",0];
 			if (count NATmilitiaCamps > 0) then {
 				[_zonePos,_zoneSize,east,"militia"] call NAT_fnc_createZonePatrol;
 			};
 		};
 		if (_native > _military && _native > _militia) then {
-			NATcivilianZones deleteAt _forEachIndex;
+			//NATcivilianZones deleteAt _forEachIndex;
+			_toRemove pushBackUnique _x;
 			NATnativeZones pushBackUnique _x;
 			_marker setMarkerColor "ColorGUER";
+			_marker setMarkerAlpha 0.66;
 			[_zoneName,"Natives"] remoteExec ["zoneUpdateMsg",0];
 			if (count NATnativeCamps > 0) then {
 				[_zonePos,_zoneSize,resistance,"native"] call NAT_fnc_createZonePatrol;
@@ -61,12 +68,14 @@ if (count NATcivilianZones > 0) then {
 				[_zonePos,_zoneSize,resistance,"native"] call NAT_fnc_createZonePatrol;
 			};
 		};
-		sleep 0.01;
+		sleep 0.001;
 	} forEach NATcivilianZones;
+	NATcivilianZones = NATcivilianZones - _toRemove;
 };
 
 //MILITARY CHECK
 if (count NATmilitaryZones > 0) then {
+	_toRemove = [];
 	{
 		_zoneName = (_x select 0);
 		_zonePos = (_x select 1);
@@ -77,7 +86,8 @@ if (count NATmilitaryZones > 0) then {
 		_native = {alive _x && side _x isEqualTo RESISTANCE && _x distance2D _zonePos < _zoneSize} count allUnits;
 
 		if (_military < _militia || _military < _native) then {
-			NATmilitaryZones deleteAt _forEachIndex;
+			//NATmilitaryZones deleteAt _forEachIndex;
+			_toRemove pushBackUnique _x;
 			if (_militia > _native) then {
 				NATmilitiaZones pushBackUnique _x;
 				_marker setMarkerColor "ColorEAST";
@@ -99,12 +109,14 @@ if (count NATmilitaryZones > 0) then {
 				};
 			};
 		};
-		sleep 0.01;
+		sleep 0.001;
 	} forEach NATmilitaryZones;
+	NATmilitaryZones = NATmilitaryZones - _toRemove;
 };
 
 //MILITIA CHECK
 if (count NATmilitiaZones > 0) then {
+	_toRemove = [];
 	{
 		_zoneName = (_x select 0);
 		_zonePos = (_x select 1);
@@ -115,7 +127,8 @@ if (count NATmilitiaZones > 0) then {
 		_native = {alive _x && side _x isEqualTo RESISTANCE && _x distance2D _zonePos < _zoneSize} count allUnits;
 
 		if (_militia < _military || _militia < _native) then {
-			NATmilitiaZones deleteAt _forEachIndex;
+			//NATmilitiaZones deleteAt _forEachIndex;
+			_toRemove pushBackUnique _x;
 			if (_military > _native) then {
 				NATmilitaryZones pushBackUnique _x;
 				_marker setMarkerColor "ColorWEST";
@@ -137,12 +150,14 @@ if (count NATmilitiaZones > 0) then {
 				};
 			};
 		};
-		sleep 0.01;
+		sleep 0.001;
 	} forEach NATmilitiaZones;
+	NATmilitiaZones = NATmilitiaZones - _toRemove;
 };
 
 //NATIVE CHECK
 if (count NATnativeZones > 0) then {
+	_toRemove = [];
 	{
 		_zoneName = (_x select 0);
 		_zonePos = (_x select 1);
@@ -153,7 +168,8 @@ if (count NATnativeZones > 0) then {
 		_native = {alive _x && side _x isEqualTo RESISTANCE && _x distance2D _zonePos < _zoneSize} count allUnits;
 
 		if (_native < _military || _native < _militia) then {
-			NATnativeZones deleteAt _forEachIndex;
+			//NATnativeZones deleteAt _forEachIndex;
+			_toRemove pushBackUnique _x;
 			if (_military > _militia) then {
 				NATmilitaryZones pushBackUnique _x;
 				_marker setMarkerColor "ColorWEST";
@@ -176,8 +192,9 @@ if (count NATnativeZones > 0) then {
 				};
 			} forEach NAT_zSpawnerArray;
 		};
-		sleep 0.01;
+		sleep 0.001;
 	} forEach NATnativeZones;
+	NATnativeZones = NATnativeZones - _toRemove;
 };
 
 [] spawn NAT_fnc_warbotZoneMonitor;
