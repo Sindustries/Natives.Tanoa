@@ -53,7 +53,7 @@ sleep 3;
 //-MOVE PLAYERS INSIDE
 
 _aiCount = (4-({isPlayer _x} count playableUnits));
-_groupMil = [_heliLandPos,west,"military",_aiCount,1] call NAT_fnc_createGroup;
+_groupMil = [_heliLandPos,west,"military",_aiCount] call NAT_fnc_createGroup;
 
 {
 	if (!isPlayer _x && (group _x) isEqualTo _groupMil) then {
@@ -73,6 +73,8 @@ _groupMil = [_heliLandPos,west,"military",_aiCount,1] call NAT_fnc_createGroup;
 		}
 	};
 } forEach allUnits;
+
+_groupMil selectLeader player;
 
 //_groupMil selectLeader player;
 
@@ -123,8 +125,8 @@ _sparks2 attachTo [_heli];
 	_sparks1 = _this select 1;
 	_sparks2 = _this select 2;
 	_fire = _this select 3;
-	sleep 60;
-	waitUntil {sleep 3; {_x distance _heli < 50} count allUnits < 1};
+	sleep 20+(random 20);
+	waitUntil {sleep 3; {_x distance _heli < 50} count allUnits isEqualTo 0};
 	{deleteVehicle _x;} forEach (_fire getVariable ["effects", []]);
 	deleteVehicle _fire;
 	deleteVehicle _sparks1;
@@ -173,6 +175,7 @@ sleep 3;
 				sleep 0.1;
 				player removeWeapon "hgun_P07_F";
 			};
+			player setDamage (0.1+(random 0.15));
 		} remoteExec ["bis_fnc_call", _x];
 	} else {
 		_x enableSimulationGlobal true;
@@ -187,11 +190,11 @@ sleep 3;
 
 sleep 1;
 
-{
+/*{
 	if (isPlayer _x) then {
-		_x setDamage 0.2;
+		_x setDamage (random 0.2);
 	};
-} forEach allUnits;
+} forEach playableUnits;*/
 
 //-----------------------------------
 //-ACT 1
