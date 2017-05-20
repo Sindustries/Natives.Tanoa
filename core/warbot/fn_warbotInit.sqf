@@ -28,7 +28,10 @@ NATnativeForce = [];
 
 if (isServer) then {
 	[] call NAT_fnc_warbotZoneCreator;
-	[] spawn NAT_fnc_warbotZoneMonitor;
+	[] spawn {
+		waitUntil {sleep 5; {isPlayer _x && isTouchingGround _x} count playableUnits isEqualTo playersNumber WEST};
+		[] spawn NAT_fnc_warbotZoneMonitor;
+	};
 };
 
 NATwarbotLoaded = true;
