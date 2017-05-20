@@ -19,42 +19,64 @@ private [];
 //-FLAG ZONES
 //CITIES
 {
-	if (!(_x in NATmilitaryZones) && !(_x in NATmilitiaZones) && !(_x in NATnativeZones)) then {
+	if (!(_x in NATmilitaryZones) && !(_x in NATmilitiaZones) && !(_x in NATnativeZones) && !(_x in NATcivilianZones)) then {
 		_loc = nearestLocations [(_x select 0),["nameCity","NameCityCapital"],1000,(_x select 0)];
 		_name = text (_loc select 0);
-		if ((random 100) < 90) then {
-			NATnativeZones pushBackUnique [_name,(_x select 0),(_x select 1)];
+		if ((random 100) < 75) then {
+			NATcivilianZones pushBackUnique [_name,(_x select 0),(_x select 1)];
 		} else {
-			NATmilitiaZones pushBackUnique [_name,(_x select 0),(_x select 1)];
+			if ((random 100) < 90) then {
+				NATnativeZones pushBackUnique [_name,(_x select 0),(_x select 1)];
+			} else {
+				NATmilitiaZones pushBackUnique [_name,(_x select 0),(_x select 1)];
+			};
 		};
 	};
 } forEach NAT_mapLocationsCities;
 //VILLAGES
 {
-	if (!(_x in NATmilitaryZones) && !(_x in NATmilitiaZones) && !(_x in NATnativeZones)) then {
+	if (!(_x in NATmilitaryZones) && !(_x in NATmilitiaZones) && !(_x in NATnativeZones) && !(_x in NATcivilianZones)) then {
 		_loc = nearestLocations [(_x select 0),["NameVillage"],1000,(_x select 0)];
 		_name = text (_loc select 0);
-		if ((random 100) < 70) then {
-			NATnativeZones pushBackUnique [_name,(_x select 0),(_x select 1)];
+		if ((random 100) < 80) then {
+			NATcivilianZones pushBackUnique [_name,(_x select 0),(_x select 1)];
 		} else {
-			NATmilitiaZones pushBackUnique [_name,(_x select 0),(_x select 1)]
+			if ((random 100) < 90) then {
+				NATnativeZones pushBackUnique [_name,(_x select 0),(_x select 1)];
+			} else {
+				NATmilitiaZones pushBackUnique [_name,(_x select 0),(_x select 1)];
+			};
 		};
 	};
 } forEach NAT_mapLocationsVillages;
 //AIRPORTS
 {
-	if (!(_x in NATmilitaryZones) && !(_x in NATmilitiaZones) && !(_x in NATnativeZones)) then {
+	if (!(_x in NATmilitaryZones) && !(_x in NATmilitiaZones) && !(_x in NATnativeZones) && !(_x in NATcivilianZones)) then {
 		_loc = nearestLocations [(_x select 0),["Airport"],1000,(_x select 0)];
 		_name = text (_loc select 0);
-		if ((random 100) < 50) then {
-			NATnativeZones pushBackUnique [_name,(_x select 0),(_x select 1)]
+		if ((random 100) < 80) then {
+			NATcivilianZones pushBackUnique [_name,(_x select 0),(_x select 1)];
 		} else {
-			NATmilitiaZones pushBackUnique [_name,(_x select 0),(_x select 1)]
+			if ((random 100) < 90) then {
+				NATnativeZones pushBackUnique [_name,(_x select 0),(_x select 1)];
+			} else {
+				NATmilitiaZones pushBackUnique [_name,(_x select 0),(_x select 1)];
+			};
 		};
 	};
 } forEach NAT_mapLocationsAirports;
 //-----------------------------------
-//-MAP MARKERS
+//-MAP MARKERS, PATROLS ETC
+{
+	_aMarkername = format["ZONECIRCLE%1",(_x select 1)];
+	_zoneMarkerCircle = createMarker [_aMarkername,(_x select 1)];
+	_zoneMarkerCircle setMarkerShape "ELLIPSE";
+	_zoneMarkerCircle setMarkerBrush "SOLID";
+	_zoneMarkerCircle setMarkerColor "ColorCIVILIAN";
+	_zoneMarkerCircle setMarkerSize [(_x select 2 select 0),(_x select 2 select 0)];
+	_zoneMarkerCircle setMarkerAlpha 0;
+	NATcivilianZones set [_forEachIndex,[(_x select 0),(_x select 1),(_x select 2),_zoneMarkerCircle]];
+} forEach NATcivilianZones;
 {
 	_aMarkername = format["ZONECIRCLE%1",(_x select 1)];
 	_zoneMarkerCircle = createMarker [_aMarkername,(_x select 1)];
@@ -112,5 +134,15 @@ private [];
 		} forEach ["militia","native"];
 		_numCamps = _numCamps - 1;
 	};
+	waitUntil {sleep 10; (count NATmilitaryCamps > 0)};
+	{
+		[(_x select 1),(_x select 2 select 0),west,"military"] call NAT_fnc_createZonePatrol;
+	} forEach NATmilitaryZones;
+	{
+		[(_x select 1),(_x select 2 select 0),east,"militia"] call NAT_fnc_createZonePatrol;
+	} forEach NATmilitiaZones;
+	{
+		[(_x select 1),(_x select 2 select 0),resistance,"native"] call NAT_fnc_createZonePatrol;
+	} forEach NATnativeZones;
 };
 //-----------------------------------
