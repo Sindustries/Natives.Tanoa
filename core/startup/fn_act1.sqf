@@ -44,7 +44,8 @@ TASK_Contact1 setTaskState "Assigned";
 ["TaskAssigned",["","Investigate the nearby settlement"]] call bis_fnc_showNotification;
 
 [_groupMil] call NAT_fnc_clearWaypoints;
-[_groupMil,_locPos,"MOVE","YELLOW","AWARE","Investigate"] call NAT_fnc_createWaypoint;
+_groupMil setFormation "STAG COLUMN";
+//[_groupMil,_locPos,"MOVE","YELLOW","AWARE","Investigate"] call NAT_fnc_createWaypoint;
 
 //-----------------------------------
 waitUntil {sleep 1; (leader _groupMil) distance2D _locPos < (_size select 0) || (leader _groupMil) distance2D _locPos < 60};
@@ -68,9 +69,16 @@ TASK_Contact3 setSimpleTaskDestination [(_locPos select 0),(_locPos select 1),0]
 TASK_Contact3 setTaskState "Assigned";
 ["TaskAssigned",["","Sweep the town"]] call bis_fnc_showNotification;
 
-//_pos = [_locPos] call SIN_fnc_findPos;
 [_groupMil] call NAT_fnc_clearWaypoints;
-[_groupMil,_locPos,"MOVE","RED","AWARE","Sweep the town"] call NAT_fnc_createWaypoint;
+//[_groupMil,_locPos,"SAD","RED","COMBAT","Sweep the town"] call NAT_fnc_createWaypoint;
+
+/*
+[_groupMil] spawn {
+	_groupMil = _this select 0;
+	while {taskState TASK_Contact3 != Succeeded} do {
+
+	};
+}*/
 
 waitUntil {sleep 1; {alive _x && side _x isEqualTo RESISTANCE && _x distance2D _locPos < 400} count allUnits < {alive _x && side _x isEqualTo WEST && _x distance2D _locPos < 400} count allUnits};
 TASK_Contact3 setTaskState "Succeeded";
@@ -91,7 +99,7 @@ TASK_Contact4 setTaskState "Assigned";
 ["TaskAssigned",["","Find a flat, empty area for a Base Camp"]] call bis_fnc_showNotification;
 
 [_groupMil] call NAT_fnc_clearWaypoints;
-[_groupMil,_campPos,"MOVE","YELLOW","AWARE","Base camp site"] call NAT_fnc_createWaypoint;
+//[_groupMil,_campPos,"MOVE","YELLOW","AWARE","Base camp site"] call NAT_fnc_createWaypoint;
 
 waitUntil {sleep 1; (leader _groupMil) distance2D _campPos < 30};
 [_groupMil] call NAT_fnc_clearWaypoints;
