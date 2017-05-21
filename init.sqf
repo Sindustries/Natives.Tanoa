@@ -292,8 +292,8 @@ if (isServer) then {
 		[_pos] spawn NAT_fnc_prologue;
 	};
 	if (_startPoint > 1) then {
-		_shorePos = [_pos,0,1000,0,0,1,1] call SIN_fnc_findPos;
-		_spawnPos = [_shorePos,10,30,0,2] call SIN_fnc_findPos;
+		_shorePos = [_pos,0,100,0,0,1,1] call SIN_fnc_findPos;
+		_spawnPos = [_shorePos,30,60,0,2] call SIN_fnc_findPos;
 		_veh = createVehicle ["I_C_Boat_Transport_02_F",_spawnPos,[],0,"NONE"];
 		[
 			_veh,
