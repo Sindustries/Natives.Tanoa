@@ -112,17 +112,17 @@ if (isServer) then {
 /* ARSENAL BUTTON */
 _sideBarBtn2 ctrlSetText "ARSENAL";
 _sideBarBtn2 ctrlSetTooltip "Opens the virtual inventory";
-_sideBarBtn2 buttonSetAction "closeDialog 0; [] spawn BIS_fnc_arsenal;";
+_sideBarBtn2 buttonSetAction "closeDialog 0; [] spawn BIS_fnc_arsenal";
 //-----------------------------------
 /* REARM SQUAD BUTTON */
 _sideBarBtn3 ctrlSetText "REARM SQUAD";
 _sideBarBtn3 ctrlSetTooltip "Re-equips your AI squadmates with more ammo (1 SCRAP PER UNIT)";
-_sideBarBtn3 buttonSetAction "";
+_sideBarBtn3 buttonSetAction "[] call NAT_fnc_rearmSquad";
 //-----------------------------------
 /* REARM BASE BUTTON */
 _sideBarBtn4 ctrlSetText "REARM BASE";
-_sideBarBtn4 ctrlSetTooltip "Re-equips base defences with more ammo (5 SCRAP PER DEFENCE, 1 SCRAP PER UNIT)";
-_sideBarBtn4 buttonSetAction "";
+_sideBarBtn4 ctrlSetTooltip "Re-equips base defences with more ammo and replaces dead units with new recruits (5 SCRAP PER DEFENCE, 1 SCRAP PER UNIT, 1F/1W PER NEW RECRUIT)";
+_sideBarBtn4 buttonSetAction "[1] call NAT_fnc_rearmBase";
 //-----------------------------------
 {_x ctrlShow false} forEach [_sideBarBtn5,_sideBarBtn6,_sideBarBtn7];
 //-----------------------------------
