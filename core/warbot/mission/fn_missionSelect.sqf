@@ -2,35 +2,43 @@
 	fn_missionSelect
 	Author: Sinbane
 	Opens the strategic map and lets host chose a mission
+	[] spawn NAT_fnc_missionSelect;
+
+
+	[_clearZombiesPos,NAT_fnc_missionClearZombies,"CLEAR ZOMBIES","Cleanse this area from zombie presence","","",1,[_clearZombiesPos]]
 */
 
+if (NATmission) exitWith {};
+
+_missionsData 	= [];
+_militiaZones = NATmilitiaZones;
+_nativeZones = NATnativeZones;
+_civilianZones = NATcivilianZones;
 
 //-----------------------------------
+//-SETUP MISSIONS
 
-start_mission01 =
-{
-[color="#FF0000"]	<here put the code to be executed when the player selects the first mission>[/color]
+//CLEAR ZOMBIES
+if ((random 100) < 75) then {
+	_location = (selectRandom (_civilianZones+_nativeZones));
+	_clearZombiesPos = (_location select 1);
+	_clearZombiesSize = (_location select 2 select 0);
+	_civilianZones = _civilianZones - _location;
+	_nativeZones = _nativeZones - _location;
+	_missionsData pushBack [_clearZombiesPos,NAT_fnc_missionClearZombies,"CLEAR ZOMBIES","Cleanse this area from zombie presence","","",1,[_clearZombiesPos,_clearZombiesSize]];
 };
 
-start_mission02 =
-{
-[color="#FF0000"]	<here put the code to be executed when the player selects the first mission>[/color]
-};
-
-_missionsData 	= [
-	[[color="#FF0000"]<Position (array) of mission 01>[/color],start_mission01,"[color="#FF0000"]<Text to Display>[/color]","[color="#FF0000"]<Description>[/color]","","[color="#FF0000"]<image>[/color]",1,[]],
-	[[color="#FF0000"]<Position (array) of mission 02>[/color],start_mission02,"[color="#FF0000"]<Text to Display>[/color]","[color="#FF0000"]<Description>[/color]","","[color="#FF0000"]<image>[/color]",1,[]]
-];
+//-----------------------------------
 
 disableserialization;
 
 _parentDisplay 	= [] call bis_fnc_displayMission;
-_mapCenter 	= [color="#FF0000"]<position (array) to  centre the strategic map on when first opened>[/color];
+_mapCenter 	= (getPos player);
 _ORBAT 		= [];
 _markers 	= [];
 _images 	= [];
 _overcast 	= overcast;
-_isNight 	= !((dayTime > 6) && (dayTime < 20));
+_isNight 	= (sunOrMoon isEqualTo 0);
 _scale		= 0.3;
 _simul		= true;
 
