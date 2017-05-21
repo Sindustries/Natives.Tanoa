@@ -23,6 +23,7 @@ _zombies = [];
 for "_i" from 0 to floor(random 10) do {
 	_zPos = [_pos,0,_size,0] call SIN_fnc_findPos;
 	_group = [_zPos,4] call Z_fnc_spawnZombies;
+	[_group] remoteExec ["NAT_fnc_pinMarker",0];
 	{_zombies pushBackUnique _x} forEach (units _group);
 };
 
