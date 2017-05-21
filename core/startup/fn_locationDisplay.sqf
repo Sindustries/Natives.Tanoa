@@ -76,7 +76,7 @@ while {alive player} do {
 		_location = _locations select 0;
 		_locName = text _location;
 		_locPos = locationPosition _location;
-		_locSize = size _location;
+		_locSize = (size _location select 0);
 		if ((getPos player) distance2D _locPos < _locSize) then {
 			_locStr = format["%1",_locName];
 		} else {
