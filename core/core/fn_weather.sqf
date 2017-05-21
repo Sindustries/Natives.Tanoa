@@ -10,7 +10,7 @@ _dustStormChance = ["NATdustStormChance"] call NAT_fnc_getSetting;
 _tornadoChance = ["NATtornadoChance"] call NAT_fnc_getSetting;
 
 _overcast =  (overcast+(random _variation)-(random _variation));
-_fog = ((_overcast*0.6)+(random _variation)-(random _variation));
+_fog = ((_overcast+(random _variation)-(random _variation))*0.6);
 
 //-----------------------------------
 if (DebugMode) then {
