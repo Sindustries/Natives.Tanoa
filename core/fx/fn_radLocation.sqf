@@ -15,8 +15,10 @@ _defEffect = [1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0.299, 0.587, 0.114, 0];
 while {alive player} do {
 //-----------------------------------
 
+	waitUntil {sleep 3; !(isNil "NATnativeZones") && count NATnativeZones > 0};
+
 	{
-		if ((_x select 0) distance2D player < (_x select 1)) then {
+		if ((_x select 1) distance2D player < (_x select 2 select 0)) then {
 			while {
 				_handle = ppEffectCreate ["ColorCorrections", _priority];
 				_handle < 0;
@@ -44,7 +46,7 @@ while {alive player} do {
 			terminate _ambient;
 		};
 		sleep 0.01;
-	} forEach NATRadioActiveLocations;
+	} forEach NATnativeZones;
 
 	sleep 3;
 
