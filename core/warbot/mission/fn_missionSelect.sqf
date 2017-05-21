@@ -8,7 +8,7 @@
 	[_clearZombiesPos,NAT_fnc_missionClearZombies,"CLEAR ZOMBIES","Cleanse this area from zombie presence","","",1,[_clearZombiesPos]]
 */
 
-if (NATmission) exitWith {};
+if (NATmission || !isServer) exitWith {};
 
 //-----------------------------------
 
@@ -23,6 +23,8 @@ _overcast 	= overcast;
 _isNight 	= (sunOrMoon isEqualTo 0);
 _scale		= 1; //0.3;
 _simul		= true;
+_selectString = "Select a mission";
+_iconAsName = true;
 
 [
 findDisplay 46,
@@ -34,7 +36,9 @@ _images,
 _overcast,
 _isNight,
 _scale,
-_simul
+_simul,
+_selectString,
+_iconAsName
 ] call Bis_fnc_strategicMapOpen;
 
 //-----------------------------------
