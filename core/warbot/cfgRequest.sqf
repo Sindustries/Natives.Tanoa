@@ -87,8 +87,8 @@ NATbaseUnitRequest = [
 	[
 		["arifle_ARX_blk_F"],		//PRIMARY WEAPONS
 		["muzzle_snds_65_TI_blk_F","acc_pointer_IR","optic_ERCO_blk_F","bipod_01_F_blk"],		//PRIMARY WEAPON ITEMS
-		["hgun_Rook40_F"],		//SIDEARMS
-		["muzzle_snds_L"],		//SIDEARM ITEMS
+		["hgun_Pistol_heavy_02_F"],		//SIDEARMS
+		["acc_flashlight_pistol"],		//SIDEARM ITEMS
 		[["SmokeShell",1],["SmokeShellBlue",3]],	//GRENADES
 		["TRYK_U_B_PCUHsW8","TRYK_U_B_PCUHsW3","TRYK_U_B_PCUHs","TRYK_U_B_PCUGHs","TRYK_U_B_PCUODHs"],		//UNIFORMS
 		["V_TacVestIR_blk","tacs_Vest_Tactical_DarkBlack"],		//VESTS
