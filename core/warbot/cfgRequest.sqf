@@ -112,7 +112,7 @@ NATbaseUnitRequest = [
 	[
 		""
 	],
-	30,		//SCRAP COST
+	30		//SCRAP COST
 	],
 
 */
