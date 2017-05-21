@@ -36,6 +36,7 @@ class NAT_Core {
 		class handleDamage {};
 		class message {};
 		class pinMarker {};
+		class pinMarkerVeh {};
 		class saveGame {};
 		class updateProgressBar {};
 		class weather {};
