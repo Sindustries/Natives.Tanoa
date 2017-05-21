@@ -89,6 +89,7 @@ if (isServer) then {
 		publicVariable "NATislandZones";
 	};
 };
+
 //-----------------------------------
 //-TPW init
 if (isServer) then {
@@ -285,23 +286,24 @@ cutText ["PRELOADING \n PREPARING GAME, PLEASE WAIT", "BLACK FADED", 999];
 if (isServer) then {
 	private ["_location"];
 	setTimeMultiplier (["NATtimeMultiplier"] call NAT_fnc_getSetting);
-	if (!(isNil "NATislandZones")) then {
-		private "_locationFound";
-		_locationFound = false;
-		while {!_locationFound} do {
-			_loc = (selectRandom NAT_mapLocations);
-			_check = [(_loc select 0)] call SIN_fnc_checkTanoaPos;
-			if (_check) then {
-				_locationFound = true;
-				_location = _loc;
-			};
-		};
-	} else {
-		_location = (selectRandom NAT_mapLocations);
-	};
+	_location = (selectRandom NAT_mapLocations);
 	_pos = [(_location select 0),0,(_location select 1 select 0),0,0,0] call SIN_fnc_findPos;
 	if (_startPoint isEqualTo 0) then {
 		[_pos] spawn NAT_fnc_prologue;
+	};
+	if (_startPoint > 1) then {
+		_shorePos = [_pos,0,1000,0,0,1,1] call SIN_fnc_findPos;
+		_spawnPos = [_shorePos,10,30,0,2] call SIN_fnc_findPos;
+		_veh = createVehicle ["I_C_Boat_Transport_02_F",_spawnPos,[],0,"NONE"];
+		[
+			_veh,
+			["Black",1],
+			true
+		] call BIS_fnc_initVehicle;
+		[_veh,true,true,true] call SIN_fnc_emptyVeh;
+		[_veh] spawn NAT_fnc_pinMarkerVeh;
+		[_veh,0.2+(random 0.3)] remoteExec ["setFuel",0];
+		_veh setDir (random 360);
 	};
 	if (_startPoint isEqualTo 1) then {
 		skipTime 0.2;
