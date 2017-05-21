@@ -45,8 +45,9 @@ if (isServer) then {
 		DebugMode = true;
 		publicVariable "DebugMode";
 	};
-	NATgasMasks = ["NATgasMasks"] call NAT_fnc_getSetting;
 };
+NATgasMasks = ["NATgasMasks"] call NAT_fnc_getSetting;
+NATsealedVehicles = ["NATsealedVehicles"] call NAT_fnc_getSetting;
 [] call NAT_fnc_vItemInit;
 #include "core\gear\civ.sqf";
 #include "core\gear\militia.sqf";

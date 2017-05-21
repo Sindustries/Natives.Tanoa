@@ -12,6 +12,7 @@ class NAT {
 	NATtimeMultiplier = 10;			//Default time multiplier
 
 	NATgasMasks[] = { "H_PilotHelmetFighter_B","H_PilotHelmetFighter_O","H_PilotHelmetFighter_I","H_CrewHelmetHeli_B","H_CrewHelmetHeli_O","H_CrewHelmetHeli_I","H_HelmetO_ViperSP_hex_F","H_HelmetO_ViperSP_ghex_F","Mask_M50","Mask_M40","Mask_M40_OD" };
+	NATsealedVehicles[] = { "B_MRAP_01_F","O_T_MRAP_02_ghex_F","I_MRAP_03_F","B_MRAP_01_hmg_F","O_T_MRAP_02_hmg_ghex_F2","I_MRAP_03_hmg_F","B_APC_Tracked_01_CRV_F" };
 
 /* VIRTUAL INVENTORY ITEMS :: SYNTAX - ARRAY [DISPLAY NAME,CLASS NAME] */
 

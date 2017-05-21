@@ -20,7 +20,7 @@ while {alive player} do {
 				if (["zk_multiMeter"] call NAT_fnc_vInvCheck) then {
 					playsound "geiger";
 				};
-				if ((headgear player) in NATgasMasks || (goggles player) in NATgasMasks) then {sleep 4} else {
+				if ((headgear player) in NATgasMasks || (goggles player) in NATgasMasks || vehicle player in NATsealedVehicles) then {sleep 4} else {
 					[player,[(selectRandom _cough),20]] remoteExec ["say3D", 0];
 					[7,1,(random 0.005)] call NAT_fnc_needsUpdate;
 					sleep 4;
