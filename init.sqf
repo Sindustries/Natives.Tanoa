@@ -98,9 +98,9 @@ if (isServer) then {
 //-----------------------------------
 //-AI SKILL VALUES
 NATmilitarySkills = [
-["aimingAccuracy",0.66],
-["aimingShake",0.66],
-["aimingSpeed",0.5],
+["aimingAccuracy",0.25],
+["aimingShake",0.25],
+["aimingSpeed",0.3],
 ["spotDistance",0.45],
 ["spotTime",1],
 ["courage",1],
@@ -109,9 +109,9 @@ NATmilitarySkills = [
 ["general",0.75]
 ];
 NATmilitiaSkills = [
-["aimingAccuracy",0.33],
-["aimingShake",0.33],
-["aimingSpeed",0.25],
+["aimingAccuracy",0.1],
+["aimingShake",0.1],
+["aimingSpeed",0.15],
 ["spotDistance",0.6],
 ["spotTime",1],
 ["courage",1],
@@ -120,9 +120,9 @@ NATmilitiaSkills = [
 ["general",0.45]
 ];
 NATnativeSkills = [
-["aimingAccuracy",0.15],
-["aimingShake",0.15],
-["aimingSpeed",0.5],
+["aimingAccuracy",0.05],
+["aimingShake",0.05],
+["aimingSpeed",0.25],
 ["spotDistance",1],
 ["spotTime",1],
 ["courage",1],
@@ -263,14 +263,20 @@ player setVariable ["NAT_vInv",[["zk_f_canteen",1],["sc_mre",2]],true];
 [] spawn {
 	_aMarkername = format["%1%2",(getPos player),(random 10000)];
 	_aMarker = createMarker [_aMarkername,(getPos player)];
-	_aMarker setMarkerShapeLocal "ICON";
-	_aMarker setMarkerTypeLocal "mil_triangle";
-	_aMarker setMarkerColorLocal "ColorGreen";
-	_aMarker setMarkerSizeLocal [0.75,0.75];
+	_aMarker setMarkerShape "ICON";
+	_aMarker setMarkerType "mil_triangle";
+	_aMarker setMarkerColor "ColorGreen";
+	_aMarker setMarkerSize [0.75,0.75];
 	while {alive player} do {
 		_aMarker setMarkerPosLocal (getPos player);
 		_aMarker setMarkerDirLocal (getDir player);
-		sleep 0.01;
+		if (vehicle player != player) then {
+			_name = getText (configFile >> "CfgVehicles" >> (typeOf _veh) >> "displayName");
+			_aMarker setMarkerText _name;
+		} else {
+			_aMarker setMarkerText name player;
+		};
+		sleep 0.1;
 	};
 };
 //-----------------------------------
