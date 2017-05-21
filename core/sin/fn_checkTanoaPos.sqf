@@ -16,14 +16,10 @@ _islandZones = [[[8092.05,10362.7,0.00175095],4000],[[11196.3,9635.81,0.00164795
 //-----------------------------------
 
 {
-	if (_pos distance2D (_x select 0) <= (_x select 1)) then {
-		_pass = _pass + 1;
+	if (_pos distance2D (_x select 0) <= (_x select 1)) exitWith {
+		_return = true;
 	};
 } forEach _islandZones;
-
-if (_pass > 0) then {
-	_return = true;
-};
 
 _return;
 
