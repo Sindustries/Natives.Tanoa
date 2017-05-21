@@ -114,7 +114,8 @@ if ({alive _x} count _civs isEqualTo 0) exitWith {
 
 _missionTask setTaskState "Succeeded";
 ["TaskSucceeded",["","Rescue the civilians"]] call bis_fnc_showNotification;
-[(floor(random 25)*{alive _x} count _civs),(floor(random 25)*{alive _x} count _civs),(floor(random 25)*{alive _x} count _civs)] call NAT_fnc_missionReward;
+_alive = {alive _x} count _civs;
+[(floor(random 25)*_alive),(floor(random 25)*_alive),(floor(random 25)*_alive)] call NAT_fnc_missionReward;
 
 [_civs] spawn {
 	_civs = _this select 0;
