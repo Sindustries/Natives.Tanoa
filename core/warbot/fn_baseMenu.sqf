@@ -99,7 +99,7 @@ _sideBarBtn1 ctrlSetText "MISSIONS";
 if (isServer) then {
 	if (!NATmission) then {
 		_sideBarBtn1 ctrlSetTooltip "Find a mission";
-		_sideBarBtn1 buttonSetAction "[] call NAT_fnc_missionSelect";
+		_sideBarBtn1 buttonSetAction "[] call NAT_fnc_missionSelect; closeDialog 0;";
 	} else {
 		_sideBarBtn1 ctrlEnable false;
 		_sideBarBtn1 ctrlSetTooltip "There is already a mission in progress";
