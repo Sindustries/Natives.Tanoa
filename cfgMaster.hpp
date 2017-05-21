@@ -32,6 +32,7 @@ class NAT {
 	NATmissionUpdateMax = 4;			//Max time (in-game hours) to update available missions
 
 	NATclearZombiesChance = 75;			//Chance (%) of CLEAR ZOMBIES mission appearing
+	NATrescueCiviliansChance = 45;		//Chance (%) of RESCUE CIVILIANS mission appearing
 
 /* WEATHER SETTINGS */
 
