@@ -25,6 +25,13 @@ class NAT {
 	NATneedsSleepTime = 16; 		//Time (in hours) until sleep is full
 	NATneedsRadiationTime = 24; 	//Time (in hours) until radiation is full
 
+/* MISSIONS SETTINGS */
+
+	NATmissionUpdateMin = 1;			//Min time (in-game hours) to update available missions
+	NATmissionUpdateMax = 4;			//Max time (in-game hours) to update available missions
+
+	NATclearZombiesChance = 75;			//Chance (%) of CLEAR ZOMBIES mission appearing
+
 /* WEATHER SETTINGS */
 
 	NATweatherVariation = 0.2;		//Increments of weather change
