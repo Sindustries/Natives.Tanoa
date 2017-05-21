@@ -39,23 +39,12 @@ TASK_Contact5 setTaskState "Succeeded";
 //-----------------------------------
 //-PART 5 - CREATE A PORT
 
-private ["_baseFound","_blacklist","_shorePos","_shoreBase"];
-_baseFound = false;
-_blacklist = [];
-while {!_baseFound} do {
-	_shoreBase = [_campPos,_blacklist] call NAT_fnc_findShoreBasePos;
-	_check = [(_shoreBase select 1)] call SIN_fnc_checkTanoaPos;
-	if (_check) then {
-		_baseFound = true;
-		_shorePos = (_shoreBase select 1);
-	} else {
-		_blacklist pushBack (_shoreBase select 1);
-	};
-};
+_shoreBase = [_campPos] call NAT_fnc_findShoreBasePos;
+_shorePos = (_shoreBase select 1);
 
 //SET NEW OBJECTIVE
 TASK_Contact6 = player createSimpleTask ["Create a Shore Base"];
-TASK_Contact6 setSimpleTaskType "defend";
+TASK_Contact6 setSimpleTaskType "move";
 TASK_Contact6 setSimpleTaskDescription ["Go to a nearby shore and create a Shore Base", "Create a Shore Base", "Shore Base"];
 TASK_Contact6 setSimpleTaskDestination [(_shorePos select 0),(_shorePos select 1),0];
 TASK_Contact6 setTaskState "Assigned";
