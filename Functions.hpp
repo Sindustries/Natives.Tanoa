@@ -115,6 +115,8 @@ class NAT_Core {
 		class findNearestBase {};
 		class findNearestZone {};
 		class findShoreBasePos {};
+		class rearmBase {};
+		class rearmSquad {};
 		class warbotInit {};
 		class warbotWave {};
 		class warbotZoneCreator {};
@@ -125,6 +127,7 @@ class NAT_Core {
 		class missionClearZombies {};
 		class missionReward {};
 		class missionSelect {};
+		class missionUpdater {};
 	};
 	class weather {
 		file = "core\weather";
