@@ -112,6 +112,10 @@ if (_type isEqualTo 1) then {
 				[missionNamespace,_sWepAccs,true,false] call BIS_fnc_addVirtualItemCargo;
 			};
 		};
+		_unit addItem "sc_dogtag";
+		_unit addItem "FirstAidKit";
+		_unit addItem "FirstAidKit";
+		_unit addItem "FirstAidKit";
 		_unit linkItem "itemMap";
 		_unit linkItem "itemRadio";
 		_unit linkItem "itemWatch";
