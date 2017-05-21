@@ -4,12 +4,11 @@ class SIN {
 		file = "core\sin";
 		class adminInit {};
 		class checkPos {};
-		class checkTanoaPos {};
 		class checkDist {};
 		class emptyVeh {};
 		class findPos {};
-		class findTanoaPos {};
 		class testCode {};
+		class zoneCheck {};
 	};
 }
 
