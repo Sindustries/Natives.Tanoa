@@ -97,8 +97,13 @@ _scrapTXT ctrlSetText format["%1",NATresScrap];
 /* MISSIONS BUTTON */
 _sideBarBtn1 ctrlSetText "MISSIONS";
 if (isServer) then {
-	_sideBarBtn1 ctrlSetTooltip "Find a mission";
-	//_sideBarBtn1 buttonSetAction "[] call NAT_fnc_baseRequest";
+	if (!NATmission) then {
+		_sideBarBtn1 ctrlSetTooltip "Find a mission";
+		_sideBarBtn1 buttonSetAction "[] call NAT_fnc_missionSelect";
+	} else {
+		_sideBarBtn1 ctrlEnable false;
+		_sideBarBtn1 ctrlSetTooltip "There is already a mission in progress";
+	};
 } else {
 	_sideBarBtn1 ctrlEnable false;
 	_sideBarBtn1 ctrlSetTooltip "Find a mission - HOST ONLY";
