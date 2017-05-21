@@ -11,7 +11,7 @@ params [
 
 //-----------------------------------
 if (_food > 0 || _water > 0 || _scrap > 0) then {
-	"MISSION COMPLETE - ITEMS SALVGED:" remoteExec ["systemChat",0];
+	"MISSION COMPLETE - ITEMS REWARDED:" remoteExec ["systemChat",0];
 };
 //-----------------------------------
 if (_food > 0) then {
