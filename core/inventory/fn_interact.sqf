@@ -30,7 +30,7 @@ _Btn11 = _display displayCtrl 1610;
 _Btn12 = _display displayCtrl 1611;
 _wheelList = _display displayCtrl 1500;
 //-----------------------------------
-{_x ctrlShow false} forEach [_Btn1,_Btn2,_Btn3,_Btn4,_Btn5,_Btn6,_Btn7,_Btn8,_Btn9,_Btn10,_Btn11,_Btn12];
+{_x ctrlShow false} forEach [_Btn1,_Btn2,_Btn3,_Btn4,_Btn5,_Btn6,_Btn7,_Btn8,_Btn9,_Btn10,_Btn11,_Btn12,_wheelList];
 //-----------------------------------
 switch (_type) do {
 //-----------------------------------
@@ -86,6 +86,7 @@ case "land": {
 
 	//REPAIR WHEELS
 	private ["_index"];
+	_wheelList ctrlShow true;
 	lbClear _wheelList;
 	{
 		_hit = selectedVeh getHit _x;
