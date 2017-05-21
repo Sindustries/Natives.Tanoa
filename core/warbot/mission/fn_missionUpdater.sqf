@@ -4,6 +4,8 @@
 	Updates available missions periodically
 */
 
+NATmissionsData	= [];
+
 _minTime = ["NATmissionUpdateMin"] call NAT_fnc_getSetting;
 _maxTime = ["NATmissionUpdateMax"] call NAT_fnc_getSetting;
 

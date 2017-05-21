@@ -26,8 +26,6 @@ NATmilitaryForce = [];
 NATmilitiaForce = [];
 NATnativeForce = [];
 
-NATmissionsData	= [];
-
 if (isServer) then {
 	[] call NAT_fnc_warbotZoneCreator;
 	[] spawn {
