@@ -186,11 +186,14 @@ if (count NATnativeZones > 0) then {
 				};
 			};
 			//REMOVE ZOMBIE SPAWNERS
+			private "_zRemove";
+			_zRemove = [];
 			{
 				if (_x distance2D _zonePos <= _zoneSize) then {
-					NAT_zSpawnerArray deleteAt _forEachIndex;
+					_toRemove pushBack _x;
 				};
 			} forEach NAT_zSpawnerArray;
+			NAT_zSpawnerArray = NAT_zSpawnerArray - _zRemove;
 		};
 		sleep 0.001;
 	} forEach NATnativeZones;
