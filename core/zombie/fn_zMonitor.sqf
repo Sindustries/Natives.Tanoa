@@ -27,7 +27,7 @@ _playerPosArray = [];
 			NAT_usedSpawnerArray = NAT_usedSpawnerArray - _x;
 		};
 	};
-	sleep 0.01;
+	sleep 0.001;
 } forEach NAT_zSpawnerArray;
 
 [] spawn Z_fnc_zMonitor;
