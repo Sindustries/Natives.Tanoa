@@ -122,6 +122,8 @@ class NAT_Core {
 	};
 	class missions {
 		file = "core\warbot\mission";
+		class missionClearZombies {};
+		class missionReward {};
 		class missionSelect {};
 	};
 	class weather {
