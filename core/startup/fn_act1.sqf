@@ -38,7 +38,7 @@ if (surfaceIsWater _locPos) then {
 
 TASK_Contact1 = player createSimpleTask ["Investigate the nearby settlement"];
 TASK_Contact1 setSimpleTaskType "scout";
-TASK_Contact1 setSimpleTaskDescription ["Investigate the settlement, maybe someone knows what the hell is going on", "Investigate", "Investigate"];
+TASK_Contact1 setSimpleTaskDescription ["Investigate the settlement", "Investigate", "Investigate"];
 TASK_Contact1 setSimpleTaskDestination [(_locPos select 0),(_locPos select 1),0];
 TASK_Contact1 setTaskState "Assigned";
 ["TaskAssigned",["","Investigate the nearby settlement"]] call bis_fnc_showNotification;
@@ -70,25 +70,18 @@ TASK_Contact3 setTaskState "Assigned";
 ["TaskAssigned",["","Sweep the town"]] call bis_fnc_showNotification;
 
 [_groupMil] call NAT_fnc_clearWaypoints;
-//[_groupMil,_locPos,"SAD","RED","COMBAT","Sweep the town"] call NAT_fnc_createWaypoint;
-
-/*
-[_groupMil] spawn {
-	_groupMil = _this select 0;
-	while {taskState TASK_Contact3 != Succeeded} do {
-
-	};
-}*/
+_groupMil setBehaviour "COMBAT";
 
 waitUntil {sleep 1; {alive _x && side _x isEqualTo RESISTANCE && _x distance2D _locPos < 400} count allUnits < {alive _x && side _x isEqualTo WEST && _x distance2D _locPos < 400} count allUnits};
 TASK_Contact3 setTaskState "Succeeded";
 ["TaskSucceeded",["","Clear the town"]] call bis_fnc_showNotification;
 
+_groupMil setBehaviour "AWARE";
+
 //-----------------------------------
 //-PART 3 - FIND A SPOT FOR A CAMP
 
 _campPos = [(getPos (leader _groupMil))] call NAT_fnc_findBasePos;
-
 
 //SET NEW OBJECTIVE
 TASK_Contact4 = player createSimpleTask ["Find a flat, empty area for a Base Camp"];
