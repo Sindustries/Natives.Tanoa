@@ -28,9 +28,9 @@ while {alive _veh} do {
 	_aMarker setMarkerPos (getPos _veh);
 	_aMarker setMarkerDir (getDir _veh);
 	if (count (crew _veh) > 0) then {
-		_aMarker setMarkerAlpha 0.8;
-	} else {
 		_aMarker setMarkerAlpha 0;
+	} else {
+		_aMarker setMarkerAlpha 0.8;
 	};
 	sleep 6;
 };

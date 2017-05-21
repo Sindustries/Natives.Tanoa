@@ -15,9 +15,12 @@ switch ((side (leader _group))) do {
 	case EAST: {
 		_colour = "ColorEAST";
 	};
+	case RESISTANCE: {
+		_colour = "ColorGUER";
+	};
 };
 
-if ((side (leader _group)) in [RESISTANCE,CIVILIAN]) exitWith {};
+if ((side (leader _group)) in [CIVILIAN]) exitWith {};
 if (_group in NATpinnedGroups) exitWith {};
 NATpinnedGroups pushBack _group;
 
@@ -57,6 +60,12 @@ while {{alive _x} count (units _group) > 0} do {
 				_aMarker setMarkerAlphaLocal 0;
 				sleep 12;
 			};
+		};
+		case RESISTANCE: {
+			_aMarker setMarkerType "KIA";
+			_aMarker setMarkerDir 0;
+			_aMarker setMarkerAlphaLocal 0.8;
+			sleep 10;
 		};
 	};
 };
