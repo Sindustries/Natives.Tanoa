@@ -3,12 +3,19 @@
 	Author: Sinbane
 	Chooses a location with zombies to be cleared
 */
-private ["_pos","_zomies"];
+private ["_pos","_zombies"];
+
+_pos = _this select 0 select 0;
+_size = _this select 0 select 1;
 
 NATmission = true;
-
-_pos = _this select 9 select 0;
-_size = _this select 9 select 1;
+[_pos] spawn {
+	{
+		if ((_x select 0) isEqualTo (_this select 0)) exitWith {
+			NATmissionsData deleteAt _forEachIndex;
+		};
+	} forEach NATmissionsData;
+};
 
 //-----------------------------------
 
@@ -40,3 +47,4 @@ _missionTask setTaskState "Succeeded";
 NATmission = false;
 
 //-----------------------------------
+
