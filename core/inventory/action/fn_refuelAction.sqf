@@ -22,13 +22,15 @@ switch (_type) do {
 	case 1: {
 		if (isNull _veh) exitWith {};
 		private ["_fuel"];
-		while {fuel _veh < 1} do {
+		_fuel = fuel _veh;
+		while {_fuel < 1} do {
 			if (player distance _pump > 3.5 || vehicle player != player) exitWith {};
 			player playMove "Acts_carFixingWheel";
 			player setDir ([_pump, _veh] call BIS_fnc_dirTo);
 
 			_refuel = (fuel _veh + (random 0.025));
 			[_veh,_refuel] remoteExec ["setFuel", 0];
+			_fuel = fuel _veh;
 			_msg = format ["REFUELING: %1%2",([(fuel _veh*100),2] call BIS_fnc_cutDecimals),"%"];
 			titleText [_msg, "PLAIN", 0.5];
 			sleep 0.1;
@@ -42,7 +44,7 @@ switch (_type) do {
 			if (player distance _pump > 3.5 || vehicle player != player) exitWith {};
 			if (["zk_e_fuelcan"] call NAT_fnc_vInvCheck) then {
 				_fuel = 0;
-				while {_fuel < 10} do {
+				while {_fuel < 100} do {
 					player playMove "Acts_carFixingWheel";
 					player setDir ([player, _pump] call BIS_fnc_dirTo);
 
