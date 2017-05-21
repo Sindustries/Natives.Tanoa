@@ -40,14 +40,28 @@ _piers = [
 
 //-----------------------------------
 
-private ["_pierFound","_dist"];
+private ["_pierFound","_dist","_toRemove"];
 _pierFound = false;
 _dist = 100;
+_toRemove = [];
 while {!_pierFound} do {
 	_nearestPiers = nearestObjects [_pos,_piers,_dist];
-	if (count _nearestPiers > 0 && !((getPos _nearestPiers select 0) in _blacklist)) then {
-		_pier = (_nearestPiers select 0);
-		_return = [_pier,(getPos _pier)];
+
+	if (count _nearestPiers > 0) then {
+		{
+			if ((getPos _x) in _blacklist) then {
+				_toRemove pushBack _x;
+			};
+		} forEach _nearestPiers;
+		_nearestPiers = _nearestPiers - _toRemove;
+
+		if (count _nearestPiers > 0) then {
+			_pier = (_nearestPiers select 0);
+			_return = [_pier,(getPos _pier)];
+			_pierFound = true;
+		} else {
+			_dist = _dist + 100;
+		};
 	} else {
 		_dist = _dist + 100;
 	};
