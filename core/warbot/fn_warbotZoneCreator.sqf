@@ -115,6 +115,8 @@ private [];
 //-----------------------------------
 //-CREATE CAMPS
 [] spawn {
+	waitUntil {sleep 3; (player getVariable "NATspawned") isEqualTo true};
+	waitUntil {sleep 5; {isPlayer _x && isTouchingGround _x} count playableUnits isEqualTo playersNumber WEST};
 	private ["_numCamps","_usedPosArray"];
 	_usedPosArray = [];
 	_numCamps = round (((count NATmilitiaZones)+(count NATnativeZones))/2);
