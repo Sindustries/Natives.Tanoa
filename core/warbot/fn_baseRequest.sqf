@@ -162,6 +162,7 @@ if (_type isEqualTo 2) then {
 			[_veh,true,false,true] call SIN_fnc_emptyVeh;
 			_veh setFuel (0.25+(random 0.5));
 			_veh lock true;
+			[_veh] spawn NAT_fnc_pinMarkerVeh;
 
 			_hull = ["karoserie","hull_hit"];
 			_glass = ["glass1","glass2","glass3","glass4"];
@@ -230,6 +231,9 @@ if (_type isEqualTo 2) then {
 			_pos = [(getPos _veh),0,25,10,2] call SIN_fnc_findPos;
 			_veh setPos _pos;
 		};
+
+		[_veh] spawn NAT_fnc_pinMarkerVeh;
+
 		_veh hideObjectGlobal false;
 		_veh setFuel (0.25+(random 0.5));
 		_veh setDamage 0;
