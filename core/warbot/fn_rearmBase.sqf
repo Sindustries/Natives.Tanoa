@@ -28,6 +28,7 @@ if (count _turrets > 0) then {
 	{
 		if (NATresScrap >= 5) then {
 			_x setVehicleAmmo 1;
+			_x setDamage 0;
 			if (!DebugMode) then {
 				NATresScrap = NATresScrap - 5;
 				publicVariable "NATresScrap";
@@ -71,9 +72,10 @@ if (count _turrets > 0) then {
 //-----------------------------------
 //-REPLACE DEAD/MISSING UNITS
 
-if (count units _group < 3) then {
+//if (count units _group < 3) then {
 	while {count units _group < 3} do {
-		if (NATresFood >= 1 && NATresdWater >= 1) then {
+		if (NATresFood < 1 || NATresWater < 1) exitWith {};
+		if (NATresFood >= 1 && NATresWater >= 1) then {
 			_spawnPos = [_campPos,0,30,1] call SIN_fnc_findPos;
 			_unit = _group createUnit ["B_Survivor_F", _spawnPos, [], 0, "NONE"];
 			[_unit,"military",true] call NAT_fnc_equip;
@@ -86,7 +88,7 @@ if (count units _group < 3) then {
 			};
 		};
 	};
-};
+//};
 
 systemChat "BASE REARMED"; showChat true;
 
