@@ -32,7 +32,7 @@ if (count NATcivilianZones > 0) then {
 			_toRemove pushBackUnique _x;
 			NATmilitaryZones pushBackUnique _x;
 			_marker setMarkerColor "ColorWEST";
-			_marker setMarkerAlpha 0.66;
+			_marker setMarkerAlpha 0.5;
 			[_zoneName,"Military"] remoteExec ["zoneUpdateMsg",0];
 			if (count NATmilitaryCamps > 0) then {
 				[_zonePos,_zoneSize,west,"military"] call NAT_fnc_createZonePatrol;
@@ -43,7 +43,7 @@ if (count NATcivilianZones > 0) then {
 			_toRemove pushBackUnique _x;
 			NATmilitiaZones pushBackUnique _x;
 			_marker setMarkerColor "ColorEAST";
-			_marker setMarkerAlpha 0.66;
+			_marker setMarkerAlpha 0.5;
 			[_zoneName,"Militia"] remoteExec ["zoneUpdateMsg",0];
 			if (count NATmilitiaCamps > 0) then {
 				[_zonePos,_zoneSize,east,"militia"] call NAT_fnc_createZonePatrol;
@@ -54,7 +54,7 @@ if (count NATcivilianZones > 0) then {
 			_toRemove pushBackUnique _x;
 			NATnativeZones pushBackUnique _x;
 			_marker setMarkerColor "ColorGUER";
-			_marker setMarkerAlpha 0.66;
+			_marker setMarkerAlpha 0.5;
 			[_zoneName,"Natives"] remoteExec ["zoneUpdateMsg",0];
 			if (count NATnativeCamps > 0) then {
 				[_zonePos,_zoneSize,resistance,"native"] call NAT_fnc_createZonePatrol;

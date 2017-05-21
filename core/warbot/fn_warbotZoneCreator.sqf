@@ -84,7 +84,7 @@ private [];
 	_zoneMarkerCircle setMarkerBrush "SOLID";
 	_zoneMarkerCircle setMarkerColor "ColorWEST";
 	_zoneMarkerCircle setMarkerSize [(_x select 2 select 0),(_x select 2 select 0)];
-	_zoneMarkerCircle setMarkerAlpha 0.66;
+	_zoneMarkerCircle setMarkerAlpha 0.5;
 	NATmilitaryZones set [_forEachIndex,[(_x select 0),(_x select 1),(_x select 2),_zoneMarkerCircle]];
 } forEach NATmilitaryZones;
 {
@@ -94,7 +94,7 @@ private [];
 	_zoneMarkerCircle setMarkerBrush "SOLID";
 	_zoneMarkerCircle setMarkerColor "ColorEAST";
 	_zoneMarkerCircle setMarkerSize [(_x select 2 select 0),(_x select 2 select 0)];
-	_zoneMarkerCircle setMarkerAlpha 0.66;
+	_zoneMarkerCircle setMarkerAlpha 0.5;
 	NATmilitiaZones set [_forEachIndex,[(_x select 0),(_x select 1),(_x select 2),_zoneMarkerCircle]];
 } forEach NATmilitiaZones;
 {
@@ -104,7 +104,7 @@ private [];
 	_zoneMarkerCircle setMarkerBrush "SOLID";
 	_zoneMarkerCircle setMarkerColor "ColorGUER";
 	_zoneMarkerCircle setMarkerSize [(_x select 2 select 0),(_x select 2 select 0)];
-	_zoneMarkerCircle setMarkerAlpha 0.66;
+	_zoneMarkerCircle setMarkerAlpha 0.5;
 	NATnativeZones set [_forEachIndex,[(_x select 0),(_x select 1),(_x select 2),_zoneMarkerCircle]];
 	for "_i" from 1 to (random ((_x select 2 select 0)/20)) do {
 		_pos = [(_x select 1),0,((_x select 2 select 0)*0.75),0] call SIN_fnc_findPos;
