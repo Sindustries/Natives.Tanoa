@@ -14,7 +14,7 @@ _groupMil = _this select 1;
 
 {_x setSkill 0.8} forEach (units _groupMil);
 [_groupMil,[(_campPos select 0),(_campPos select 1),0],50,2,true] call CBA_fnc_taskDefend;
-/*
+
 for "_i" from 1 to 2 do {
 	_pos = [_campPos,200,300] call SIN_fnc_findPos;
 	_group = [_pos,east,"militia",12,0.1] call NAT_fnc_createGroup;
@@ -35,7 +35,7 @@ TASK_Contact5 setTaskState "Succeeded";
 ["TaskSucceeded",["","Defend Base Camp"]] call bis_fnc_showNotification;
 [_groupMil] call NAT_fnc_clearWaypoints;
 [_groupMil,[(_campPos select 0),(_campPos select 1),0],50,2,true] call CBA_fnc_taskDefend;
-*/
+
 //-----------------------------------
 //-PART 5 - CREATE A PORT
 
