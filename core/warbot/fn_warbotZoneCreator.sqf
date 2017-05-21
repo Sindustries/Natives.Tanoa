@@ -116,10 +116,10 @@ private [];
 //-CREATE CAMPS
 [] spawn {
 	waitUntil {sleep 3; (player getVariable "NATspawned") isEqualTo true};
-	waitUntil {sleep 5; {isPlayer _x && isTouchingGround _x} count playableUnits isEqualTo playersNumber WEST};
+	waitUntil {sleep 3; {isPlayer _x && isTouchingGround _x} count playableUnits isEqualTo playersNumber WEST};
 	private ["_numCamps","_usedPosArray"];
 	_usedPosArray = [];
-	_numCamps = round (((count NATmilitiaZones)+(count NATnativeZones))/2);
+	_numCamps = round (((count NATmilitiaZones)+(count NATnativeZones)+(count NATcivilianZones))/2);
 	while {_numCamps > 0} do {
 		{
 			_pos = [NATErrorPos,0,999999,0] call SIN_fnc_findPos;
