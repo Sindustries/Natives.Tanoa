@@ -46,7 +46,7 @@ while {alive player} do {
 			_month = "August";
 		};
 		case 9: {
-			_month = "Sseptember";
+			_month = "September";
 		};
 		case 10: {
 			_month = "October";
@@ -76,7 +76,8 @@ while {alive player} do {
 		_location = _locations select 0;
 		_locName = text _location;
 		_locPos = locationPosition _location;
-		if ((getPos player) in _location) then {
+		_locSize = size _location;
+		if ((getPos player) distance2D _locPos < _locSize) then {
 			_locStr = format["%1",_locName];
 		} else {
 			_locStr = format["Near %1",_locName];
@@ -86,10 +87,10 @@ while {alive player} do {
 		[_time, _date, _locStr] spawn BIS_fnc_infoText;
 
 		//WAIT CONDITIONS
-		if ((getPos player) in _location) then {
-			waitUntil {sleep 3; !((getPos player) in _location) || _location != ((nearestLocations [position player, ["NameCity","NameCityCapital","NameLocal","NameMarine","NameVillage"], 500]) select 0)};
+		if ((getPos player) distance2D _locPos < _locSize) then {
+			waitUntil {sleep 3; (getPos player) distance2D _locPos > _locSize || _location != ((nearestLocations [position player, ["NameCity","NameCityCapital","NameLocal","NameMarine","NameVillage"], 500]) select 0)};
 		} else {
-			waitUntil {sleep 3; (getPos player) in _location || _location != ((nearestLocations [position player, ["NameCity","NameCityCapital","NameLocal","NameMarine","NameVillage"], 500]) select 0)};
+			waitUntil {sleep 3; (getPos player) distance2D _locPos < _locSize || _location != ((nearestLocations [position player, ["NameCity","NameCityCapital","NameLocal","NameMarine","NameVillage"], 500]) select 0)};
 		};
 	} else {
 		waitUntil {sleep 3; (count nearestLocations [position player, ["NameCity","NameCityCapital","NameLocal","NameMarine","NameVillage"], 500]) > 0};
