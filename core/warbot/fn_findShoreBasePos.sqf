@@ -6,8 +6,7 @@
 private ["_dist","_pierFound","_return"];
 //-----------------------------------
 params [
-    ["_pos",[]],
-    ["_blacklist",[]]
+    ["_pos",[]]
 ];
 
 /*_piers = [
@@ -40,28 +39,15 @@ _piers = [
 
 //-----------------------------------
 
-private ["_pierFound","_dist","_toRemove"];
+private ["_pierFound","_dist"];
 _pierFound = false;
 _dist = 100;
-_toRemove = [];
 while {!_pierFound} do {
 	_nearestPiers = nearestObjects [_pos,_piers,_dist];
-
 	if (count _nearestPiers > 0) then {
-		{
-			if ((getPos _x) in _blacklist) then {
-				_toRemove pushBack _x;
-			};
-		} forEach _nearestPiers;
-		_nearestPiers = _nearestPiers - _toRemove;
-
-		if (count _nearestPiers > 0) then {
-			_pier = (_nearestPiers select 0);
-			_return = [_pier,(getPos _pier)];
-			_pierFound = true;
-		} else {
-			_dist = _dist + 100;
-		};
+		_pierFound = true;
+		_pier = (_nearestPiers select 0);
+		_return = [_pier,(getPos _pier)];
 	} else {
 		_dist = _dist + 100;
 	};
