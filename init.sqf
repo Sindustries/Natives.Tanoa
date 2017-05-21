@@ -32,6 +32,7 @@ NATzombiesLoaded = false;
 NATwarbotLoaded = false;
 NATRadObjsLoaded = false;
 NATaction = false;
+NATmission = false;
 NATpinnedGroups = [];
 //-----------------------------------
 waitUntil {time > 0};
