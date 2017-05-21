@@ -200,6 +200,7 @@ if (_type isEqualTo 2) then {
 
 			_veh lock false;	//name = "engine_hit";
 			_veh setDamage 0;
+			NATcache pushBack _veh;
 		};
 	};
 //-----------------------------------
@@ -233,6 +234,7 @@ if (_type isEqualTo 2) then {
 		_veh setFuel (0.25+(random 0.5));
 		_veh setDamage 0;
 		_veh allowDamage true;
+		NATcache pushBack _veh;
 	};
 };
 //-----------------------------------
