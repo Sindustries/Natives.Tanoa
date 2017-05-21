@@ -63,7 +63,7 @@ switch (_code) do {
         if (!_shift && !_ctrl && !_alt && !dialog) then {
             if (!alive player || lifeState player in ["DEAD","DEAD-RESPAWN","DEAD-SWITCHING","INCAPACITATED"]) exitWith {};
             //-BASE?
-            if (cursorObject in _bases && player distance (_baseLocs select 0) < 10) then {
+            if (cursorObject in _bases && player distance2D (_baseLocs select 0) < 10) then {
                 _type = cursorObject getVariable "NATbaseType";
                 disableSerialization;
                 createDialog "NAT_baseMenu";
