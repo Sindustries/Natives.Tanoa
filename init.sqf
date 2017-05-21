@@ -98,31 +98,31 @@ if (isServer) then {
 //-----------------------------------
 //-AI SKILL VALUES
 NATmilitarySkills = [
-["aimingAccuracy",0.25],
-["aimingShake",0.25],
-["aimingSpeed",0.3],
-["spotDistance",0.45],
-["spotTime",1],
-["courage",1],
-["reloadSpeed",1],
-["commanding",1],
-["general",0.75]
-];
-NATmilitiaSkills = [
-["aimingAccuracy",0.1],
-["aimingShake",0.1],
-["aimingSpeed",0.15],
-["spotDistance",0.6],
+["aimingAccuracy",0.45],
+["aimingShake",0.45],
+["aimingSpeed",0.25],
+["spotDistance",0.25],
 ["spotTime",1],
 ["courage",1],
 ["reloadSpeed",1],
 ["commanding",1],
 ["general",0.45]
 ];
+NATmilitiaSkills = [
+["aimingAccuracy",0.2],
+["aimingShake",0.2],
+["aimingSpeed",0.1],
+["spotDistance",0.25],
+["spotTime",1],
+["courage",1],
+["reloadSpeed",1],
+["commanding",1],
+["general",0.2]
+];
 NATnativeSkills = [
 ["aimingAccuracy",0.05],
 ["aimingShake",0.05],
-["aimingSpeed",0.25],
+["aimingSpeed",0.05],
 ["spotDistance",1],
 ["spotTime",1],
 ["courage",1],
@@ -148,7 +148,7 @@ if (isServer) then {
 	_date = numberToDate [(2015+floor(random 20)),random 1];
 	setDate [(_date select 0),(_date select 1),(_date select 2),0,0];
 	0 setOvercast (random 1);
-	0 setFog (random 0.6);
+	0 setFog (overcast*0.6);
 	forceWeatherChange;
 	[] spawn NAT_fnc_weather;
 	[] spawn {
@@ -271,7 +271,7 @@ player setVariable ["NAT_vInv",[["zk_f_canteen",1],["sc_mre",2]],true];
 		_aMarker setMarkerPosLocal (getPos player);
 		_aMarker setMarkerDirLocal (getDir player);
 		if (vehicle player != player) then {
-			_name = getText (configFile >> "CfgVehicles" >> (typeOf _veh) >> "displayName");
+			_name = getText (configFile >> "CfgVehicles" >> (typeOf (vehicle player)) >> "displayName");
 			_aMarker setMarkerText _name;
 		} else {
 			_aMarker setMarkerText name player;
