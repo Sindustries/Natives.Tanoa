@@ -61,6 +61,7 @@ while {!_placed} do {
 				_obj hideObjectGlobal false;
 				player switchMove "AidlPercMstpSrasWrflDnon_G01";
 				_obj setPos [(getPos _obj select 0),(getPos _obj select 1),0];
+				_obj allowDamage false;
 				_cut = createVehicle ["Land_ClutterCutter_medium_F",(getPos _obj),[], 0, "can_collide"];
 				[_obj] call NAT_fnc_campAddAction;
 				_placed = true;

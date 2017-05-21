@@ -136,6 +136,7 @@ if (count _extraObjs > 0 && _baseType isEqualTo "land") then {
 		_obj = (selectRandom _extraObjs) createVehicle _pos;
 		_obj setDir (random 360);
 		_obj setPos [(getPos _obj select 0),(getPos _obj select 1),0];
+		_obj allowDamage false;
 		_numObjects = _numObjects - 1;
 		NATcache pushBack _obj;
 	};
