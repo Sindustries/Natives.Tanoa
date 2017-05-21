@@ -117,6 +117,8 @@ if (count _defenceObjs > 0) then {
 			_ai = createGroup west createUnit ["B_Survivor_F", [0,0,0], [], 0, "NONE"];
 			_ai hideObjectGlobal true;
 			_ai moveInAny _x;
+			_ai allowDamage false;
+			_x lock true;
 		};
 	} forEach _defences;
 	_mainObj setVariable ["NATcampDefences",_defences];
