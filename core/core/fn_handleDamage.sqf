@@ -17,7 +17,11 @@ player addEventHandler ["handleDamage",{
 	_projectile = _this select 4;
 	_selections = ["head","body","arms","legs"];
 
+	systemChat format["handleDamage :: RAW: %1",_passedDamage];
+
 	_return = ((_passedDamage/4)*(player getVariable ["NATneedsDamageModif",1]));
+
+	systemChat format["handleDamage :: WITH MODIFIER: %1",_return];
 
 	if (DebugMode) then {
 		_return = 0;
