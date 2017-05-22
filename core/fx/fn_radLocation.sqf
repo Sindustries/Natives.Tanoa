@@ -37,7 +37,7 @@ while {alive player} do {
 				};
 			};
 			waitUntil {ppEffectCommitted _handle};
-			waitUntil {sleep 3; (_x select 0) distance2D player > (_x select 1)};
+			waitUntil {sleep 3; (_x select 1) distance2D player > (_x select 2 select 0) || !(_x in NATnativeZones)};
 			_handle ppEffectAdjust _defEffect;
 			_handle ppeffectcommit 8+(random 4);
 			waitUntil {ppEffectCommitted _handle};
