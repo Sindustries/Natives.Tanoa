@@ -146,5 +146,17 @@ private [];
 	{
 		[(_x select 1),(_x select 2 select 0),resistance,"native"] call NAT_fnc_createZonePatrol;
 	} forEach NATnativeZones;
+/*
+	_loc = (selectRandom NATmilitaryCamps);
+	_base = (_loc select 0);
+	[_base,[0,0,0],"military"] spawn NAT_fnc_warbotWave;
+
+	_loc = (selectRandom NATmilitiaCamps);
+	_base = (_loc select 0);
+	[_base,[0,0,0],"militia"] spawn NAT_fnc_warbotWave;
+
+	_loc = (selectRandom NATnativeCamps);
+	_base = (_loc select 0);
+	[_base,[0,0,0],"native"] spawn NAT_fnc_warbotWave;*/
 };
 //-----------------------------------
