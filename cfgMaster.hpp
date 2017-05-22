@@ -26,6 +26,13 @@ class NAT {
 	NATneedsSleepTime = 16; 		//Time (in hours) until sleep is full
 	NATneedsRadiationTime = 24; 	//Time (in hours) until radiation is full
 
+/* WARBOT SETTINGS */
+
+	NATmaxUnits = 50;				//Hard cap on the amount of units per side main force
+	NATmilitaryForcePower = 10;		//Starting military force power
+	NATmilitiaForcePower = 25;		//Starting militia force power
+	NATnativeForcePower = 50;		//Starting native force power
+
 /* MISSIONS SETTINGS */
 
 	NATmissionUpdateMin = 1;			//Min time (in-game hours) to update available missions
@@ -35,6 +42,9 @@ class NAT {
 	NATrescueCiviliansChance = 45;		//Chance (%) of RESCUE CIVILIANS mission appearing
 
 /* WEATHER SETTINGS */
+
+	NATweatherOvercast = true;		//Overcast enabled?
+	NATweatherFog = true;			//Fog enabled?
 
 	NATweatherVariation = 0.2;		//Increments of weather change
 	NATmonsoonChance = 10;			//Chance (%) of a monsoon if conditions met
