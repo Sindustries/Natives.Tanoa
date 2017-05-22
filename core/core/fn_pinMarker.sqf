@@ -21,6 +21,7 @@ switch ((side (leader _group))) do {
 };
 
 if ((side (leader _group)) in [CIVILIAN]) exitWith {};
+if ({alive _x} count units _group < 1) exitWith {};
 if (_group in NATpinnedGroups) exitWith {};
 NATpinnedGroups pushBack _group;
 
