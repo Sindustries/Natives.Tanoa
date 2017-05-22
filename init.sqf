@@ -10,7 +10,7 @@ publicVariable "NAT_serverReady";
 //-----------------------------------
 waitUntil {isPlayer player};
 enableSaving [false, false];
-enableSentences false;
+//enableSentences false;
 enableEnvironment false;
 player enableSimulation false;
 player enableStamina false;
@@ -36,6 +36,7 @@ NATmission = false;
 NATpinnedGroups = [];
 //-----------------------------------
 waitUntil {time > 0};
+cutText ["PRELOADING \n WAITING FOR SERVER, PLEASE WAIT", "BLACK FADED", 999];
 //-----------------------------------
 //-GET SETTINGS
 if (isServer) then {
@@ -148,8 +149,17 @@ NATzombieSkills = [
 if (isServer) then {
 	_date = numberToDate [(2015+floor(random 20)),random 1];
 	setDate [(_date select 0),(_date select 1),(_date select 2),0,0];
-	0 setOvercast (random 1);
-	0 setFog (overcast*0.6);
+	sleep 3;
+	if (["NATweatherOvercast"] call NAT_fnc_getSetting isEqualTo 1) then {
+		0 setOvercast (random 1);
+	} else {
+		0 setOvercast 0;
+	};
+	if (["NATweatherFog"] call NAT_fnc_getSetting isEqualTo 1) then {
+		0 setFog (overcast*0.1);
+	} else {
+		0 setFog 0;
+	};
 	forceWeatherChange;
 	[] spawn NAT_fnc_weather;
 	[] spawn {
@@ -165,7 +175,6 @@ if (isServer) then {
 	[] call SIN_fnc_adminInit;
 };
 //-----------------------------------
-cutText ["PRELOADING \n WAITING FOR SERVER, PLEASE WAIT", "BLACK FADED", 999];
 waitUntil {NAT_serverReady isEqualTo true};
 cutText ["", "BLACK FADED", 999];
 //-----------------------------------
