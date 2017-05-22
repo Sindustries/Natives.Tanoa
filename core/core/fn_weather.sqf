@@ -10,7 +10,7 @@ _dustStormChance = ["NATdustStormChance"] call NAT_fnc_getSetting;
 _tornadoChance = ["NATtornadoChance"] call NAT_fnc_getSetting;
 
 _overcast =  (overcast+(random _variation)-(random _variation));
-_fog = ((_overcast+(random _variation)-(random _variation))*0.6);
+_fog = ((_overcast+(random _variation)-(random _variation))*0.1);
 
 //-----------------------------------
 if (DebugMode) then {
@@ -18,9 +18,13 @@ if (DebugMode) then {
 	showChat true;
 };
 //-----------------------------------
-(30 * timeMultiplier) setOvercast _overcast;
-sleep 30;
-(30 * timeMultiplier) setFog _fog;
+if (["NATweatherOvercast"] call NAT_fnc_getSetting isEqualTo 1) then {
+	(30 * timeMultiplier) setOvercast _overcast;
+	sleep 30;
+};
+if (["NATweatherFog"] call NAT_fnc_getSetting isEqualTo 1) then {
+	(30 * timeMultiplier) setFog _fog;
+};
 //-----------------------------------
 //-CHECK FOR SPECIAL WEATHER
 if (overcast >= 0.7 && overcast < 0.9 && (random 100) < _monsoonChance) then {
