@@ -52,6 +52,7 @@ _task = player createSimpleTask ["Reach the island"];
 _task setSimpleTaskType "move";
 _task setSimpleTaskDescription ["Reach the island", "Reach the island", "Island"];
 _task setSimpleTaskDestination [(_shorePos select 0),(_shorePos select 1),0];
+_task setSimpleTaskAlwaysVisible true;
 _task setTaskState "Assigned";
 ["TaskAssigned",["","Reach the island"]] call bis_fnc_showNotification;
 
