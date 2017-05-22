@@ -37,6 +37,7 @@ class NAT_Core {
 		class pinMarker {};
 		class pinMarkerVeh {};
 		class saveGame {};
+		class spawnUnit {};
 		class updateProgressBar {};
 		class weather {};
 	};
