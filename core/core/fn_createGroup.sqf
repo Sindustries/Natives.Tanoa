@@ -8,7 +8,8 @@ params [
 	["_pos",[0,0,0]],
 	["_side",nil],
 	["_type",nil],
-	["_count",0]
+	["_count",0],
+	["_marker",true]
 ];
 if (_pos isEqualTo [0,0,0] || isNil "_side" || isNil "_type" || _count < 1) exitWith {};
 //-----------------------------------
@@ -31,8 +32,18 @@ switch (_side) do {
 };
 //-----------------------------------
 _group = createGroup _side;
+private ["_spawnPos","_posFound","_maxDist"];
 for "_i" from 1 to _count do {
-	_spawnPos = [_pos,0,30,1] call SIN_fnc_findPos;
+	_posFound = false;
+	_maxDist = 20;
+	while {!_posFound} do {
+		_spawnPos = [_pos,0,_maxDist,1] call SIN_fnc_findPos;
+		if (!(surfaceIsWater _spawnPos)) then {
+			_posFound = true;
+		} else {
+			_maxDist = _maxDist + 20;
+		};
+	};
 	_unit = _group createUnit [_class, _spawnPos, [], 0, "NONE"];
 	[_unit,_type,true] call NAT_fnc_equip;
 	_unit setUnitRank "MAJOR";
@@ -42,9 +53,10 @@ for "_i" from 1 to _count do {
 	};
 	NATcache pushBack _unit;
 };
-if (_side in [WEST,EAST]) then {
+if (_side in [WEST,EAST] && _marker isEqualTo true) then {
 	[_group] remoteExec ["NAT_fnc_pinMarker",0];
 };
+_group deleteGroupWhenEmpty true;
 if (DebugMode) then {systemChat format["DEBUG MODE :: SPAWNED %1 UNITS AT %2",_count,_spawnPos]; showChat true;};
 _group;
 //-----------------------------------
