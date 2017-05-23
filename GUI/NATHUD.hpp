@@ -145,3 +145,24 @@ class NATHUDMUTE: RscPicture
 };
 };
 };
+
+class NAT_Version
+{
+	idd = 2891;
+	fadeout=0;
+	fadein=0;
+	duration = 1e+1000;
+	onload = "uiNamespace setVariable ['VERSIONTEXT', (_this select 0) displayCtrl 1000];"
+class controls
+{
+class NAThudVERSION: RscText
+{
+	idc = 1000;
+	text = "NATIVES | VERSION: 0.0.1alpha | By Sinbane"; //--- ToDo: Localize;
+	x = 0.0375 * safezoneW + safezoneX;
+	y = 0.98 * safezoneH + safezoneY;
+	w = 0.3125 * safezoneW;
+	h = 0.02 * safezoneH;
+};
+};
+};

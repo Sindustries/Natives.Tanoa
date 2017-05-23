@@ -108,10 +108,10 @@ $[
 	[1500,"NATintWheelBX",[1,"FRONT RIGHT",["0.438125 * safezoneW + safezoneX","0.379 * safezoneH + safezoneY","0.0670312 * safezoneW","0.077 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]]
 ]
 */
-/* #Nokiwy
+/* #Mahyde
 $[
 	1.063,
-	["NATrscHUD",[[0,0,1,1],0.025,0.04,"GUI_GRID"],0,0,0],
+	["NATrscHUD",[["safezoneX","safezoneY","safezoneW","safezoneH"],"safezoneW / 40","safezoneH / 25","GUI_GRID"],0,0,0],
 	[1200,"NAThudRSChungerICO",[1,"#(argb,8,8,3)color(1,1,1,1)",["0.984687 * safezoneW + safezoneX","0.654 * safezoneH + safezoneY","0.0103125 * safezoneW","0.022 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
 	[1600,"NATrscHPbar",[1,"PROGRESSS",["0.922813 * safezoneW + safezoneX","0.6606 * safezoneH + safezoneY","0.061875 * safezoneW","0.011 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
 	[1201,"NAThudrscThirstIco",[1,"#(argb,8,8,3)color(1,1,1,1)",["0.984687 * safezoneW + safezoneX","0.676 * safezoneH + safezoneY","0.0103125 * safezoneW","0.022 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
@@ -120,10 +120,10 @@ $[
 	[1601,"NAThudrscThirstBar",[1,"PROGRESSS",["0.922813 * safezoneW + safezoneX","0.6826 * safezoneH + safezoneY","0.061875 * safezoneW","0.011 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
 	[1602,"NAThudRSCradBAR",[1,"PROGRESSS",["0.922813 * safezoneW + safezoneX","0.7244 * safezoneH + safezoneY","0.061875 * safezoneW","0.011 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
 	[1603,"NAThudrscSleepBar",[1,"PROGRESSS",["0.922813 * safezoneW + safezoneX","0.7024 * safezoneH + safezoneY","0.061875 * safezoneW","0.011 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
-	[1204,"NATHUDMUTE",[1,"#(argb,8,8,3)color(1,1,1,1)",["0.974375 * safezoneW + safezoneX","0.6078 * safezoneH + safezoneY","0.020625 * safezoneW","0.044 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]]
+	[1204,"NATHUDMUTE",[1,"#(argb,8,8,3)color(1,1,1,1)",["0.974375 * safezoneW + safezoneX","0.6078 * safezoneH + safezoneY","0.020625 * safezoneW","0.044 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1000,"NAThudVERSION",[1,"NATIVES | VERSION: 0.0.1alpha | By Sinbane",["0.0375 * safezoneW + safezoneX","0.98 * safezoneH + safezoneY","0.3125 * safezoneW","0.02 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]]
 ]
 */
-
 
 
 

@@ -4,7 +4,8 @@
 	Author: Sinbane
 */
 //-----------------------------------
-NAT_version = "0.0.1-alpha";
+NAT_version = "0.2.5-alpha";
+NAT_authors = "Sinbane";
 NAT_serverReady = false;
 publicVariable "NAT_serverReady";
 //-----------------------------------
@@ -37,6 +38,9 @@ NATmission = false;
 NATpinnedGroups = [];
 //-----------------------------------
 waitUntil {time > 0};
+("NATVERSIONLayer" call BIS_fnc_rscLayer) cutRsc ["NAT_Version","PLAIN",2,false];
+uiNameSpace getVariable "VERSIONTEXT" ctrlSetText format["%1, version %2. By %3.",missionName,NAT_version,NAT_authors];
+uiNameSpace getVariable "VERSIONTEXT" ctrlSetTextColor [1, 1, 1, 0.66];
 cutText ["PRELOADING \n WAITING FOR SERVER, PLEASE WAIT", "BLACK FADED", 999];
 //-----------------------------------
 //-GET SETTINGS
@@ -55,8 +59,6 @@ NATsealedVehicles = ["NATsealedVehicles"] call NAT_fnc_getSetting;
 #include "core\gear\militia.sqf";
 #include "core\gear\military.sqf";
 #include "core\gear\native.sqf";
-//-----------------------------------
-if (DebugMode) then {systemChat format["%1 version %2",briefingName,NAT_version]};
 //-----------------------------------
 //-FIND LOCATIONS
 private ["_startPos"];
