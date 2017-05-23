@@ -32,7 +32,7 @@ if (_add) then {
 	} else {
 	    _vInv pushBack [_item,_count];
 	};
-	player setVariable ["NAT_vInvWeight",(player getVariable ["NAT_vInvWeight",0]+(_itemWeight*_count)];
+	player setVariable ["NAT_vInvWeight",((player getVariable ["NAT_vInvWeight",0])+(_itemWeight*_count))];
 } else {
 	{
 		if ((_x select 0) isEqualTo _item) then {
@@ -43,10 +43,10 @@ if (_add) then {
 			};
 		};
 	} forEach _vInv;
-	player setVariable ["NAT_vInvWeight",(player getVariable ["NAT_vInvWeight",0]-(_itemWeight*_count))];
+	player setVariable ["NAT_vInvWeight",((player getVariable ["NAT_vInvWeight",0])-(_itemWeight*_count))];
 };
  //CHECK WEIGHT
-if ((loadAbs player + player getVariable ["NAT_vInvWeight",0]) >= NAT_maxWeight) then {
+if ((loadAbs player + (player getVariable ["NAT_vInvWeight",0])) >= NAT_maxWeight) then {
 	player forceWalk true;
 } else {
 	player forceWalk false;
