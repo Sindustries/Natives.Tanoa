@@ -252,7 +252,8 @@ player setVariable ["NAT_pumpingFuel",false];
 //-----------------------------------
 //-PLAYER STARTING GEAR
 cutText ["PRELOADING \n RANDOMISING GEAR", "BLACK FADED", 999];
-player setVariable ["NAT_vInv",[["zk_f_canteen",1],["sc_mre",2]],true];
+["zk_f_canteen",1,true] call NAT_fnc_vInvAdjust;
+["sc_mre",2,true] call NAT_fnc_vInvAdjust;
 [player,"military",true] call NAT_fnc_equip;
 //-----------------------------------
 [] call NAT_fnc_eventHandlers;
