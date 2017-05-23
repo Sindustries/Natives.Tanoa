@@ -35,6 +35,7 @@ waitUntil {sleep 2; vehicle player isEqualTo player && isTouchingGround player};
 
 {
 	if (vehicle _x != _x) then {
+		unassignVehicle _x;
 		doGetOut _x;
 	};
 } forEach (units _groupMil);
@@ -99,6 +100,13 @@ TASK_Contact4 setTaskState "Succeeded";
 		[_x] join grpNull;
 	};
 } forEach playableUnits;
+{
+	if (vehicle _x != _x) then {
+		unassignVehicle _x;
+		doGetOut _x;
+	};
+} forEach (units _groupMil);
+[_groupMil] call NAT_fnc_clearWaypoints;
 
 [_campPos,_groupMil] spawn NAT_fnc_act2;
 //-----------------------------------

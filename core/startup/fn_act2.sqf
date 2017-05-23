@@ -12,7 +12,6 @@ _groupMil = _this select 1;
 
 (group player) setFormation "STAG COLUMN";
 
-{_x setSkill 0.8} forEach (units _groupMil);
 [_groupMil,[(_campPos select 0),(_campPos select 1),0],50,2,true] call CBA_fnc_taskDefend;
 /*
 for "_i" from 1 to 2 do {
