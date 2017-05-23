@@ -13,6 +13,8 @@ params [
 if (_item isEqualTo "") exitWith {};
 NATaction = true;
 _use = false;
+if (vehicle player != player) exitWith {_use};
+closeDialog 0;
 //-----------------------------------
 switch (_item) do {
 	case "sc_elasticbandage": {

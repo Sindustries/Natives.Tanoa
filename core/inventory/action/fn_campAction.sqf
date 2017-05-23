@@ -12,6 +12,8 @@ params [
 if (_item isEqualTo "") exitWith {};
 _use = false;
 NATaction = true;
+if (vehicle player != player) exitWith {_use};
+closeDialog 0;
 //-----------------------------------
 switch (_item) do {
 	case "zk_tent": {
