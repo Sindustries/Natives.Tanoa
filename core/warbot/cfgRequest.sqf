@@ -102,6 +102,65 @@ NATbaseUnitRequest = [
 	]
 ];
 
+//ADD ALL GEAR TO ARSENAL
+
+{
+	_unitEquip = _x select 1;
+	_pWeps = _unitEquip select 0;
+	_pWepAccs = _unitEquip select 1;
+	_sWeps = _unitEquip select 2;
+	_sWepAccs = _unitEquip select 3;
+	_grenades = _unitEquip select 4;
+	_uniforms = _unitEquip select 5;
+	_vests = _unitEquip select 6;
+	_backpacks = _unitEquip select 7;
+	_headgear = _unitEquip select 8;
+	_goggles = _unitEquip select 9;
+	_linked = _unitEquip select 10;
+
+	if (count _uniforms > 0) then {
+		[missionNamespace,_uniforms,true,false] call BIS_fnc_addVirtualItemCargo;
+	};
+	if (count _vests > 0) then {
+		[missionNamespace,_vests,true,false] call BIS_fnc_addVirtualItemCargo;
+	};
+	if (count _backpacks > 0) then {
+		[missionNamespace,_backpacks,true,false] call BIS_fnc_addVirtualBackpackCargo;
+	};
+	if (count _headgear > 0) then {
+		[missionNamespace,_headgear,true,false] call BIS_fnc_addVirtualItemCargo;
+	};
+	if (count _goggles > 0) then {
+		[missionNamespace,_goggles,true,false] call BIS_fnc_addVirtualItemCargo;
+	};
+	if (count _linked > 0) then {
+		[missionNamespace,_linked,true,false] call BIS_fnc_addVirtualItemCargo;
+	};
+	if (count _grenades > 0) then {
+		[missionNamespace,_grenades,true,false] call BIS_fnc_addVirtualMagazineCargo;
+	};
+	if (count _pWeps > 0) then {
+		[missionNamespace,_pWeps,true,false] call BIS_fnc_addVirtualWeaponCargo;
+		for "_i" from 0 to (count _pWeps)-1 do {
+			_weapon = (_pWeps select _i);
+			[missionNamespace,(getArray (configFile >> "CfgWeapons" >> _weapon >> "magazines")),true,false] call BIS_fnc_addVirtualMagazineCargo;
+		};
+	};
+	if (count _sWeps > 0) then {
+		[missionNamespace,_sWeps,true,false] call BIS_fnc_addVirtualWeaponCargo;
+		for "_i" from 0 to (count _sWeps)-1 do {
+			_weapon = (_sWeps select _i);
+			[missionNamespace,(getArray (configFile >> "CfgWeapons" >> _weapon >> "magazines")),true,false] call BIS_fnc_addVirtualMagazineCargo;
+		};
+	};
+	if (count _pWepAccs > 0) then {
+		[missionNamespace,_pWepAccs,true,false] call BIS_fnc_addVirtualItemCargo;
+	};
+	if (count _sWepAccs > 0) then {
+		[missionNamespace,_sWepAccs,true,false] call BIS_fnc_addVirtualItemCargo;
+	};
+} forEach NATbaseUnitRequest;
+
 //-----------------------------------
 /*
 	VEHICLES
