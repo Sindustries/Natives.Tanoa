@@ -86,6 +86,7 @@ if (count NATcivilianZones > 0) then {
 			_marker setMarkerAlpha 0.5;
 			[_x,WEST] call NAT_fnc_createZonePatrol;
 			["military",true] call zoneAdjustFP;
+			[_zoneName,"Military"] call zoneUpdateMsg;
 		};
 		if (_militia > _military && _militia > _native) then {
 			NATcivilianZones set [_forEachIndex,objNull];
@@ -93,6 +94,7 @@ if (count NATcivilianZones > 0) then {
 			_marker setMarkerColor "ColorEAST";
 			_marker setMarkerAlpha 0.5;
 			["militia",true] call zoneAdjustFP;
+			[_zoneName,"Militia"] call zoneUpdateMsg;
 		};
 		if (_native > _military && _native > _militia) then {
 			NATcivilianZones set [_forEachIndex,objNull];
@@ -100,6 +102,7 @@ if (count NATcivilianZones > 0) then {
 			_marker setMarkerColor "ColorGUER";
 			_marker setMarkerAlpha 0.5;
 			["native",true] call zoneAdjustFP;
+			[_zoneName,"Natives"] call zoneUpdateMsg;
 			//CREATE ZOMBIE SPAWNERS
 			for "_i" from 0 to floor(random(_zoneSize/20)) do {
 				_pos = [_zonePos,0,_zoneSize,0] call SIN_fnc_findPos;
@@ -128,6 +131,7 @@ if (count NATmilitaryZones > 0) then {
 			_marker setMarkerAlpha 0.5;
 			["military",false] call zoneAdjustFP;
 			["militia",true] call zoneAdjustFP;
+			[_zoneName,"Militia"] call zoneUpdateMsg;
 		};
 		if (_native > _military && _native > _militia) then {
 			NATmilitaryZones set [_forEachIndex,objNull];
@@ -136,6 +140,7 @@ if (count NATmilitaryZones > 0) then {
 			_marker setMarkerAlpha 0.5;
 			["military",false] call zoneAdjustFP;
 			["native",true] call zoneAdjustFP;
+			[_zoneName,"Natives"] call zoneUpdateMsg;
 			//CREATE ZOMBIE SPAWNERS
 			for "_i" from 0 to floor(random(_zoneSize/20)) do {
 				_pos = [_zonePos,0,_zoneSize,0] call SIN_fnc_findPos;
@@ -164,6 +169,7 @@ if (count NATmilitiaZones > 0) then {
 			_marker setMarkerAlpha 0.5;
 			["militia",false] call zoneAdjustFP;
 			["military",true] call zoneAdjustFP;
+			[_zoneName,"Military"] call zoneUpdateMsg;
 		};
 		if (_native > _militia && _native > _military) then {
 			NATmilitiaZones set [_forEachIndex,objNull];
@@ -172,6 +178,7 @@ if (count NATmilitiaZones > 0) then {
 			_marker setMarkerAlpha 0.5;
 			["militia",false] call zoneAdjustFP;
 			["native",true] call zoneAdjustFP;
+			[_zoneName,"Natives"] call zoneUpdateMsg;
 			//CREATE ZOMBIE SPAWNERS
 			for "_i" from 0 to floor(random(_zoneSize/20)) do {
 				_pos = [_zonePos,0,_zoneSize,0] call SIN_fnc_findPos;
@@ -200,6 +207,7 @@ if (count NATnativeZones > 0) then {
 			_marker setMarkerAlpha 0.5;
 			["native",false] call zoneAdjustFP;
 			["military",true] call zoneAdjustFP;
+			[_zoneName,"Military"] call zoneUpdateMsg;
 		};
 		if (_militia > _military && _militia > _native) then {
 			NATnativeZones set [_forEachIndex,objNull];
@@ -208,6 +216,7 @@ if (count NATnativeZones > 0) then {
 			_marker setMarkerAlpha 0.5;
 			["native",false] call zoneAdjustFP;
 			["militia",true] call zoneAdjustFP;
+			[_zoneName,"Militia"] call zoneUpdateMsg;
 		};
 		sleep 0.001;
 	} foreach NATnativeZones;
