@@ -13,7 +13,8 @@ params [
 ];
 
 if (_item isEqualTo "" || _count isEqualTo 0) exitWith {};
-_vInv = (player getVariable ["NAT_vInv",[]]);
+_vInv = player getVariable ["NAT_vInv",[]];
+_itemWeight = [_item] call NAT_fnc_vInvWeight;
 //-----------------------------------
 if (_add) then {
 	if (count _vInv > 0) then {
@@ -31,6 +32,7 @@ if (_add) then {
 	} else {
 	    _vInv pushBack [_item,_count];
 	};
+	player setVariable ["NAT_vInvWeight",(player getVariable ["NAT_vInvWeight",0]+(_itemWeight*_count)];
 } else {
 	{
 		if ((_x select 0) isEqualTo _item) then {
@@ -41,6 +43,13 @@ if (_add) then {
 			};
 		};
 	} forEach _vInv;
+	player setVariable ["NAT_vInvWeight",(player getVariable ["NAT_vInvWeight",0]-(_itemWeight*_count))];
+};
+ //CHECK WEIGHT
+if ((loadAbs player + player getVariable ["NAT_vInvWeight",0]) >= NAT_maxWeight) then {
+	player forceWalk true;
+} else {
+	player forceWalk false;
 };
 //-----------------------------------
 player setVariable ["NAT_vInv",_vInv,true];

@@ -64,6 +64,7 @@ class NAT_Core {
 		class vInvUpdate {};
 		class vInvUse {};
 		class vItemInit {};
+		class vInvWeight {};
 	};
 	class action {
 		file = "core\inventory\action";

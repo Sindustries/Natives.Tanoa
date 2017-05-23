@@ -5,7 +5,9 @@
 */
 
 NATvInvItems = ["vInvItems"] call NAT_fnc_getSetting;
+player setVariable ["NAT_vInvWeight",0];
 NATvInvItemsOnly = [];
+NAT_maxWeight = getNumber (configFile >> "CfgInventoryGlobalVariable" >> "maxSoldierLoad");
 //GET NAMES & ICONS
 for "_i" from 0 to (count (NATvInvItems)-1) do {
 	private ["_name","_item","_icon"];
@@ -13,11 +15,13 @@ for "_i" from 0 to (count (NATvInvItems)-1) do {
 	if (_item isKindOf ["CA_Magazine", configFile >> "CfgMagazines"]) then {
 		_icon = getText (configFile >> "CfgMagazines" >> _item >> "picture");
 		_name = getText (configFile >> "CfgMagazines" >> _item >> "displayName");
+		_weight = getNumber (configfile >> "CfgMagazines" >> _item >> "ItemInfo" >> "mass");
 	} else {
 		_icon = getText (configFile >> "CfgWeapons" >> _item >> "picture");
 		_name = getText (configFile >> "CfgWeapons" >> _item >> "displayName");
+		_weight = getNumber (configfile >> "CfgWeapons" >> _item >> "ItemInfo" >> "mass");
 	};
-	NATvInvItems set [_i,[_name,_item,_icon]];
+	NATvInvItems set [_i,[_name,_item,_icon,_weight]];
 	NATvInvItemsOnly pushBackUnique _item;
 };
 
