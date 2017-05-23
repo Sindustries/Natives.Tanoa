@@ -83,9 +83,9 @@ class NATinvITEMlist: RscListbox
 	font = "PuristaMedium";
 	sizeEX = "0.016 / (getResolution select 5)";
 	x = 0.546406 * safezoneW + safezoneX;
-	y = 0.313 * safezoneH + safezoneY;
+	y = 0.335 * safezoneH + safezoneY;
 	w = 0.12375 * safezoneW;
-	h = 0.22 * safezoneH;
+	h = 0.198 * safezoneH;
 };
 class NAThudHUNGERfrm: RscFrame
 {
@@ -493,6 +493,15 @@ class NATinvMODIFIERicon12: RscPicture
 	x = 0.520625 * safezoneW + safezoneX;
 	y = 0.555 * safezoneH + safezoneY;
 	w = 0.0103125 * safezoneW;
+	h = 0.022 * safezoneH;
+};
+class NATinvWEIGHTtxt: RscStructuredText
+{
+	idc = 1100;
+	text = "TOTAL WEIGHT: 864/1000"; //--- ToDo: Localize;
+	x = 0.551562 * safezoneW + safezoneX;
+	y = 0.313 * safezoneH + safezoneY;
+	w = 0.113437 * safezoneW;
 	h = 0.022 * safezoneH;
 };
 ////////////////////////////////////////////////////////
