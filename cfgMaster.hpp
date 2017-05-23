@@ -21,9 +21,9 @@ class NAT {
 /* NEEDS SETTINGS */
 
 	NATneedsHealthTime = 24;		//Time (in hours) until health is full (if healthy)
-	NATneedsHungerTime = 18; 		//Time (in hours) until hunger is full
+	NATneedsHungerTime = 14; 		//Time (in hours) until hunger is full
 	NATneedsThirstTime = 12; 		//Time (in hours) until thirst is full
-	NATneedsSleepTime = 16; 		//Time (in hours) until sleep is full
+	NATneedsSleepTime = 18; 		//Time (in hours) until sleep is full
 	NATneedsRadiationTime = 24; 	//Time (in hours) until radiation is full
 
 /* WARBOT SETTINGS */
@@ -54,9 +54,6 @@ class NAT {
 };
 
 class Z {
-	NAT_maxZombies = 12;				//Total number of alive zombies (per player)
-	NAT_zhordeSize = 4; 				//Max num to spawn on each spawner
-	NAT_zSpawnChance = 75;				//Chance of a spawner spawning zombies (%)
-	NAT_zBossChance = 2.5;				//Chance of spawning a boss zombie (demon)
-	NAT_zDeleteDist = 300;				//Distance (METERS) from players to remove zombies
+	NAT_zSpawnChance = 75;			//Chance of a spawner spawning zombies (%)
+	NAT_zSpawnDistance = 200;		//Distance (m) a unit must be to a spawner to trigger a spawn
 };
