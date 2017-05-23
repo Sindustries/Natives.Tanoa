@@ -10,10 +10,10 @@ params [
 	["_item",""],
 	["_heal",0]
 ];
-if (_item isEqualTo "") exitWith {};
+if (_item isEqualTo "") exitWith {false};
+if (vehicle player != player) exitWith {false};
 NATaction = true;
 _use = false;
-if (vehicle player != player) exitWith {_use};
 closeDialog 0;
 //-----------------------------------
 switch (_item) do {

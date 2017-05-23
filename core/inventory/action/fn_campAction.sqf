@@ -9,10 +9,10 @@ private ["_use"];
 params [
 	["_item",""]
 ];
-if (_item isEqualTo "") exitWith {};
+if (_item isEqualTo "") exitWith {false};
+if (vehicle player != player) exitWith {false};
 _use = false;
 NATaction = true;
-if (vehicle player != player) exitWith {_use};
 closeDialog 0;
 //-----------------------------------
 switch (_item) do {
