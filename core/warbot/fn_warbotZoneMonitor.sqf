@@ -11,6 +11,59 @@ zoneUpdateMsg = {
 	[10000,[format["LOCATION UPDATE \n %1 has been captured by The %2",_zoneName,_faction],"PLAIN DOWN",0.8,true]] remoteExec ["cutText",0];
 };
 
+zoneAdjustFP = {
+	_faction = _this select 0;
+	_add = _this select 1;
+	switch (_faction) do {
+		case "military": {
+			if (_add) then {
+				NATmilitaryForcePower = NATmilitaryForcePower + floor(random 5)+1;
+				NATresFood = NATresFood + floor(random 10)+1;
+				NATresWater = NATresWater + floor(random 10)+1;
+				NATresScrap = NATresScrap + floor(random 10)+1;
+				publicVariable "NATresFood"; publicVariable "NATresWater"; publicVariable "NATresScrap";
+			} else {
+				NATmilitaryForcePower = NATmilitaryForcePower - floor(random 5)+1;
+			};
+			if (NATmilitaryForcePower > NATmaxUnits) then {
+				NATmilitaryForcePower = NATmaxUnits;
+			};
+			if (NATmilitaryForcePower < 0) then {
+				NATmilitaryForcePower = 0;
+			};
+			publicVariable "NATmilitaryForcePower";
+		};
+		case "militia": {
+			if (_add) then {
+				NATmilitiaForcePower = NATmilitiaForcePower + floor(random 5)+1;
+			} else {
+				NATmilitiaForcePower = NATmilitiaForcePower - floor(random 5)+1;
+			};
+			if (NATmilitiaForcePower > NATmaxUnits) then {
+				NATmilitiaForcePower = NATmaxUnits;
+			};
+			if (NATmilitiaForcePower < 0) then {
+				NATmilitiaForcePower = 0;
+			};
+			publicVariable "NATmilitiaForcePower";
+		};
+		case "native": {
+			if (_add) then {
+				NATnativeForcePower = NATnativeForcePower + floor(random 5)+1;
+			} else {
+				NATnativeForcePower = NATnativeForcePower - floor(random 5)+1;
+			};
+			if (NATnativeForcePower > NATmaxUnits) then {
+				NATnativeForcePower = NATmaxUnits;
+			};
+			if (NATnativeForcePower < 0) then {
+				NATnativeForcePower = 0;
+			};
+			publicVariable "NATnativeForcePower";
+		};
+	};
+};
+
 //-----------------------------------
 
 sleep 30;
@@ -32,18 +85,21 @@ if (count NATcivilianZones > 0) then {
 			_marker setMarkerColor "ColorWEST";
 			_marker setMarkerAlpha 0.5;
 			[_x,WEST] call NAT_fnc_createZonePatrol;
+			["military",true] call zoneAdjustFP;
 		};
 		if (_militia > _military && _militia > _native) then {
 			NATcivilianZones set [_forEachIndex,objNull];
 			NATmilitiaZones pushBackUnique _x;
 			_marker setMarkerColor "ColorEAST";
 			_marker setMarkerAlpha 0.5;
+			["militia",true] call zoneAdjustFP;
 		};
 		if (_native > _military && _native > _militia) then {
 			NATcivilianZones set [_forEachIndex,objNull];
 			NATnativeZones pushBackUnique _x;
 			_marker setMarkerColor "ColorGUER";
 			_marker setMarkerAlpha 0.5;
+			["native",true] call zoneAdjustFP;
 			//CREATE ZOMBIE SPAWNERS
 			for "_i" from 0 to floor(random(_zoneSize/20)) do {
 				_pos = [_zonePos,0,_zoneSize,0] call SIN_fnc_findPos;
@@ -70,12 +126,16 @@ if (count NATmilitaryZones > 0) then {
 			NATmilitiaZones pushBackUnique _x;
 			_marker setMarkerColor "ColorEAST";
 			_marker setMarkerAlpha 0.5;
+			["military",false] call zoneAdjustFP;
+			["militia",true] call zoneAdjustFP;
 		};
 		if (_native > _military && _native > _militia) then {
 			NATmilitaryZones set [_forEachIndex,objNull];
 			NATnativeZones pushBackUnique _x;
 			_marker setMarkerColor "ColorGUER";
 			_marker setMarkerAlpha 0.5;
+			["military",false] call zoneAdjustFP;
+			["native",true] call zoneAdjustFP;
 			//CREATE ZOMBIE SPAWNERS
 			for "_i" from 0 to floor(random(_zoneSize/20)) do {
 				_pos = [_zonePos,0,_zoneSize,0] call SIN_fnc_findPos;
@@ -102,12 +162,16 @@ if (count NATmilitiaZones > 0) then {
 			NATmilitaryZones pushBackUnique _x;
 			_marker setMarkerColor "ColorWEST";
 			_marker setMarkerAlpha 0.5;
+			["militia",false] call zoneAdjustFP;
+			["military",true] call zoneAdjustFP;
 		};
 		if (_native > _militia && _native > _military) then {
 			NATmilitiaZones set [_forEachIndex,objNull];
 			NATnativeZones pushBackUnique _x;
 			_marker setMarkerColor "ColorGUER";
 			_marker setMarkerAlpha 0.5;
+			["militia",false] call zoneAdjustFP;
+			["native",true] call zoneAdjustFP;
 			//CREATE ZOMBIE SPAWNERS
 			for "_i" from 0 to floor(random(_zoneSize/20)) do {
 				_pos = [_zonePos,0,_zoneSize,0] call SIN_fnc_findPos;
@@ -134,12 +198,16 @@ if (count NATnativeZones > 0) then {
 			NATmilitaryZones pushBackUnique _x;
 			_marker setMarkerColor "ColorWEST";
 			_marker setMarkerAlpha 0.5;
+			["native",false] call zoneAdjustFP;
+			["military",true] call zoneAdjustFP;
 		};
 		if (_militia > _military && _militia > _native) then {
 			NATnativeZones set [_forEachIndex,objNull];
 			NATmilitiaZones pushBackUnique _x;
 			_marker setMarkerColor "ColorEAST";
 			_marker setMarkerAlpha 0.5;
+			["native",false] call zoneAdjustFP;
+			["militia",true] call zoneAdjustFP;
 		};
 		sleep 0.001;
 	} foreach NATnativeZones;
