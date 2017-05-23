@@ -88,7 +88,8 @@ switch (_faction) do {
 		};
 		[NATmilitaryForce] remoteExec ["NAT_fnc_pinMarker",0];
 		[NATmilitaryForce] call NAT_fnc_clearWaypoints;
-		[NATmilitaryForce,_targetPos,"MOVE","RED"] call NAT_fnc_createWaypoint;
+		_wp = [_targetPos,0,(_targetZone select 2 select 0)] call SIN_fnc_findPos;
+		[NATmilitaryForce,_wp,"SAD","RED"] call NAT_fnc_createWaypoint;
 		[(leader NATmilitaryForce),format["Moving to secure %1",(_targetZone select 0)]] remoteExec ["sideChat",0];
 		_aMarker setMarkerType "mil_objective";
 		_aMarker setMarkerColor "ColorWEST";
