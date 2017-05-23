@@ -159,10 +159,10 @@ private [];
 	} forEach [[10854.7,8276.55,0.00131226],[3423.08,4966.47,-2.20204],[2855.07,12392,0.0020752]];
 	waitUntil {sleep 10; (count NATmilitaryCamps > 0)};
 	{
-		[(_x select 1),(_x select 2 select 0),east,"militia"] call NAT_fnc_createZonePatrol;
+		[_x,east,"militia"] call NAT_fnc_createZonePatrol;
 	} forEach NATmilitiaZones;
 	{
-		[(_x select 1),(_x select 2 select 0),resistance,"native"] call NAT_fnc_createZonePatrol;
+		[_x,resistance,"native"] call NAT_fnc_createZonePatrol;
 	} forEach NATnativeZones;
 
 	/*_loc = (selectRandom NATmilitaryCamps);
