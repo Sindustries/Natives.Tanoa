@@ -10,7 +10,7 @@ NATvInvItemsOnly = [];
 NAT_maxWeight = getNumber (configFile >> "CfgInventoryGlobalVariable" >> "maxSoldierLoad");
 //GET NAMES & ICONS
 for "_i" from 0 to (count (NATvInvItems)-1) do {
-	private ["_name","_item","_icon"];
+	private ["_name","_item","_icon","_weight"];
 	_item = (NATvInvItems select _i);
 	if (_item isKindOf ["CA_Magazine", configFile >> "CfgMagazines"]) then {
 		_icon = getText (configFile >> "CfgMagazines" >> _item >> "picture");
