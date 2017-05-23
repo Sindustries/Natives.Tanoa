@@ -14,7 +14,7 @@ _return = 0;
 //-----------------------------------
 //-FIND ITEM
 {
-	if (_item isEqualTo _x select 1) exitWith {
+	if (_item isEqualTo (_x select 1)) exitWith {
 		_return = _x select 3;
 	};
 } forEach NATvInvItems;
