@@ -9,7 +9,7 @@ private [];
 
 NATHUD = false;
 
-NATneedsHealthTime = (["NATneedsHealthTime"] call NAT_fnc_getSetting);
+NATneedsHealthTime = ((["NATneedsHealthTime"] call NAT_fnc_getSetting)*60*60);
 NATneedsHungerTime = ((["NATneedsHungerTime"] call NAT_fnc_getSetting)*60*60);
 NATneedsThirstTime = ((["NATneedsThirstTime"] call NAT_fnc_getSetting)*60*60);
 NATneedsSleepTime = ((["NATneedsSleepTime"] call NAT_fnc_getSetting)*60*60);
