@@ -34,6 +34,3 @@ if (_use) then {
 	[_item,1,false] call NAT_fnc_vInvAdjust;
 };
 //-----------------------------------
-//-CLOSE OR UPDATE
-[] call NAT_fnc_vInvUpdate;
-//-----------------------------------
