@@ -25,6 +25,18 @@ _baseLocs = [_baseLocs,[],{player distance _x},"ASCEND"] call BIS_fnc_sortBy;
 _pumps = ["Land_FuelStation_Feed_F","Land_fs_feed_F","Land_FuelStation_01_pump_F","Land_FuelStation_02_pump_F"];
 //-----------------------------------
 switch (_code) do {
+    //`, TILDE - HUD TOGGLE
+    case 41: {
+        if (_shift && !_ctrl && !_alt) then {
+            if (!NATHUD) then {
+                [] spawn NAT_fnc_needsHUD;
+            } else {
+                NATHUD = false;
+                ("NATHUDLayer" call BIS_fnc_rscLayer) cutFadeOut 2;
+            };
+            _handled = true;
+        };
+    };
 	//H - GasMask toggle
 	case 35: {
         if (_shift && !_ctrl && !_alt) then {
@@ -39,28 +51,26 @@ switch (_code) do {
             if ((player getVariable ["NATearPlugs",false]) isEqualTo false) then {
                 _handled = true;
                 3 fadeSound 0.25;
-                //waitUntil {("ACE_earplugs" in (vestItems player + uniformItems player + backpackItems player))};
-                //player removeItems "ACE_earplugs";
+                ("NATHUDMuteLayer" call BIS_fnc_rscLayer) cutRsc ["NAT_Mute","PLAIN",3,false];
                 player setVariable ["NATearPlugs",true];
             } else {
                 _handled = true;
-                //[player] call ace_hearing_fnc_putInEarplugs;
                 2 fadeSound 1;
+                 ("NATHUDMuteLayer" call BIS_fnc_rscLayer) cutFadeOut 2;
                 player setVariable ["NATearPlugs",false];
             };
         };
     };
 
-    //F1 - Virtual INV
-    case 59: {
-        if (!_shift && !_ctrl && !_alt && !dialog) then {
+    //WINDOWS
+    case 219: {
+        //+SHIFT :: Virtual INV
+        if (_shift && !_ctrl && !_alt && !dialog) then {
             ["vInv"] spawn NAT_fnc_vInvOpen;
             _handled = true;
         };
-    };
-    //F2 - Interaction Menu
-    case 60: {
-        if (!_shift && !_ctrl && !_alt && !dialog) then {
+        //Interaction Menu
+         if (!_shift && !_ctrl && !_alt && !dialog) then {
             if (!alive player || lifeState player in ["DEAD","DEAD-RESPAWN","DEAD-SWITCHING","INCAPACITATED"]) exitWith {};
             //-BASE?
             if (cursorObject in _bases && player distance2D (_baseLocs select 0) < 10) then {

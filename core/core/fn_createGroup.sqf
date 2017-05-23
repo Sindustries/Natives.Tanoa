@@ -37,17 +37,18 @@ for "_i" from 1 to _count do {
 	_posFound = false;
 	_maxDist = 20;
 	while {!_posFound} do {
-		_spawnPos = [_pos,0,_maxDist,1] call SIN_fnc_findPos;
+		_spawnPos = [_pos,0,_maxDist,4] call SIN_fnc_findPos;
 		if (!(surfaceIsWater _spawnPos)) then {
 			_posFound = true;
 		} else {
 			_maxDist = _maxDist + 20;
 		};
 	};
-	_unit = _group createUnit [_class, _spawnPos, [], 0, "NONE"];
+	_unit = _group createUnit [_class, [0,0,0], [], 0, "NONE"];
 	[_unit,_type,true] call NAT_fnc_equip;
 	_unit setUnitRank "MAJOR";
 	_unit allowFleeing 0;
+	_unit setPos _spawnPos;
 	if (count _skills > 0) then {
 		{_unit setSkill [(_x select 0),(_x select 1)]} forEach _skills;
 	};

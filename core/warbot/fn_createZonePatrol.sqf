@@ -3,15 +3,17 @@
 	Author: Sinbane
 	Spawns 2 groups of AI at the nearest base/camp to the zone and sends them to patrol it
 */
-private ["_spawnPos"];
+private ["_spawnPos","_type"];
 params [
-	["_zonePos",[0,0,0]],
-	["_zoneSize",0],
+	["_zone",[]],
 	["_side",nil],
 	["_type",nil]
 ];
 
-if (_zonePos isEqualTo [0,0,0] || _zoneSize isEqualTo 0 || isNil "_side" || isNil "_type") exitWith {};
+if (_zone isEqualTo [] || isNil "_side" || isNil "_type") exitWith {};
+
+_zonePos = (_zone select 1);
+_zoneSize = (_zone select 2 select 0);
 
 _nearestBase = [_zonePos,_type] call NAT_fnc_findNearestBase;
 _sameZone = [_zonePos,_nearestBase] call SIN_fnc_zoneCheck;

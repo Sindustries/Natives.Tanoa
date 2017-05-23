@@ -78,6 +78,7 @@ class NAT_Core {
 	class needs {
 		file = "core\needs";
 		class needsInit {};
+		class needsHUD {};
 		class healthMonitor {};
 		class healthRegen {};
 		class needsHunger {};

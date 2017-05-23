@@ -6,11 +6,12 @@
 params [
 	["_food",0],
 	["_water",0],
-	["_scrap",0]
+	["_scrap",0],
+	["_force",0]
 ];
 
 //-----------------------------------
-if (_food > 0 || _water > 0 || _scrap > 0) then {
+if (_food > 0 || _water > 0 || _scrap > 0 || _force > 0) then {
 	"MISSION COMPLETE - ITEMS REWARDED:" remoteExec ["systemChat",0];
 };
 //-----------------------------------
@@ -34,6 +35,14 @@ if (_scrap > 0) then {
 	NATresScrap = NATresScrap + _scrap;
 	publicVariable "NATresScrap";
 	_message = format["SCRAP: %1",_scrap];
+	_message remoteExec ["systemChat",0];
+	true remoteExec ["showChat"];
+};
+//-----------------------------------
+if (_force > 0) then {
+	NATmilitaryForcePower = NATmilitaryForcePower + _force;
+	publicVariable "NATmilitaryForcePower";
+	_message = format["FORCE POWER: +%1",_force];
 	_message remoteExec ["systemChat",0];
 	true remoteExec ["showChat"];
 };

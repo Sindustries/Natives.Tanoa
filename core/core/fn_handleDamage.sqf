@@ -17,16 +17,16 @@ player addEventHandler ["handleDamage",{
 	_projectile = _this select 4;
 	_selections = ["head","body","arms","legs"];
 
-	systemChat format["handleDamage :: RAW: %1",_passedDamage];
-
-	_return = ((_passedDamage/4)*(player getVariable ["NATneedsDamageModif",1]));
-
-	systemChat format["handleDamage :: WITH MODIFIER: %1",_return];
+	if (!(_selection in _selections)) then {
+		_return = 0;
+	} else {
+		_return = ((_passedDamage/4)*(player getVariable ["NATneedsDamageModif",1]));
+		if (DebugMode) then {
+			systemChat format["handleDamage :: HIT: %1 | RAW: %2 | MODIFIER: %3",_selection,_passedDamage,_return];
+		};
+	};
 
 	if (DebugMode) then {
-		_return = 0;
-	};
-	if (!(_selection in _selections)) then {
 		_return = 0;
 	};
 

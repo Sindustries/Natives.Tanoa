@@ -685,9 +685,9 @@ class RscListBox
 	  color[] = {1,1,1,0.6};
 	  colorActive[] = {1,1,1,1};
 	  colorDisabled[] = {1,1,1,0.3};
-	  thumb = "#(argb,8,8,3)color(1,1,1,1)";
-	  arrowEmpty = "#(argb,8,8,3)color(1,1,1,1)";
-	  arrowFull = "#(argb,8,8,3)color(1,1,1,1)";
+	  thumb = "#(argb,8,8,3)color(0,0,0,0.75)";
+	  arrowEmpty = "#(argb,8,8,3)color(0,0,0,0.75)";
+	  arrowFull = "#(argb,8,8,3)color(1,1,1,0.6)";
 	  border = "#(argb,8,8,3)color(1,1,1,1)";
 	  shadow = 0;
 	 };
@@ -1129,7 +1129,8 @@ class IGUIBack
 		"(profilenamespace getvariable ['IGUI_BCG_RGB_R',0])",
 		"(profilenamespace getvariable ['IGUI_BCG_RGB_G',1])",
 		"(profilenamespace getvariable ['IGUI_BCG_RGB_B',1])",
-		"(profilenamespace getvariable ['IGUI_BCG_RGB_A',0.8])"
+		/*"(profilenamespace getvariable ['IGUI_BCG_RGB_A',1])"*/
+		1
 	};
 };
 class RscCheckBox

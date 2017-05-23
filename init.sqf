@@ -11,6 +11,7 @@ publicVariable "NAT_serverReady";
 waitUntil {isPlayer player};
 enableSaving [false, false];
 //enableSentences false;
+0 fadeSound 0;
 enableEnvironment false;
 player enableSimulation false;
 player enableStamina false;
@@ -148,7 +149,7 @@ NATzombieSkills = [
 //-SET TIME OF DAY						setDate [year, month, day, hour, minute]
 if (isServer) then {
 	_date = numberToDate [(2015+floor(random 20)),random 1];
-	setDate [(_date select 0),(_date select 1),(_date select 2),0,0];
+	setDate [(_date select 0),(_date select 1),(_date select 2),4,0];
 	sleep 3;
 	if (["NATweatherOvercast"] call NAT_fnc_getSetting isEqualTo 1) then {
 		0 setOvercast (random 1);
@@ -178,7 +179,7 @@ if (isServer) then {
 waitUntil {NAT_serverReady isEqualTo true};
 cutText ["", "BLACK FADED", 999];
 //-----------------------------------
-setViewDistance 3000;
+setViewDistance (["NATviewDistance"] call NAT_fnc_getSetting);
 _viewDist = ["NATviewDistance"] call NAT_fnc_getSetting;
 setObjectViewDistance [_viewDist,(_viewDist/10)];
 NAT_safeZones = [];
@@ -242,18 +243,6 @@ if (isServer) then {
 ("NATHUDpBar" call BIS_fnc_rscLayer) cutText ["","PLAIN"];
 cutText ["", "BLACK FADED", 999];
 //-----------------------------------
-//-CUSTOM KEYS AND ADDACTIONS
-[] spawn {
-	waitUntil {!isNull (findDisplay 46)};
-	private "_keyHandler";
-	_keyHandler = (findDisplay 46) displayAddEventHandler ["KeyDown", {
-		[_this select 0,_this select 1,_this select 2,_this select 3,_this select 4] call NAT_fnc_keyHandler;
-	}];
-};
-[] call NAT_fnc_eventHandlers;
-//-----------------------------------
-[] call NAT_fnc_fuelStation;
-//-----------------------------------
 //-PLAYER VARIABLES
 player setUnitRank "LIEUTENANT";
 player setVariable ["NATspawned",false,true];
@@ -264,6 +253,8 @@ cutText ["PRELOADING \n RANDOMISING GEAR", "BLACK FADED", 999];
 player setVariable ["NAT_vInv",[["zk_f_canteen",1],["sc_mre",2]],true];
 [player,"military",true] call NAT_fnc_equip;
 //-----------------------------------
+[] call NAT_fnc_eventHandlers;
+[] call NAT_fnc_fuelStation;
 [] spawn NAT_fnc_dynObjMonitor;
 [] spawn NAT_fnc_mineDetector;
 [] call NAT_fnc_handleDamage;
@@ -359,9 +350,16 @@ enableEnvironment true;
 player enableSimulation true;
 player enableStamina true;
 cutText ["", "BLACK IN", 10];
+10 fadeSound 1;
+[] spawn {
+	waitUntil {!isNull (findDisplay 46)};
+	private "_keyHandler";
+	_keyHandler = (findDisplay 46) displayAddEventHandler ["KeyDown", {
+		[_this select 0,_this select 1,_this select 2,_this select 3,_this select 4] call NAT_fnc_keyHandler;
+	}];
+};
 //-----------------------------------
 waitUntil {isTouchingGround player};
-setViewDistance (["NATviewDistance"] call NAT_fnc_getSetting);
 [] spawn NAT_fnc_locationDisplay;
 [] spawn NAT_fnc_radObject;
 [] spawn NAT_fnc_radLocation;
@@ -375,4 +373,4 @@ if (isServer) then {
 };
 //-----------------------------------
 sleep 30;
-["NATnotification",["HINT","PRESS F1 TO OPEN YOUR STATUS MENU","i"]] call bis_fnc_showNotification;
+["NATnotification",["HINT","PRESS SHIFT+WINDOWS KEY TO OPEN YOUR STATUS MENU","i"]] call bis_fnc_showNotification;

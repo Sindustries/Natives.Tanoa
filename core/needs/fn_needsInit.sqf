@@ -7,6 +7,8 @@
 */
 private [];
 
+NATHUD = false;
+
 NATneedsHealthTime = (["NATneedsHealthTime"] call NAT_fnc_getSetting);
 NATneedsHungerTime = ((["NATneedsHungerTime"] call NAT_fnc_getSetting)*60*60);
 NATneedsThirstTime = ((["NATneedsThirstTime"] call NAT_fnc_getSetting)*60*60);
@@ -34,6 +36,11 @@ player setVariable ["NATneedsHungerMult",1];
 player setVariable ["NATneedsThirstMult",1];
 player setVariable ["NATneedsSleepMult",1];
 player setVariable ["NATneedsRadiationMult",1];
+NATneedsHealthPerc = 0;
+NATneedsHungerPerc = 0;
+NATneedsThirstPerc = 0;
+NATneedsSleepPerc = 0;
+NATneedsRadiationPerc = 0;
 //-----------------------------------
 //-MODIFIERS
 player setVariable ["NATneedsHealthy",false];
@@ -49,5 +56,8 @@ player setVariable ["NATneedsRadiationLevel",0];
 [_thirstTime,_thirstVar] spawn NAT_fnc_needsThirst;
 [_sleepTime,_sleepVar] spawn NAT_fnc_needsSleep;
 [_radTime,_radVar] spawn NAT_fnc_needsRadiation;
-//[] spawn NAT_fnc_needsSickness;
+[] spawn {
+	waitUntil {(player getVariable "NATspawned") isEqualTo true};
+	[] spawn NAT_fnc_needsHUD;
+};
 //-----------------------------------

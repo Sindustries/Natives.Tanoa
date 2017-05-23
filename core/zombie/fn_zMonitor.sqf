@@ -3,32 +3,26 @@
 	Author: Sinbane
 	Monitors player distance to spawners and spawns zombies if they get close enough
 */
-private ["_zIndex","_index","_toDelete"];
+private [];
 //-----------------------------------
-
 
 sleep 10;
 
-/* GET PLAYER POSITIONS */
-_playerPosArray = [];
-{
-	if (isPlayer _x && alive _x) then {
-		_playerPosArray pushBack (getPos _x);
-	};
-} forEach playableUnits;
 /* CHECK DISTANCES */
 {
-	for "_i" from 0 to ((count _playerPosArray)-1) do {
-		if (_x distance (_playerPosArray select _i) <= 300 && !(_x in NAT_usedSpawnerArray) && (random 100) < NAT_zSpawnChance) then {
-			[_x,floor(random 7)] call Z_fnc_spawnZombies;
-			NAT_usedSpawnerArray pushBack _x;
-		};
-		if (_x distance (_playerPosArray select _i) > 1000 && _x in NAT_usedSpawnerArray) then {
-			NAT_usedSpawnerArray = NAT_usedSpawnerArray - _x;
+	_spawner = _x;
+	_military = {alive _x && side _x isEqualTo WEST && _x distance2D _spawner < NAT_zSpawnDist} count allUnits;
+	_militia = {alive _x && side _x isEqualTo EAST && _x distance2D _spawner < NAT_zSpawnDist} count allUnits;
+
+	if (_military > 0 || _militia > 0) then {
+		if ((random 100) < NAT_zSpawnChance) then {
+			[_spawner,floor(random 7)] call Z_fnc_spawnZombies;
+			NAT_zSpawnerArray set [_forEachIndex,objNull];
 		};
 	};
 	sleep 0.001;
 } forEach NAT_zSpawnerArray;
+NAT_zSpawnerArray = NAT_zSpawnerArray - [objNull];
 
 [] spawn Z_fnc_zMonitor;
 //-----------------------------------	AmovPercMstpSnonWnonDnon_SaluteIn

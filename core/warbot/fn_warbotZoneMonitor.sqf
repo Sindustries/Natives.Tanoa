@@ -17,7 +17,6 @@ sleep 30;
 
 //CIVILIAN CHECK
 if (count NATcivilianZones > 0) then {
-	_toRemove = [];
 	{
 		_zoneName = (_x select 0);
 		_zonePos = (_x select 1);
@@ -28,54 +27,35 @@ if (count NATcivilianZones > 0) then {
 		_native = {alive _x && side _x isEqualTo RESISTANCE && _x distance2D _zonePos < _zoneSize} count allUnits;
 
 		if (_military > _militia && _military > _native) then {
-			//NATcivilianZones deleteAt _forEachIndex;
-			_toRemove pushBackUnique _x;
+			NATcivilianZones set [_forEachIndex,objNull];
 			NATmilitaryZones pushBackUnique _x;
 			_marker setMarkerColor "ColorWEST";
 			_marker setMarkerAlpha 0.5;
-			[_zoneName,"Military"] remoteExec ["zoneUpdateMsg",0];
-			if (count NATmilitaryCamps > 0) then {
-				[_zonePos,_zoneSize,west,"military"] call NAT_fnc_createZonePatrol;
-			};
+			[_x,WEST] call NAT_fnc_createZonePatrol;
 		};
 		if (_militia > _military && _militia > _native) then {
-			//NATcivilianZones deleteAt _forEachIndex;
-			_toRemove pushBackUnique _x;
+			NATcivilianZones set [_forEachIndex,objNull];
 			NATmilitiaZones pushBackUnique _x;
 			_marker setMarkerColor "ColorEAST";
 			_marker setMarkerAlpha 0.5;
-			[_zoneName,"Militia"] remoteExec ["zoneUpdateMsg",0];
-			if (count NATmilitiaCamps > 0) then {
-				[_zonePos,_zoneSize,east,"militia"] call NAT_fnc_createZonePatrol;
-			};
 		};
 		if (_native > _military && _native > _militia) then {
-			//NATcivilianZones deleteAt _forEachIndex;
-			_toRemove pushBackUnique _x;
+			NATcivilianZones set [_forEachIndex,objNull];
 			NATnativeZones pushBackUnique _x;
 			_marker setMarkerColor "ColorGUER";
 			_marker setMarkerAlpha 0.5;
-			[_zoneName,"Natives"] remoteExec ["zoneUpdateMsg",0];
-			if (count NATnativeCamps > 0) then {
-				[_zonePos,_zoneSize,resistance,"native"] call NAT_fnc_createZonePatrol;
-			};
 			//CREATE ZOMBIE SPAWNERS
-			for "_i" from 1 to floor(random (_zoneSize/20)) do {
-				_pos = [_zonePos,0,(_zoneSize*0.75),0] call SIN_fnc_findPos;
+			for "_i" from 0 to floor(random(_zoneSize/20)) do {
+				_pos = [_zonePos,0,_zoneSize,0] call SIN_fnc_findPos;
 				[_pos] call Z_fnc_setSpawn;
 			};
-			if (count NATnativeCamps > 0) then {
-				[_zonePos,_zoneSize,resistance,"native"] call NAT_fnc_createZonePatrol;
-			};
 		};
 		sleep 0.001;
-	} forEach NATcivilianZones;
-	NATcivilianZones = NATcivilianZones - _toRemove;
+	} foreach NATcivilianZones;
+	NATcivilianZones = NATcivilianZones - [objNull];
 };
-
 //MILITARY CHECK
 if (count NATmilitaryZones > 0) then {
-	_toRemove = [];
 	{
 		_zoneName = (_x select 0);
 		_zonePos = (_x select 1);
@@ -85,38 +65,29 @@ if (count NATmilitaryZones > 0) then {
 		_militia = {alive _x && side _x isEqualTo EAST && _x distance2D _zonePos < _zoneSize} count allUnits;
 		_native = {alive _x && side _x isEqualTo RESISTANCE && _x distance2D _zonePos < _zoneSize} count allUnits;
 
-		if (_military < _militia || _military < _native) then {
-			//NATmilitaryZones deleteAt _forEachIndex;
-			_toRemove pushBackUnique _x;
-			if (_militia > _native) then {
-				NATmilitiaZones pushBackUnique _x;
-				_marker setMarkerColor "ColorEAST";
-				[_zoneName,"Militia"] remoteExec ["zoneUpdateMsg",0];
-				if (count NATmilitiaCamps > 0) then {
-					[_zonePos,_zoneSize,east,"militia"] call NAT_fnc_createZonePatrol;
-				};
-			} else {
-				NATnativeZones pushBackUnique _x;
-				_marker setMarkerColor "ColorGUER";
-				[_zoneName,"Natives"] remoteExec ["zoneUpdateMsg",0];
-				//CREATE ZOMBIE SPAWNERS
-				for "_i" from 1 to floor(random (_zoneSize/20)) do {
-					_pos = [_zonePos,0,(_zoneSize*0.75),0] call SIN_fnc_findPos;
-					[_pos] call Z_fnc_setSpawn;
-				};
-				if (count NATnativeCamps > 0) then {
-					[_zonePos,_zoneSize,resistance,"native"] call NAT_fnc_createZonePatrol;
-				};
+		if (_militia > _military && _militia > _native) then {
+			NATmilitaryZones set [_forEachIndex,objNull];
+			NATmilitiaZones pushBackUnique _x;
+			_marker setMarkerColor "ColorEAST";
+			_marker setMarkerAlpha 0.5;
+		};
+		if (_native > _military && _native > _militia) then {
+			NATmilitaryZones set [_forEachIndex,objNull];
+			NATnativeZones pushBackUnique _x;
+			_marker setMarkerColor "ColorGUER";
+			_marker setMarkerAlpha 0.5;
+			//CREATE ZOMBIE SPAWNERS
+			for "_i" from 0 to floor(random(_zoneSize/20)) do {
+				_pos = [_zonePos,0,_zoneSize,0] call SIN_fnc_findPos;
+				[_pos] call Z_fnc_setSpawn;
 			};
 		};
 		sleep 0.001;
-	} forEach NATmilitaryZones;
-	NATmilitaryZones = NATmilitaryZones - _toRemove;
+	} foreach NATmilitaryZones;
+	NATmilitaryZones = NATmilitaryZones - [objNull];
 };
-
 //MILITIA CHECK
 if (count NATmilitiaZones > 0) then {
-	_toRemove = [];
 	{
 		_zoneName = (_x select 0);
 		_zonePos = (_x select 1);
@@ -126,38 +97,29 @@ if (count NATmilitiaZones > 0) then {
 		_militia = {alive _x && side _x isEqualTo EAST && _x distance2D _zonePos < _zoneSize} count allUnits;
 		_native = {alive _x && side _x isEqualTo RESISTANCE && _x distance2D _zonePos < _zoneSize} count allUnits;
 
-		if (_militia < _military || _militia < _native) then {
-			//NATmilitiaZones deleteAt _forEachIndex;
-			_toRemove pushBackUnique _x;
-			if (_military > _native) then {
-				NATmilitaryZones pushBackUnique _x;
-				_marker setMarkerColor "ColorWEST";
-				[_zoneName,"Military"] remoteExec ["zoneUpdateMsg",0];
-				if (count NATmilitaryCamps > 0) then {
-					[_zonePos,_zoneSize,west,"military"] call NAT_fnc_createZonePatrol;
-				};
-			} else {
-				NATnativeZones pushBackUnique _x;
-				_marker setMarkerColor "ColorGUER";
-				[_zoneName,"Natives"] remoteExec ["zoneUpdateMsg",0];
-				//CREATE ZOMBIE SPAWNERS
-				for "_i" from 1 to (random (_zoneSize/20)) do {
-					_pos = [_zonePos,0,(_zoneSize*0.75),0] call SIN_fnc_findPos;
-					[_pos] call Z_fnc_setSpawn;
-				};
-				if (count NATnativeCamps > 0) then {
-					[_zonePos,_zoneSize,resistance,"native"] call NAT_fnc_createZonePatrol;
-				};
+		if (_military > _militia && _military > _native) then {
+			NATmilitiaZones set [_forEachIndex,objNull];
+			NATmilitaryZones pushBackUnique _x;
+			_marker setMarkerColor "ColorWEST";
+			_marker setMarkerAlpha 0.5;
+		};
+		if (_native > _militia && _native > _military) then {
+			NATmilitiaZones set [_forEachIndex,objNull];
+			NATnativeZones pushBackUnique _x;
+			_marker setMarkerColor "ColorGUER";
+			_marker setMarkerAlpha 0.5;
+			//CREATE ZOMBIE SPAWNERS
+			for "_i" from 0 to floor(random(_zoneSize/20)) do {
+				_pos = [_zonePos,0,_zoneSize,0] call SIN_fnc_findPos;
+				[_pos] call Z_fnc_setSpawn;
 			};
 		};
 		sleep 0.001;
-	} forEach NATmilitiaZones;
-	NATmilitiaZones = NATmilitiaZones - _toRemove;
+	} foreach NATmilitiaZones;
+	NATmilitiaZones = NATmilitiaZones - [objNull];
 };
-
 //NATIVE CHECK
 if (count NATnativeZones > 0) then {
-	_toRemove = [];
 	{
 		_zoneName = (_x select 0);
 		_zonePos = (_x select 1);
@@ -167,37 +129,21 @@ if (count NATnativeZones > 0) then {
 		_militia = {alive _x && side _x isEqualTo EAST && _x distance2D _zonePos < _zoneSize} count allUnits;
 		_native = {alive _x && side _x isEqualTo RESISTANCE && _x distance2D _zonePos < _zoneSize} count allUnits;
 
-		if (_native < _military || _native < _militia) then {
-			//NATnativeZones deleteAt _forEachIndex;
-			_toRemove pushBackUnique _x;
-			if (_military > _militia) then {
-				NATmilitaryZones pushBackUnique _x;
-				_marker setMarkerColor "ColorWEST";
-				[_zoneName,"Military"] remoteExec ["zoneUpdateMsg",0];
-				if (count NATmilitaryCamps > 0) then {
-					[_zonePos,_zoneSize,west,"military"] call NAT_fnc_createZonePatrol;
-				};
-			} else {
-				NATmilitiaZones pushBackUnique _x;
-				_marker setMarkerColor "ColorEAST";
-				[_zoneName,"Militia"] remoteExec ["zoneUpdateMsg",0];
-				if (count NATmilitiaCamps > 0) then {
-					[_zonePos,_zoneSize,east,"militia"] call NAT_fnc_createZonePatrol;
-				};
-			};
-			//REMOVE ZOMBIE SPAWNERS
-			private "_zRemove";
-			_zRemove = [];
-			{
-				if (_x distance2D _zonePos <= _zoneSize) then {
-					_toRemove pushBack _x;
-				};
-			} forEach NAT_zSpawnerArray;
-			NAT_zSpawnerArray = NAT_zSpawnerArray - _zRemove;
+		if (_military > _native && _military > _militia) then {
+			NATnativeZones set [_forEachIndex,objNull];
+			NATmilitaryZones pushBackUnique _x;
+			_marker setMarkerColor "ColorWEST";
+			_marker setMarkerAlpha 0.5;
+		};
+		if (_militia > _military && _militia > _native) then {
+			NATnativeZones set [_forEachIndex,objNull];
+			NATmilitiaZones pushBackUnique _x;
+			_marker setMarkerColor "ColorEAST";
+			_marker setMarkerAlpha 0.5;
 		};
 		sleep 0.001;
-	} forEach NATnativeZones;
-	NATnativeZones = NATnativeZones - _toRemove;
+	} foreach NATnativeZones;
+	NATnativeZones = NATnativeZones - [objNull];
 };
 
 [] spawn NAT_fnc_warbotZoneMonitor;

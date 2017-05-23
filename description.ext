@@ -28,7 +28,8 @@ briefing = 0;
 enableDebugConsole = 1;
 
 //REVIVE
-ReviveMode = 1;                         //0: disabled, 1: enabled, 2: controlled by player attributes
+/*
+ReviveMode = 0;                         //0: disabled, 1: enabled, 2: controlled by player attributes
 ReviveUnconsciousStateMode = 0;         //0: basic, 1: advanced, 2: realistic
 ReviveRequiredTrait = 0;                //0: none, 1: medic trait is required
 ReviveRequiredItems = 2;                //0: none, 1: medkit, 2: medkit or first aid kit
@@ -36,7 +37,7 @@ ReviveRequiredItemsFakConsumed = 1;     //0: first aid kit is not consumed upon 
 ReviveDelay = 6;                        //time needed to revive someone (in secs)
 ReviveMedicSpeedMultiplier = 2;         //speed multiplier for revive performed by medic
 ReviveForceRespawnDelay = 60;            //time needed to perform force respawn (in secs)
-ReviveBleedOutDelay = 120;              //unconscious state duration (in secs)
+ReviveBleedOutDelay = 120;              //unconscious state duration (in secs)*/
 
 #include "cfgMaster.hpp"
 #include "params.hpp"
@@ -57,6 +58,7 @@ class RscTitles {
 	#include "GUI\equipment_prot.hpp"
 	#include "GUI\status.hpp"
 	#include "GUI\NATHUD_subs.hpp"
+	#include "GUI\NATHUD.hpp"
 
 	class Default
 	{

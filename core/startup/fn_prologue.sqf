@@ -9,7 +9,7 @@ params [
 
 _shorePos = [_pos,0,1000,0,0,1,1] call SIN_fnc_findPos;
 _target = createVehicle ["Land_HelipadEmpty_F", _shorePos, [], 0, "CAN_COLLIDE"];
-_startPos = [_shorePos,1000,3000,0,2] call SIN_fnc_findPos;
+_startPos = [_shorePos,1000,3000,100,2] call SIN_fnc_findPos;
 
 _veh = createVehicle ["I_C_Boat_Transport_02_F",_startPos,[],0,"NONE"];
 [
@@ -48,14 +48,6 @@ player moveInDriver _veh;
 
 player action ["engineOn", _veh];
 
-_task = player createSimpleTask ["Reach the island"];
-_task setSimpleTaskType "move";
-_task setSimpleTaskDescription ["Reach the island", "Reach the island", "Island"];
-_task setSimpleTaskDestination [(_shorePos select 0),(_shorePos select 1),0];
-_task setSimpleTaskAlwaysVisible true;
-_task setTaskState "Assigned";
-["TaskAssigned",["","Reach the island"]] call bis_fnc_showNotification;
-
 deleteVehicle _target;
 {
 	if (isPlayer _x) then {
@@ -65,11 +57,6 @@ deleteVehicle _target;
 		};
 	};
 } forEach playableUnits;
-
-waitUntil {sleep 3; vehicle player isEqualTo player && isTouchingGround player};
-
-_task setTaskState "Succeeded";
-["TaskSucceeded",["","Reach the island"]] call bis_fnc_showNotification;
 
 [_group] spawn NAT_fnc_act1;
 

@@ -55,33 +55,23 @@ _sleepBar progressSetPosition (1-(player getVariable ["NATneedsSleep",0]));
 _radBar progressSetPosition (1-(player getVariable ["NATneedsRadiation",0]));
 //-----------------------------------
 //-HEALTH
-_math = ((1-(damage player))*100);
-_math = [_math,0] call BIS_fnc_cutDecimals;
-_hpBar ctrlSetTooltip format ["%1%2",_math,"%"];
+_hpBar ctrlSetTooltip format ["%1%2",NATneedsHealthPerc,"%"];
 _hpIcon ctrlSetTooltip "HEALTH";
 //-----------------------------------
 //-HUNGER
-_math = ((1-(player getVariable ["NATneedsHunger",0]))*100);
-_math = [_math,0] call BIS_fnc_cutDecimals;
-_hungerBar ctrlSetTooltip format ["%1%2",_math,"%"];
+_hungerBar ctrlSetTooltip format ["%1%2",NATneedsHungerPerc,"%"];
 _hungerIcon ctrlSetTooltip "HUNGER";
 //-----------------------------------
 //-THIRST
-_math = ((1-(player getVariable ["NATneedsThirst",0]))*100);
-_math = [_math,0] call BIS_fnc_cutDecimals;
-_thirstBar ctrlSetTooltip format ["%1%2",_math,"%"];
+_thirstBar ctrlSetTooltip format ["%1%2",NATneedsThirstPerc,"%"];
 _thirstIcon ctrlSetTooltip "THIRST";
 //-----------------------------------
 //-SLEEP
-_math = ((1-(player getVariable ["NATneedsSleep",0]))*100);
-_math = [_math,0] call BIS_fnc_cutDecimals;
-_sleepBar ctrlSetTooltip format ["%1%2",_math,"%"];
+_sleepBar ctrlSetTooltip format ["%1%2",NATneedsSleepPerc,"%"];
 _sleepIcon ctrlSetTooltip "SLEEP";
 //-----------------------------------
 //-RADIATION
-_math = ((1-(player getVariable ["NATneedsRadiation",0]))*100);
-_math = [_math,0] call BIS_fnc_cutDecimals;
-_radBar ctrlSetTooltip format ["%1%2",_math,"%"];
+_radBar ctrlSetTooltip format ["%1%2",NATneedsRadiationPerc,"%"];
 _radIcon ctrlSetTooltip "RADIATION";
 //-----------------------------------
 //-GIVE LIST

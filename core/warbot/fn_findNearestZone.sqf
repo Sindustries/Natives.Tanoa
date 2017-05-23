@@ -15,32 +15,32 @@ _return = [0,0,0];
 //-----------------------------------
 switch (_type) do {
 	case "all": {
-		{_zonePosArray pushBack [(_x select 1),(_x select 2 select 0)]} forEach (NATmilitaryZones+NATmilitiaZones+NATnativeZones+NATcivilianZones);
+		{_zonePosArray pushBack _x} forEach (NATmilitaryZones+NATmilitiaZones+NATnativeZones+NATcivilianZones);
 	};
 	case "military": {
 		if (count NATmilitaryZones > 0) then {
-			{_zonePosArray pushBack [(_x select 1),(_x select 2 select 0)]} forEach NATmilitaryZones;
+			{_zonePosArray pushBack _x} forEach NATmilitaryZones;
 		};
 	};
 	case "militia": {
 		if (count NATmilitiaZones > 0) then {
-			{_zonePosArray pushBack [(_x select 1),(_x select 2 select 0)]} forEach NATmilitiaZones;
+			{_zonePosArray pushBack _x} forEach NATmilitiaZones;
 		};
 	};
 	case "native": {
 		if (count NATnativeZones > 0) then {
-			{_zonePosArray pushBack [(_x select 1),(_x select 2 select 0)]} forEach NATnativeZones;
+			{_zonePosArray pushBack _x} forEach NATnativeZones;
 		};
 	};
 	case "civilian": {
 		if (count NATcivilianZones > 0) then {
-			{_zonePosArray pushBack [(_x select 1),(_x select 2 select 0)]} forEach NATcivilianZones;
+			{_zonePosArray pushBack _x} forEach NATcivilianZones;
 		};
 	};
 };
 //-----------------------------------
 if (count _zonePosArray > 0) then {
-	_zonePosArray = [_zonePosArray,[],{_pos distance (_x select 0)},"ASCEND"] call BIS_fnc_sortBy;
+	_zonePosArray = [_zonePosArray,[],{_pos distance (_x select 1)},"ASCEND"] call BIS_fnc_sortBy;
 	_return = (_zonePosArray select 0);
 };
 //-----------------------------------

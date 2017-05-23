@@ -39,18 +39,10 @@ if (isServer) then {
 		[] spawn NAT_fnc_missionUpdater;
 	};
 	[] spawn {
-		waitUntil {sleep 3; count NATmilitaryCamps > 0 && count NATmilitiaCamps > 0 && count NATnativeCamps > 0};
-		_loc = (selectRandom NATmilitaryCamps);
-		_base = (_loc select 0);
-		[_base,[0,0,0],"military"] spawn NAT_fnc_warbotWave;
-
-		_loc = (selectRandom NATmilitiaCamps);
-		_base = (_loc select 0);
-		[_base,[0,0,0],"militia"] spawn NAT_fnc_warbotWave;
-
-		_loc = (selectRandom NATnativeCamps);
-		_base = (_loc select 0);
-		[_base,[0,0,0],"native"] spawn NAT_fnc_warbotWave;
+		waitUntil {sleep 3; count NATmilitaryCamps > 0 /*&& count NATmilitiaCamps > 0 && count NATnativeCamps > 0*/};
+		["military"] spawn NAT_fnc_warbotWave;
+		//["militia"] spawn NAT_fnc_warbotWave;
+		//["native"] spawn NAT_fnc_warbotWave;
 	};
 };
 

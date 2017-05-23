@@ -28,8 +28,16 @@ private ["_houseFound","_house","_buildingPositions"];
 _houseList = _pos nearObjects ["Building",_size];
 _houseFound = false;
 while {!_houseFound} do {
+	private "_toRemove";
 	_house = (selectRandom _houseList);
 	_buildingPositions = _house buildingPos -1;
+	_toRemove = [];
+	for "_i" from 0 to ((count _buildingPositions)-1) do {
+		if ((getPos _buildingPositions select _i select 2) > 5) then {
+			_toRemove pushBack (_buildingPositions select _i);
+		};
+	};
+	_buildingPositions = _buildingPositions - _toRemove;
 	if (count _buildingPositions >= _civCount) then {
 		_houseFound = true;
 	};
@@ -115,7 +123,7 @@ if ({alive _x} count _civs isEqualTo 0) exitWith {
 _missionTask setTaskState "Succeeded";
 ["TaskSucceeded",["","Rescue the civilians"]] call bis_fnc_showNotification;
 _alive = {alive _x} count _civs;
-[(floor(random 25)*_alive),(floor(random 25)*_alive),(floor(random 25)*_alive)] call NAT_fnc_missionReward;
+[(floor(random 25)*_alive),(floor(random 25)*_alive),(floor(random 25)*_alive),(floor(random 10)*_alive)] call NAT_fnc_missionReward;
 
 [_civs] spawn {
 	_civs = _this select 0;

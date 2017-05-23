@@ -80,3 +80,6 @@ if (_need in [2,4,6,8]) then {
 	};
 };
 //-----------------------------------
+if (NATHUD) then {
+	[] spawn NAT_fnc_needsHUD;
+};

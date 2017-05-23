@@ -51,6 +51,5 @@ if (count _skills > 0) then {
 };
 NATcache pushBack _unit;
 
-if (DebugMode) then {systemChat format["DEBUG MODE :: SPAWNED 1 UNIT AT %1",_spawnPos]; showChat true;};
 _unit;
 //-----------------------------------
