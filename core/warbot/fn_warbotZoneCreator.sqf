@@ -123,12 +123,13 @@ private [];
 [] spawn {
 	waitUntil {sleep 3; (player getVariable "NATspawned") isEqualTo true};
 	waitUntil {sleep 3; {isPlayer _x && isTouchingGround _x} count playableUnits isEqualTo playersNumber WEST};
-	private ["_numZones","_usedPosArray"];
+	private ["_numCamps","_usedPosArray","_maxDist"];
 	_usedPosArray = [];
-	_numZones = 3;
+	_numCamps = 1;
 	{
-		while {_numZones > 0} do {
-			_pos = [_x,0,10000,0] call SIN_fnc_findPos;
+		_maxDist = 200;
+		while {_numCamps > 0} do {
+			_pos = [_x,0,_maxDist,0] call SIN_fnc_findPos;
 			_campPos = [_pos] call NAT_fnc_findBasePos;
 			_distCheck = [_campPos,_usedPosArray,500] call SIN_fnc_checkDist;
 			_nearestZone = [_campPos,"all"] call NAT_fnc_findNearestZone;
@@ -151,10 +152,11 @@ private [];
 						_natFound = true;
 						[_campPos,"native","land"] call NAT_fnc_createBase;
 						_usedPosArray pushBack _campPos;
-						_numZones = _numZones - 1;
+						_numCamps = _numCamps - 1;
 					};
 				};
 			};
+			_maxDist = _maxDist + 200;
 		};
 	} forEach [[10854.7,8276.55,0.00131226],[3423.08,4966.47,-2.20204],[2855.07,12392,0.0020752]];
 	waitUntil {sleep 10; (count NATmilitaryCamps > 0)};
