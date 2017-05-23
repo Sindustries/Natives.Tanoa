@@ -17,6 +17,7 @@ _gasMaskClearBtn = _display displayCtrl 1604;
 
 _playerSelect = _display displayCtrl 2100;
 _itemList = _display displayCtrl 1500;
+_totalWeight = _display displayCtrl 1100;
 
 _gasMaskIcon = _display displayCtrl 1200;
 _hpIcon = _display displayCtrl 1201;
@@ -45,6 +46,7 @@ _modifier11 = _display displayCtrl 1216;
 _modifier12 = _display displayCtrl 1217;
 
 _vInv = (player getVariable ["NAT_vInv",[]]);
+_vInvWeight = (player getVariable ["NAT_vInvWeight",0]);
 
 //-----------------------------------
 //-STATUS BARS
@@ -119,6 +121,7 @@ if (lbSize _itemList < 1) then {
 		_x ctrlEnable true;
 	} forEach [_useBtn,_giveBtn,_dropBtn];
 };
+_totalWeight ctrlSetStructuredText parseText format ["<t align='center' size='0.9' font='PuristaMedium'>TOTAL WEIGHT: %1 %2</t>",(_vInvWeight+loadAbs player),NAT_maxWeight];
 //-----------------------------------
 //-GAS MASK DISPLAY
 private "_iconPath";
