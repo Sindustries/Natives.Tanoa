@@ -34,7 +34,7 @@ _sideBarBtn6 = _display displayCtrl 1609;
 _sideBarBtn7 = _display displayCtrl 1610;
 _closeBtn = _display displayCtrl 1602;
 
-_topTXT ctrlSetStructuredText parseText format["<t align='center'>BASE REQUESTER</t>"];
+_topTXT ctrlSetStructuredText parseText format["<t align='center' size='0.9' font='PuristaMedium'>>BASE REQUESTER</t>"];
 //-----------------------------------
 private ["_grpPlayers"];
 _grpPlayers = {!isPlayer _x && alive _x} count (units group player);
@@ -92,10 +92,10 @@ _foodIcon ctrlSetText "GUI\img\meat.paa";
 _waterIcon ctrlSetText "GUI\img\water.paa";
 _scrapIcon ctrlSetText "\scorch_invitems\images\scrap.paa";
 //_forceTXT  ctrlSetText "\A3\ui_f\data\igui\cfg\simpleTasks\types\attack_ca.paa";		Centered Text
-_foodTXT ctrlSetStructuredText parseText format["<t align='center'>%1</t>",NATresFood];
-_waterTXT ctrlSetStructuredText parseText format["<t align='center'>%1</t>",NATresWater];
-_scrapTXT ctrlSetStructuredText parseText format["<t align='center'>%1</t>",NATresScrap];
-_forceTXT ctrlSetStructuredText parseText format["<t align='center'>FORCE POWER: %1</t>",NATmilitaryForcePower];
+_foodTXT ctrlSetStructuredText parseText format["<t align='center' size='0.9' font='PuristaMedium'>>%1</t>",NATresFood];
+_waterTXT ctrlSetStructuredText parseText format["<t align='center' size='0.9' font='PuristaMedium'>>%1</t>",NATresWater];
+_scrapTXT ctrlSetStructuredText parseText format["<t align='center' size='0.9' font='PuristaMedium'>>%1</t>",NATresScrap];
+_forceTXT ctrlSetStructuredText parseText format["<t align='center' size='0.9' font='PuristaMedium'>>FORCE POWER: %1</t>",NATmilitaryForcePower];
 //-----------------------------------
 /* MISSIONS BUTTON */
 _sideBarBtn1 ctrlSetText "MISSIONS";
