@@ -33,12 +33,12 @@ switch (_side) do {
 //-----------------------------------
 _group = createGroup _side;
 private ["_spawnPos","_maxDist"];
-_maxDist = 20;
+_maxDist = 100;
 for "_i" from 1 to _count do {
 	_spawnPos = _pos;
 	while {surfaceIsWater _spawnPos} do {
 		_spawnPos = [_pos,0,_maxDist,4] call SIN_fnc_findPos;
-		_maxDist = _maxDist + 20;
+		_maxDist = _maxDist + 25;
 	};
 	_unit = _group createUnit [_class, _spawnPos, [], _maxDist, "NONE"];
 	[_unit,_type,true] call NAT_fnc_equip;
