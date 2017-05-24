@@ -27,8 +27,10 @@ TASK_Contact1 setSimpleTaskAlwaysVisible true;
 for "_i" from 1 to 4 do {
 	_pos = [_locPos,0,100] call SIN_fnc_findPos;
 	_group = [_pos,resistance,"native",3,0.1] call NAT_fnc_createGroup;
+	[_group] remoteExec ["NAT_fnc_pinMarker",0];
 	[_group,_locPos,"SAD","RED","AWARE"] call NAT_fnc_createWaypoint;
 	_group = [_pos,6] call Z_fnc_spawnZombies;
+	[_group] remoteExec ["NAT_fnc_pinMarker",0];
 };
 
 waitUntil {sleep 2; vehicle player isEqualTo player && isTouchingGround player};
