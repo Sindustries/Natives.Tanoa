@@ -3,7 +3,7 @@
 	Author: Sinbane
 */
 private ["_spawnPos","_locPos","_size"];
-_groupMil = _this select 0;
+_groupMil = (group player);
 //-----------------------------------
 //-FIND CLOSEST LOCATION
 
@@ -24,13 +24,16 @@ TASK_Contact1 setTaskState "Assigned";
 TASK_Contact1 setSimpleTaskAlwaysVisible true;
 ["TaskAssigned",["","Investigate the nearby settlement"]] call bis_fnc_showNotification;
 
+for "_i" from 1 to 8 do {
+	[_locPos,(_size select 0)] call Z_fnc_setSpawn;
+};
 for "_i" from 1 to 4 do {
 	_pos = [_locPos,0,100] call SIN_fnc_findPos;
-	_group = [_pos,resistance,"native",3,0.1] call NAT_fnc_createGroup;
-	[_group] remoteExec ["NAT_fnc_pinMarker",0];
+	_group = [_pos,resistance,"native",5] call NAT_fnc_createGroup;
+	[_group,[(_locPos select 0),(_locPos select 1),0],(_size select 0),2,true] call CBA_fnc_taskDefend;
+	_pos = [_locPos,(_size select 0),(_size select 0)+200] call SIN_fnc_findPos;
+	_group = [_pos,east,"militia",2] call NAT_fnc_createGroup;
 	[_group,_locPos,"SAD","RED","AWARE"] call NAT_fnc_createWaypoint;
-	_group = [_pos,6] call Z_fnc_spawnZombies;
-	[_group] remoteExec ["NAT_fnc_pinMarker",0];
 };
 
 waitUntil {sleep 2; vehicle player isEqualTo player && isTouchingGround player};
@@ -52,7 +55,7 @@ TASK_Contact1 setTaskState "Succeeded";
 _groupMil setFormation "STAG COLUMN";
 
 //-----------------------------------
-//-PART 2 - DEFEAT THE NATIVES & ZOMBIES
+//-PART 2 - DEFEAT THE MILITIA, NATIVES & ZOMBIES
 
 TASK_Contact3 = player createSimpleTask ["Sweep the town"];
 TASK_Contact3 setSimpleTaskType "kill";
@@ -64,7 +67,7 @@ TASK_Contact3 setTaskState "Assigned";
 [_groupMil] call NAT_fnc_clearWaypoints;
 _groupMil setBehaviour "COMBAT";
 
-waitUntil {sleep 1; {alive _x && side _x isEqualTo RESISTANCE && _x distance2D _locPos < 400} count allUnits < {alive _x && side _x isEqualTo WEST && _x distance2D _locPos < 400} count allUnits};
+waitUntil {sleep 1; {alive _x && side _x isEqualTo RESISTANCE && _x distance2D _locPos < (_size select 0)} count allUnits < 2 && {alive _x && side _x isEqualTo EAST && _x distance2D _locPos < (_size select 0)} count allUnits < 2};
 TASK_Contact3 setTaskState "Succeeded";
 ["TaskSucceeded",["","Clear the town"]] call bis_fnc_showNotification;
 
@@ -98,17 +101,12 @@ TASK_Contact4 setTaskState "Succeeded";
 ["NATnotification",["HINT","PRESS WINDOWS KEY TO OPEN THE BASE MENU","i"]] call bis_fnc_showNotification;
 
 {
-	if (isPlayer _x && alive _x) then {
-		[_x] join grpNull;
-	};
-} forEach playableUnits;
-{
+	unassignVehicle _x;
 	if (vehicle _x != _x) then {
-		unassignVehicle _x;
 		doGetOut _x;
 	};
 } forEach (units _groupMil);
 [_groupMil] call NAT_fnc_clearWaypoints;
 
-[_campPos,_groupMil] spawn NAT_fnc_act2;
+[_campPos] spawn NAT_fnc_act2;
 //-----------------------------------
