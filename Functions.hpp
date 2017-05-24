@@ -52,6 +52,7 @@ class NAT_Core {
 	class gear {
 		file = "core\gear";
 		class equip {};
+		class gearInit {};
 		class unequip {};
 	};
 	class inventory {
@@ -90,6 +91,7 @@ class NAT_Core {
 	};
 	class startup {
 		file = "core\startup";
+		class init {};
 		class act1 {};
 		class act2 {};
 		class eventHandlers {};
