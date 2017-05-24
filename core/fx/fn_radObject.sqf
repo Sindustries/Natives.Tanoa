@@ -22,7 +22,7 @@ while {alive player} do {
 				};
 				if ((headgear player) in NATgasMasks || (goggles player) in NATgasMasks || (typeOf vehicle player) in NATsealedVehicles) then {sleep 4} else {
 					[player,[(selectRandom _cough),20]] remoteExec ["say3D", 0];
-					[7,1,(random 0.005)] call NAT_fnc_needsUpdate;
+					[7,1,(random 0.025)] call NAT_fnc_needsUpdate;
 					sleep 4;
 				};
 			};
