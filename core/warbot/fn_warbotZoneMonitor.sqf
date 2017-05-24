@@ -106,7 +106,7 @@ if (count NATcivilianZones > 0) then {
 			//CREATE ZOMBIE SPAWNERS
 			for "_i" from 0 to floor(random(_zoneSize/20)) do {
 				_pos = [_zonePos,0,_zoneSize,0] call SIN_fnc_findPos;
-				[_pos] call Z_fnc_setSpawn;
+				[_pos,_zoneSize] call Z_fnc_setSpawn;
 			};
 		};
 		sleep 0.001;
@@ -144,7 +144,7 @@ if (count NATmilitaryZones > 0) then {
 			//CREATE ZOMBIE SPAWNERS
 			for "_i" from 0 to floor(random(_zoneSize/20)) do {
 				_pos = [_zonePos,0,_zoneSize,0] call SIN_fnc_findPos;
-				[_pos] call Z_fnc_setSpawn;
+				[_pos,_zoneSize] call Z_fnc_setSpawn;
 			};
 		};
 		sleep 0.001;
@@ -182,7 +182,7 @@ if (count NATmilitiaZones > 0) then {
 			//CREATE ZOMBIE SPAWNERS
 			for "_i" from 0 to floor(random(_zoneSize/20)) do {
 				_pos = [_zonePos,0,_zoneSize,0] call SIN_fnc_findPos;
-				[_pos] call Z_fnc_setSpawn;
+				[_pos,_zoneSize] call Z_fnc_setSpawn;
 			};
 		};
 		sleep 0.001;

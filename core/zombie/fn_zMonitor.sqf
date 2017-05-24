@@ -16,7 +16,7 @@ sleep 10;
 
 	if (_military > 0 || _militia > 0) then {
 		if ((random 100) < NAT_zSpawnChance) then {
-			[_spawner,floor(random 7)] call Z_fnc_spawnZombies;
+			[_spawner,floor(random (NAT_zSpawnNum+1))] call Z_fnc_spawnZombies;
 			NAT_zSpawnerArray set [_forEachIndex,objNull];
 		};
 	};

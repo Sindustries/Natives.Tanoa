@@ -23,7 +23,9 @@ for "_zombieCount" from 1 to _maxNum do {
 	_zombie allowFleeing 0;
 	{_zombie setSkill [(_x select 0),(_x select 1)]} forEach NATzombieSkills;
 	NAT_zombieArray pushBack _zombie;
-	_zombie addBackpack (selectRandom NAT_nativeBackpacks);
+	if ((random 100) < 10) then {
+		_zombie addBackpack (selectRandom NAT_nativeBackpacks);
+	};
 	if ((random 100) < 25) then {
 		_zombie addHeadgear (selectRandom NAT_nativeHeadgear);
 	};
@@ -31,11 +33,9 @@ for "_zombieCount" from 1 to _maxNum do {
 		_zombie addGoggles (selectRandom NAT_nativeGoggles);
 	};
 	if (!(isNil "NAT_nativeItems")) then {
-	for "_i" from 0 to (floor (random 3)) do {
+		for "_i" from 0 to (floor (random 3)) do {
 			_item = (selectRandom NAT_nativeItems);
-			if (_zombie isEqualTo player) then {
-				[_item,1,true] call NAT_fnc_vInvAdjust;
-			} else {
+			if (_zombie canAdd _item) then {
 				_zombie addItem _item;
 			};
 		};

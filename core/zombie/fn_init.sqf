@@ -9,6 +9,7 @@ private ["_cfg","_i","_cfgName","_counter","_temp","_exclusions"];
 ["Z"] call NAT_fnc_getSettings;
 NAT_zSpawnChance = ["NAT_zSpawnChance"] call NAT_fnc_getSetting;
 NAT_zSpawnDist = ["NAT_zSpawnDistance"] call NAT_fnc_getSetting;
+NAT_zSpawnNum = ["NAT_zSpawnNum"] call NAT_fnc_getSetting;
 
 NAT_zSpawnerArray = [];
 NAT_usedSpawnerArray = [];

@@ -22,9 +22,7 @@ NATmission = true;
 _zombies = [];
 for "_i" from 0 to floor(random 10) do {
 	_zPos = [_pos,0,_size,0] call SIN_fnc_findPos;
-	_group = [_zPos,4] call Z_fnc_spawnZombies;
-	[_group] remoteExec ["NAT_fnc_pinMarker",0];
-	{_zombies pushBackUnique _x} forEach (units _group);
+	[zPos,_size] call Z_fnc_setSpawn;
 };
 
 //-----------------------------------
@@ -39,7 +37,7 @@ _missionTask setTaskState "Assigned";
 
 //-----------------------------------
 
-waitUntil {sleep 6; {alive _x && side _x isEqualTo resistance && _x distance2D _pos <= _size} count _zombies isEqualTo 0};
+waitUntil {sleep 6; {alive _x && side _x isEqualTo resistance && _x distance2D _pos <= _size} count _zombies isEqualTo 0 && {_x distance2D _pos <= _size} count NAT_zSpawnerArray isEqualTo 0};
 
 _missionTask setTaskState "Succeeded";
 ["TaskSucceeded",["","Cleanse the town"]] call bis_fnc_showNotification;
