@@ -46,6 +46,7 @@ ReviveBleedOutDelay = 120;              //unconscious state duration (in secs)*/
 #include "GUI\defines.hpp"
 #include "SINadmin\SIN_admin.hpp"
 #include "GUI\NATHUDinv.hpp"
+#include "GUI\HATHUDcraft.hpp"
 #include "GUI\NATbaseMenu.hpp"
 #include "GUI\NATinteract.hpp"
 
@@ -54,12 +55,6 @@ class CfgFunctions {
 };
 
 class RscTitles {
-
-	#include "GUI\equipment_prot.hpp"
-	#include "GUI\status.hpp"
-	#include "GUI\NATHUD_subs.hpp"
-	#include "GUI\NATHUD.hpp"
-
 	class Default
 	{
 		idd = -1;
@@ -67,6 +62,10 @@ class RscTitles {
 		fadeout = 0;
 		duration = 0;
 	};
+	#include "GUI\equipment_prot.hpp"
+	#include "GUI\status.hpp"
+	#include "GUI\NATHUD_subs.hpp"
+	#include "GUI\NATHUD.hpp"
 };
 
 class CfgNotifications		//["NATnotification",["HINT","YA PLEB"]] call bis_fnc_showNotification;

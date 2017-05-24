@@ -127,6 +127,21 @@ $[
 ]
 */
 
+/* #Nepoty
+$[
+	1.063,
+	["NATcraft",[[0,0,1,1],0.025,0.04,"GUI_GRID"],0,0,0],
+	[2200,"NATcraftBG",[1,"",["0.324688 * safezoneW + safezoneX","0.247 * safezoneH + safezoneY","0.350625 * safezoneW","0.462 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1800,"NATcraftFRM",[1,"",["0.324687 * safezoneW + safezoneX","0.247 * safezoneH + safezoneY","0.350625 * safezoneW","0.462 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[2100,"NATcraftCATEGORYselect",[1,"",["0.335 * safezoneW + safezoneX","0.258 * safezoneH + safezoneY","0.134062 * safezoneW","0.022 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1200,"NATcraftICON",[1,"#(argb,8,8,3)color(1,1,1,0)",["0.335 * safezoneW + safezoneX","0.412 * safezoneH + safezoneY","0.134062 * safezoneW","0.286 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1500,"NATcraftITEMselect",[1,"FIRE PLACE",["0.335 * safezoneW + safezoneX","0.291 * safezoneH + safezoneY","0.134062 * safezoneW","0.11 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1600,"NATcraftCRAFTbtn",[1,"CRAFT",["0.479375 * safezoneW + safezoneX","0.258 * safezoneH + safezoneY","0.108281 * safezoneW","0.022 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1601,"NATcraftCLOSEbtn",[1,"CLOSE",["0.592813 * safezoneW + safezoneX","0.258 * safezoneH + safezoneY","0.0721875 * safezoneW","0.022 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1100,"NATcraftINGREDIENTS",[1,"2 parts Rum,  3 parts coke, 1 part baileys",["0.479375 * safezoneW + safezoneX","0.291 * safezoneH + safezoneY","0.185625 * safezoneW","0.407 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]]
+]
+*/
+
 
 
 
