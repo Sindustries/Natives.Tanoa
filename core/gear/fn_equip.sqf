@@ -10,6 +10,7 @@ params [
 	["_wep",true]
 ];
 if (_unit isEqualTo objNull || _type isEqualTo "") exitWith {};	//[player,"military",true] call NAT_fnc_equip;
+[_unit] call NAT_fnc_unequip;
 //-----------------------------------
 switch (_type) do {
 	case "civ": {
