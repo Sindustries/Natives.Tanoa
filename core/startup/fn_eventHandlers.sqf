@@ -28,6 +28,12 @@ NATvItemTakeEH = player addEventHandler ["Take", {
         };
          [_item,1,true] call NAT_fnc_vInvAdjust;
     };
+     //CHECK WEIGHT
+    if ((loadAbs player + (player getVariable ["NAT_vInvWeight",0])) >= NAT_maxWeight) then {
+        player forceWalk true;
+    } else {
+        player forceWalk false;
+    };
 }];
 
 {
@@ -50,6 +56,12 @@ NATvItemTakeEH = player addEventHandler ["Take", {
                  [_x,1,true] call NAT_fnc_vInvAdjust;
             };
         } forEach (uniformItems player+vestItems player+backpackItems player+assignedItems player);
+        //CHECK WEIGHT
+        if ((loadAbs player + (player getVariable ["NAT_vInvWeight",0])) >= NAT_maxWeight) then {
+            player forceWalk true;
+        } else {
+            player forceWalk false;
+        };
     }];
 } forEach ["InventoryOpened","InventoryClosed"];
 
