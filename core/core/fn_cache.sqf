@@ -45,7 +45,7 @@ while {true} do {
 			for "_i" from 0 to ((count _playerPosArray)-1) do {
 				/* UNITS */
 				if ((typeOf _x) isKindOf ["Man", configFile >> "CfgVehicles"]) then {
-					if (_x distance (_playerPosArray select _i) > _cacheDist && _x != (leader _x) && !((group _x) in _playerGroups)) then {
+					if (_x distance (_playerPosArray select _i) > _cacheDist && _x != (leader _x) && !((group _x) in _playerGroups) && (_x getVariable "NATcache") isEqualTo false) then {
 						if (alive _x) then {
 							_x hideObjectGlobal true;
 							_x enableSimulationGlobal false;
@@ -61,7 +61,7 @@ while {true} do {
 							};
 						};
 					};
-					if (_x distance (_playerPosArray select _i) <= _cacheDist && _x != (leader _x) && !((group _x) in _playerGroups)) then {
+					if (_x distance (_playerPosArray select _i) <= _cacheDist && _x != (leader _x) && !((group _x) in _playerGroups) && (_x getVariable "NATcache") isEqualTo true) then {
 						_x hideObjectGlobal false;
 						_x enableSimulationGlobal true;
 						_x enableAI "ALL";
@@ -79,7 +79,7 @@ while {true} do {
 				};
 				/* VEHICLES */
 				if ((typeOf _x) isKindOf ["Land", configFile >> "CfgVehicles"]) then {
-					if (_x distance (_playerPosArray select _i) > _cacheDist && (count crew _x) isEqualTo 0) then {
+					if (_x distance (_playerPosArray select _i) > _cacheDist && (count crew _x) isEqualTo 0 && (_x getVariable "NATcache") isEqualTo false) then {
 						if (alive _x) then {
 							_x hideObjectGlobal true;
 							_x enableSimulationGlobal false;
@@ -91,7 +91,7 @@ while {true} do {
 							};
 						};
 					};
-					if (_x distance (_playerPosArray select _i) <= _cacheDist && (count crew _x) isEqualTo 0) then {
+					if (_x distance (_playerPosArray select _i) <= _cacheDist && (count crew _x) isEqualTo 0 && (_x getVariable "NATcache") isEqualTo true) then {
 						_x hideObjectGlobal false;
 						_x enableSimulationGlobal true;
 						_x setVariable ["NATcache",false];
@@ -100,15 +100,15 @@ while {true} do {
 						};
 					};
 				};
-				/* WRECKS */
+				/* WRECKS & BUILDINGS */
 				if ((typeOf _x) isKindOf ["Building", configFile >> "CfgVehicles"]) then {
-					if (_x distance (_playerPosArray select _i) > _cacheDist && (count crew _x) isEqualTo 0) then {
+					if (_x distance (_playerPosArray select _i) > _cacheDist && (count crew _x) isEqualTo 0 && (_x getVariable "NATcache") isEqualTo false) then {
 						_x hideObjectGlobal true;
 						_x enableSimulationGlobal false;
 						_x setVariable ["NATcache",true];
 						_vehCached = _vehCached + 1;
 					};
-					if (_x distance (_playerPosArray select _i) <= _cacheDist && (count crew _x) isEqualTo 0) then {
+					if (_x distance (_playerPosArray select _i) <= _cacheDist && (count crew _x) isEqualTo 0 && (_x getVariable "NATcache") isEqualTo true) then {
 						_x hideObjectGlobal false;
 						_x enableSimulationGlobal true;
 						_x setVariable ["NATcache",false];
