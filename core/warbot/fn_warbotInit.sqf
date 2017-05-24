@@ -35,14 +35,7 @@ if (isServer) then {
 	[] call NAT_fnc_warbotZoneCreator;
 	[] spawn {
 		waitUntil {sleep 5; {isPlayer _x && isTouchingGround _x} count playableUnits isEqualTo playersNumber WEST};
-		[] spawn NAT_fnc_warbotZoneMonitor;
 		[] spawn NAT_fnc_missionUpdater;
-	};
-	[] spawn {
-		waitUntil {sleep 3; count NATmilitaryCamps > 0 /*&& count NATmilitiaCamps > 0 && count NATnativeCamps > 0*/};
-		["military"] spawn NAT_fnc_warbotWave;
-		//["militia"] spawn NAT_fnc_warbotWave;
-		//["native"] spawn NAT_fnc_warbotWave;
 	};
 };
 
