@@ -121,7 +121,8 @@ if (lbSize _itemList < 1) then {
 		_x ctrlEnable true;
 	} forEach [_useBtn,_giveBtn,_dropBtn];
 };
-_totalWeight ctrlSetStructuredText parseText format ["<t align='center' size='0.9' font='PuristaMedium'>TOTAL WEIGHT: %1 %2</t>",(_vInvWeight+loadAbs player),NAT_maxWeight];
+_math = (100-(((NAT_maxWeight-(_vInvWeight+loadAbs player))/NAT_maxWeight)*100));
+_totalWeight ctrlSetStructuredText parseText format ["<t align='center' size='0.9' font='PuristaMedium'>TOTAL LOAD: %1%2</t>",([_math,0] call BIS_fnc_cutDecimals),"%"];
 //-----------------------------------
 //-GAS MASK DISPLAY
 private "_iconPath";
