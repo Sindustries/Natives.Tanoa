@@ -95,6 +95,7 @@ _aMarker = createMarker [_aMarkername,_targetPos];
 _aMarker setMarkerShape "ICON";
 _aMarker setMarkerSize [0.75,0.75];
 _aMarker setMarkerAlpha 0;
+_aMarker setMarkerType "hd_end";
 
 switch (_faction) do {
 	case "military": {
@@ -111,7 +112,6 @@ switch (_faction) do {
 		_wp = [_targetPos,0,(_targetZone select 2 select 0)] call SIN_fnc_findPos;
 		[NATmilitaryForce,_wp,"SAD","RED"] call NAT_fnc_createWaypoint;
 		[(leader NATmilitaryForce),format["Moving to secure %1",(_targetZone select 0)]] remoteExec ["sideChat",0];
-		_aMarker setMarkerType "mil_objective";
 		_aMarker setMarkerColor "ColorWEST";
 		_aMarker setMarkerPos [(_targetPos select 0),(_targetPos select 1)+100];
 	};
@@ -128,7 +128,6 @@ switch (_faction) do {
 		[NATmilitiaForce] call NAT_fnc_clearWaypoints;
 		_wp = [_targetPos,0,(_targetZone select 2 select 0)] call SIN_fnc_findPos;
 		[NATmilitiaForce,_wp,"SAD","RED"] call NAT_fnc_createWaypoint;
-		_aMarker setMarkerType "mil_objective";
 		_aMarker setMarkerColor "ColorEAST";
 		_aMarker setMarkerPos [(_targetPos select 0)-100,(_targetPos select 1)];
 	};
@@ -145,7 +144,6 @@ switch (_faction) do {
 		[NATnativeForce] call NAT_fnc_clearWaypoints;
 		_wp = [_targetPos,0,(_targetZone select 2 select 0)] call SIN_fnc_findPos;
 		[NATnativeForce,_wp,"SAD","RED"] call NAT_fnc_createWaypoint;
-		_aMarker setMarkerType "mil_objective";
 		_aMarker setMarkerColor "ColorGUER";
 		_aMarker setMarkerPos [(_targetPos select 0)+100,(_targetPos select 1)];
 	};
@@ -162,7 +160,10 @@ switch (_faction) do {
 		if (count units NATmilitaryForce > 0) then {
 			[NATmilitaryForce] call NAT_fnc_clearWaypoints;
 			[NATmilitaryForce,[(_targetPos select 0),(_targetPos select 1),0],(10*count units NATmilitaryForce),2,true] call CBA_fnc_taskDefend;
+			_aMarker setMarkerType "hd_flag";
 			[(leader NATmilitaryForce),format["%1 is secure, holding here for a while.",(_targetZone select 0)]] remoteExec ["sideChat",0];
+		} else {
+			deleteMarker _aMarker;
 		};
 	};
 	case "militia": {
@@ -170,6 +171,9 @@ switch (_faction) do {
 		if (count units NATmilitiaForce > 0) then {
 			[NATmilitiaForce] call NAT_fnc_clearWaypoints;
 			[NATmilitiaForce,[(_targetPos select 0),(_targetPos select 1),0],(10*count units NATmilitiaForce),2,true] call CBA_fnc_taskDefend;
+			_aMarker setMarkerType "hd_flag";
+		} else {
+			deleteMarker _aMarker;
 		};
 	};
 	case "native": {
@@ -177,6 +181,9 @@ switch (_faction) do {
 		if (count units NATnativeForce > 0) then {
 			[NATnativeForce] call NAT_fnc_clearWaypoints;
 			[NATnativeForce,[(_targetPos select 0),(_targetPos select 1),0],(10*count units NATnativeForce),2,true] call CBA_fnc_taskDefend;
+			_aMarker setMarkerType "hd_flag";
+		} else {
+			deleteMarker _aMarker;
 		};
 	};
 };
@@ -209,23 +216,22 @@ waveRearm = {
 };
 switch (_faction) do {
 	case "military": {
-		if (count units NATmilitaryForce > 0) then {
+		if ({alive _x} count units NATmilitaryForce > 0) then {
 			{[_x] call waveRearm} forEach (units NATmilitaryForce);
 		};
 	};
 	case "militia": {
-		if (count units NATmilitiaForce > 0) then {
+		if ({alive _x} count units NATmilitiaForce > 0) then {
 			{[_x] call waveRearm} forEach (units NATmilitiaForce);
 		};
 	};
 	case "military": {
-		if (count units NATnativeForce > 0) then {
+		if ({alive _x} count units NATnativeForce > 0) then {
 			{[_x] call waveRearm} forEach (units NATnativeForce);
 		};
 	};
 };
 
 //-----------------------------------
-deleteMarker _aMarker;
 sleep ((1*60*60/timeMultiplier)+random(2*60*60/timeMultiplier));
 [_faction,_targetZone] spawn NAT_fnc_warbotWave;
