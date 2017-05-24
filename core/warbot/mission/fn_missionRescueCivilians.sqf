@@ -33,7 +33,7 @@ while {!_houseFound} do {
 	_buildingPositions = _house buildingPos -1;
 	_toRemove = [];
 	for "_i" from 0 to ((count _buildingPositions)-1) do {
-		if ((getPos _buildingPositions select _i select 2) > 5) then {
+		if ((_buildingPositions select _i select 2) > 5) then {
 			_toRemove pushBack (_buildingPositions select _i);
 		};
 	};
