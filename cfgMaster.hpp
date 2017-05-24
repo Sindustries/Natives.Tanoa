@@ -55,5 +55,6 @@ class NAT {
 
 class Z {
 	NAT_zSpawnChance = 75;			//Chance of a spawner spawning zombies (%)
+	NAT_zSpawnNum = 6;				//MAX number of zombies spawned per spawner
 	NAT_zSpawnDistance = 200;		//Distance (m) a unit must be to a spawner to trigger a spawn
 };
