@@ -108,7 +108,7 @@ private [];
 	NATnativeZones set [_forEachIndex,[(_x select 0),(_x select 1),(_x select 2),_zoneMarkerCircle]];
 	for "_i" from 1 to (random ((_x select 2 select 0)/20)) do {
 		_pos = [(_x select 1),0,((_x select 2 select 0)*0.75),0] call SIN_fnc_findPos;
-		[_pos] call Z_fnc_setSpawn;
+		[_pos,(_x select 2 select 0)] call Z_fnc_setSpawn;
 	};
 } forEach NATnativeZones;
 
@@ -131,7 +131,7 @@ private [];
 			while {_numCamps > 0} do {
 				_pos = [(_x select 0),0,(_x select 1),0] call SIN_fnc_findPos;
 				_campPos = [_pos] call NAT_fnc_findBasePos;
-				_distCheck = [_campPos,_usedPosArray,500] call SIN_fnc_checkDist;
+				_distCheck = [_campPos,_usedPosArray,((_x select 1)/10)] call SIN_fnc_checkDist;
 				_nearestZone = [_campPos,"all"] call NAT_fnc_findNearestZone;
 				if (count NATmilitiaCamps > 0) then {
 					_fail = 0;
@@ -161,7 +161,7 @@ private [];
 					while {!_natFound} do {
 						_natPos = [_campPos,0,(_x select 1),0] call SIN_fnc_findPos;
 						_natCampPos = [_natPos] call NAT_fnc_findBasePos;
-						_distCheck = [_natCampPos,_usedPosArray,500] call SIN_fnc_checkDist;
+						_distCheck = [_natCampPos,_usedPosArray,((_x select 1)/10)] call SIN_fnc_checkDist;
 						_nearestZone = [_natCampPos,"all"] call NAT_fnc_findNearestZone;
 						_sameZone = [_natCampPos,_campPos] call SIN_fnc_zoneCheck;
 						if (_distCheck && _natCampPos distance2D (_nearestZone select 1) >= (_nearestZone select 2 select 0) && _sameZone) then {
@@ -202,7 +202,6 @@ private [];
 	};
 	if (count NATmilitiaZones > 0) then {
 		{
-			if (DebugMode) then {systemChat format["DEBUG :: MILITIA ZONE CYCLE %1/%2",(_forEachIndex+1),(count NATmilitiaZones)]; showChat true};
 			_zonePos = (_x select 1);
 			_zoneSize = (_x select 2 select 0);
 			_group = [_zonePos,east,"militia",round(_zoneSize/50)] call NAT_fnc_createGroup;
@@ -211,19 +210,17 @@ private [];
 	};
 	if (count NATnativeZones > 0) then {
 		{
-			if (DebugMode) then {systemChat format["DEBUG :: NATIVE ZONE CYCLE %1/%2",(_forEachIndex+1),(count NATnativeZones)]; showChat true};
 			_zonePos = (_x select 1);
 			_zoneSize = (_x select 2 select 0);
 			_group = [_zonePos,resistance,"native",round(_zoneSize/50)] call NAT_fnc_createGroup;
 			[_group,_zonePos,(_zoneSize*0.75),round(_zoneSize/50),"MOVE","SAFE","YELLOW","FULL","STAG COLUMN"] call CBA_fnc_taskPatrol;
 		} forEach NATnativeZones;
 	};
-	if (DebugMode) then {systemChat format["DEBUG :: WAITING FOR +1 ALL - MILITARY COUNT: %1 | MILITIA COUNT: %2 | NATIVE COUNT: %3",(count NATmilitaryZones),(count NATmilitiaZones),(count NATnativeZones)]; showChat true};
 	waitUntil {sleep 3; count NATmilitaryCamps > 0 && count NATmilitiaCamps > 0 && count NATnativeCamps > 0};
 	[] spawn NAT_fnc_warbotZoneMonitor;
 	["military"] spawn NAT_fnc_warbotWave;
 	["militia"] spawn NAT_fnc_warbotWave;
 	["native"] spawn NAT_fnc_warbotWave;
-	if (DebugMode) then {systemChat "DEBUG :: WARBOT OPERATIONAL"; showChat true};
+	if (DebugMode) then {systemChat "DEBUG :: WARBOT ONLINE"; showChat true};
 };
 //-----------------------------------
