@@ -338,6 +338,7 @@ waitUntil {isTouchingGround player};
 [] spawn NAT_fnc_locationDisplay;
 [] spawn NAT_fnc_radObject;
 [] spawn NAT_fnc_radLocation;
+[] spawn {
 //-----------------------------------
 if (isServer) then {
 	[missionNamespace,NAT_militaryWeapons,true,false] call BIS_fnc_addVirtualWeaponCargo;
@@ -349,3 +350,4 @@ if (isServer) then {
 //-----------------------------------
 sleep 30;
 ["NATnotification",["HINT","PRESS SHIFT+WINDOWS KEY TO OPEN YOUR STATUS MENU","i"]] call bis_fnc_showNotification;
+};
