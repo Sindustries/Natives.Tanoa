@@ -46,9 +46,13 @@ switch (_item) do {
 	};
 	case "sc_dirty_water": {
 		_use = true;
-		[3,2,0.15] call NAT_fnc_needsUpdate;
-		[7,1,0.05] call NAT_fnc_needsUpdate;
-		["sc_empty_bottle",1,true] call NAT_fnc_vInvAdjust;
+		if (["zk_WaterPurificationTablets"] call NAT_fnc_vInvCheck) then {
+			["zk_waterbottle",1,true] call NAT_fnc_vInvAdjust;
+		} else {
+			[3,2,0.15] call NAT_fnc_needsUpdate;
+			[7,1,0.05] call NAT_fnc_needsUpdate;
+			["sc_empty_bottle",1,true] call NAT_fnc_vInvAdjust;
+		};
 	};
 	case "sc_coffee": {
 		_use = true;
