@@ -76,6 +76,7 @@ class NAT_Core {
 		class gasMaskAction {};
 		class refuelAction {};
 		class repairAction {};
+		class schematicAction {};
 	};
 	class needs {
 		file = "core\needs";
