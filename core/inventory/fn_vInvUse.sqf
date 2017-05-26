@@ -28,6 +28,9 @@ if (_item in NATvInvDrinkItems) then {
 if (_item in NATvInvCampItems) then {
 	_use = [_item] call NAT_fnc_campAction;
 };
+if (_item in NATvInvSchematicItems) then {
+	_use = [_item] call NAT_fnc_schematicAction;
+};
 //-----------------------------------
 //-REMOVE ITEM
 if (_use) then {

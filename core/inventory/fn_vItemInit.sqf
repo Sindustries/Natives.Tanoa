@@ -51,4 +51,10 @@ NATvInvRepairReqItems = [
 "sc_toolbox","zk_butanetorch","zk_drill","zk_grinder","zk_hammer","zk_knife","zk_pliers","zk_screwdriver","ToolKit","zk_wrench","sc_tire_iron"
 ];
 
+NATvInvSchematicItems = [
+"SC_Item_Blueprint","zk_file2","zk_file1","SC_Item_Folder","SC_Item_SDCard","SC_Item_Disc","sc_iphone","sc_usbdrive","zk_laptop","SC_Item_Harddrive"
+];
+
+#include "cfgSchematics.sqf";
+
 //-----------------------------------
